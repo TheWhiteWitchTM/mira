@@ -1,0 +1,56 @@
+/* Firefox + modern fallback (uses plugin's color theme indirectly) */
+html {
+  scrollbar-width: thin;                    /* thin | auto */
+  scrollbar-color: #8a0303 #0a0000;         /* thumb blood red / track near-black */
+}
+
+/* WebKit browsers: full sparkle + glow using plugin utilities + custom nesting */
+@utility styled-scrollbar {
+  &::-webkit-scrollbar {
+    width: 0.75rem;                         /* ~12px – change to 0.5rem for slimmer */
+    height: 0.75rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-black opacity-80 rounded-full;
+    box-shadow: inset 0 0 6px rgba(138, 3, 3, 0.25); /* faint crimson bleed */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-[#8a0303] border-2 border-[#4a0000] rounded-full;
+    box-shadow:
+      inset 0 1px 3px rgba(255, 40, 40, 0.4),   /* inner glow */
+      0 0 8px rgba(200, 20, 20, 0.6);           /* outer sparkle */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      135deg,
+      #a50d0d 0%,
+      #c41e3a 50%,
+      #a50d0d 100%
+    );
+    box-shadow:
+      inset 0 1px 4px rgba(255, 80, 80, 0.6),
+      0 0 12px rgba(220, 40, 40, 0.8),
+      0 0 20px rgba(180, 0, 0, 0.4);
+  }
+
+  &::-webkit-scrollbar-thumb:active {
+    @apply bg-red-600;
+    box-shadow:
+      inset 0 1px 5px rgba(255, 100, 100, 0.7),
+      0 0 16px #ff4040,
+      0 0 24px rgba(255, 0, 0, 0.5);
+  }
+}
+
+/* Apply the witchy style globally to html */
+html {
+  @apply styled scrollbar;
+}
+
+/* Optional dark mode deepening (if your bg is pitch black) */
+.dark html::-webkit-scrollbar-track {
+  @apply bg-black;
+}

@@ -1,0 +1,45 @@
+// @/components/emoji-ui/blog/Feed.tsx
+// POST FEED – vertical list of posts
+
+'use client'
+
+import * as React from 'react'
+import { BlogHeader } from './BlogHeader'
+import { BlogPost } from './BlogPost'
+import type { PostMeta } from '@/next-blog/types/blog'
+import {postsMeta} from "@/next-blog/meta/posts-meta";
+
+interface FeedProps {
+	category?: string
+}
+
+export function Feed({ category }: FeedProps) {
+	const posts = postsMeta;
+	const [filtered, setFiltered] = React.useState<PostMeta[]>(posts)
+
+	const postsInScope = React.useMemo(() => {
+		if (!category) return posts
+		return posts.filter(p => p.category?.toLowerCase() === category.toLowerCase())
+	}, [posts, category])
+
+	return (
+		<div className="w-full">
+			<BlogHeader
+				items={postsInScope}
+				onFiltered={setFiltered}
+			/>
+
+			<div className="flex flex-col gap-8 max-w-4xl mx-auto w-full mt-6">
+				{filtered.length === 0 ? (
+					<div className="text-center text-muted-foreground py-16">
+						No posts found {category ? `in category "${category}"` : ''} matching your filters...
+					</div>
+				) : (
+					filtered.map(post => (
+						<BlogPost key={post.slug} item={post} />
+					))
+				)}
+			</div>
+		</div>
+	)
+}
