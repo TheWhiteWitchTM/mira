@@ -8,6 +8,8 @@ import {ThemeToggleButton} from "@/next-static/ui/hemeToggleButton";
 import {PWAInstallButton} from "@/next-static/ui/WAInstallButton";
 import {Appbar} from "@/next-static/ui/Appbar";
 import {DigitalClock} from "@/next-static/ui/DigitalClock";
+import {Button} from "@/next-static/ui/Button";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,16 +33,20 @@ export default function Layout({
 			left={<>Mira's World™</>}
 			right={<><PWAInstallButton/><ThemeToggleButton/></>}
 		>
-			Header
+			<div className={"flex flex-row gap-3"}>
+			<Link href={"/"}>
+				Home
+			</Link>
+			<Link href={"/blog"}>
+				Blog
+			</Link>
+		</div>
 		</Appbar>
 	)
 
 	const footer = (
-		<Appbar
-			right={<>Right</>}
-			left={<>Left</>}
-		>
-			Footer
+		<Appbar>
+			Build using ⚡NEXT-static & 📃NEXT-blog!
 		</Appbar>
 	)
 
