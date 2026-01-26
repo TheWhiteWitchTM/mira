@@ -64,8 +64,7 @@ export const baseMetadata: Metadata = {
 		icon: [
 			// Primary favicon: your SVG file
 			{ url: '/icon.svg', type: 'image/svg+xml' },
-			// Optional fallback (add public/favicon.ico if you have one)
-			'/favicon.ico',
+			'/favicon.svg',
 		],
 		// Apple Touch Icon for iOS home screen / bookmarks (add the file in public/)
 		apple: '/apple-touch-icon.png',

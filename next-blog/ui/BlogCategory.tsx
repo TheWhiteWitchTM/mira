@@ -29,7 +29,16 @@ export function BlogCategory({ item }: BlogCategoryProps) {
 
 	return (
 		<Card className="h-full flex flex-col">
-			<Link href={item.path}>
+			<Link
+				href={item.path}
+				className="
+    block               // makes it full-width like a div
+    no-underline        // text-decoration: none
+    text-inherit        // color inherits from parent (no blue/purple)
+    visited:text-inherit // same for visited state
+    hover:text-inherit  // prevent color change on hover
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring // optional: better focus ring"
+			>
 			<CardHeader className="flex flex-row items-center justify-between">
 				<div className="flex items-center gap-1">
 					{item.featured && <StarIcon className="h-5 w-5 text-yellow-500 fill-yellow-500" />}
@@ -48,7 +57,10 @@ export function BlogCategory({ item }: BlogCategoryProps) {
 				<Button
 					variant="ghost"
 					size="icon"
-					onClick={() => copyLink(item.path ?? '')}
+					onClick={(e) => {
+						e.stopPropagation()
+						copyLink(item.path ?? '')
+					}}
 					className="shrink-0"
 				>
 					<ShareIcon className="h-4 w-4" />

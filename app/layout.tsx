@@ -8,7 +8,7 @@ import {ThemeToggleButton} from "@/next-static/ui/hemeToggleButton";
 import {PWAInstallButton} from "@/next-static/ui/WAInstallButton";
 import {Appbar} from "@/next-static/ui/Appbar";
 import {DigitalClock} from "@/next-static/ui/DigitalClock";
-import {MainMenu} from "@/app/MainMenu";
+import {MainMenu} from "@/components/MainMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
