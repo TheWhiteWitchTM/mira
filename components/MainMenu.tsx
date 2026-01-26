@@ -26,6 +26,7 @@ import {
 	Smile,
 	HeartHandshake,
 	Text,
+	PaintbrushIcon,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────
@@ -72,6 +73,8 @@ const mainMenuItems: NavItem[] = [
 			{ label: "Flags", href: "/tools/flags", icon: Flag },
 			{ label: "Emoji", href: "/tools/emoji", icon: Smile },
 			{ label: "WebFont", href: "/tools/webfont", icon: Text },
+			{ type: "separator" },
+			{ label: "Image Magic", href: "/tools/image-magic", icon: PaintbrushIcon },
 		],
 	},
 	{
