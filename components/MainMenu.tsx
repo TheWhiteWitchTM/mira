@@ -57,10 +57,10 @@ const mainMenuItems: NavItem[] = [
 		label: "Projects",
 		icon: LayoutDashboard,
 		subitems: [
-			{ label: "Next Static", href: "/projects/next-static" },
+			{ label: "⚡NEXT-static", href: "/projects/next-static" },
+			{ label: "📃NEXT-blog", href: "/projects/next-blog" },
 			{ type: "separator" },
-			{ label: "Next Blog", href: "/projects/next-blog" },
-			{ label: "Emoji UI", href: "/projects/emoji-ui" },
+			{ label: "🤣Emoji UI", href: "/projects/emoji-ui" },
 		],
 	},
 	{
