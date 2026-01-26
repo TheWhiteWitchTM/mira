@@ -15,7 +15,7 @@ export function ImageMagic() {
   const [file, setFile] = useState(null)
   const [processing, setProcessing] = useState(false)
   const [previewUrl, setPreviewUrl] = useState("")
-  const [removeBg, setRemoveBg] = useState(false) // OFF by default
+  const [removeBg, setRemoveBg] = useState(false)
   const [addText, setAddText] = useState(false)
   const [textContent, setTextContent] = useState("Your Text Here")
   const [textColor, setTextColor] = useState("#ffffff")
@@ -24,10 +24,29 @@ export function ImageMagic() {
   const [brightness, setBrightness] = useState(0)
   const [contrast, setContrast] = useState(0)
   const [saturation, setSaturation] = useState(0)
-  const [cropMode, setCropMode] = useState(false)
+  const [symmetricCrop, setSymmetricCrop] = useState(0)   // 0-50% all sides
+  const [leftRightCrop, setLeftRightCrop] = useState(0)    // 0-50% horizontal
+  const [topBottomCrop, setTopBottomCrop] = useState(0)    // 0-50% vertical
+  const [rounding, setRounding] = useState(0)              // 0-50px corner radius
 
   const canvasRef = useRef(null)
   const fileInputRef = useRef(null)
+
+  const drawInitial = () => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    ctx.fillStyle = "#1a1a1a"
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+    ctx.font = "40px Arial"
+    ctx.fillStyle = "#888888"
+    ctx.textAlign = "center"
+    ctx.fillText("Upload an image", canvas.width / 2, canvas.height / 2)
+  }
 
   const drawPreview = (url) => {
     const canvas = canvasRef.current
@@ -50,7 +69,7 @@ export function ImageMagic() {
       ctx.drawImage(img, x, y, scaledWidth, scaledHeight)
     }
     img.onerror = () => {
-      ctx.fillStyle = "#ff0000"
+      ctx.fillStyle = "#ff5555"
       ctx.font = "40px Arial"
       ctx.textAlign = "center"
       ctx.fillText("Image load failed", canvas.width / 2, canvas.height / 2)
@@ -66,12 +85,11 @@ export function ImageMagic() {
     const url = URL.createObjectURL(selectedFile)
     setPreviewUrl(url)
 
-    // Show preview immediately
     drawPreview(url)
   }
 
   const applyMagic = async () => {
-    if (!file) return toast.warning("No image uploaded")
+    if (!file) return toast.info("Upload an image first")
 
     setProcessing(true)
 
@@ -100,13 +118,23 @@ export function ImageMagic() {
       ctx.fillStyle = "#1a1a1a"
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      const scale = Math.min(canvas.width / img.width, canvas.height / img.height)
-      const scaledWidth = img.width * scale
-      const scaledHeight = img.height * scale
+      // Apply crop sliders
+      const cropSymmetric = symmetricCrop / 100
+      const cropLR = leftRightCrop / 100
+      const cropTB = topBottomCrop / 100
+
+      const cropX = img.width * (cropSymmetric + cropLR / 2)
+      const cropY = img.height * (cropSymmetric + cropTB / 2)
+      const cropWidth = img.width * (1 - 2 * cropSymmetric - cropLR)
+      const cropHeight = img.height * (1 - 2 * cropSymmetric - cropTB)
+
+      const scale = Math.min(canvas.width / cropWidth, canvas.height / cropHeight)
+      const scaledWidth = cropWidth * scale
+      const scaledHeight = cropHeight * scale
       const x = (canvas.width - scaledWidth) / 2
       const y = (canvas.height - scaledHeight) / 2
 
-      ctx.drawImage(img, x, y, scaledWidth, scaledHeight)
+      ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, x, y, scaledWidth, scaledHeight)
 
       if (filter !== "none") {
         ctx.filter = filter === "grayscale" ? "grayscale(100%)" :
@@ -151,9 +179,6 @@ export function ImageMagic() {
         ctx.fillText(textContent, canvas.width / 2, canvas.height / 2)
       }
 
-      const finalUrl = canvas.toDataURL("image/png")
-      setProcessedUrl(finalUrl)
-
       toast.success("Magic applied!")
     } catch (err) {
       console.error(err)
@@ -165,7 +190,7 @@ export function ImageMagic() {
 
   const handleDownload = () => {
     const canvas = canvasRef.current
-    if (!canvas) return toast.warning("No canvas to download")
+    if (!canvas) return toast.info("No canvas to download")
 
     const dataUrl = canvas.toDataURL("image/png")
     const link = document.createElement("a")
@@ -177,124 +202,187 @@ export function ImageMagic() {
   const handleClear = () => {
     setFile(null)
     setPreviewUrl("")
-    setProcessedUrl("")
-    if (fileInputRef.current) fileInputRef.current.value = ""
-
     const canvas = canvasRef.current
     if (canvas) {
       const ctx = canvas.getContext("2d")
       ctx.fillStyle = "#1a1a1a"
       ctx.fillRect(0, 0, canvas.width, canvas.height)
       ctx.font = "40px Arial"
-      ctx.fillStyle = "#ffffff"
+      ctx.fillStyle = "#888888"
       ctx.textAlign = "center"
       ctx.fillText("Upload an image", canvas.width / 2, canvas.height / 2)
     }
   }
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
+    <Card className="w-full max-w-5xl mx-auto">
       <CardHeader>
         <CardTitle>ImageMagic – Simple Wizard 🪄</CardTitle>
         <CardDescription>
-          Upload image → it appears in canvas immediately → toggle options → Apply Magic → Download PNG
+          Upload image → it appears immediately → adjust sliders → Apply Magic → Download PNG
           <br />
           All toggles off by default (simple JPG → PNG conversion if you want).
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="space-y-6">
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="image-upload">Upload Image</Label>
-          <Input
-            id="image-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            ref={fileInputRef}
-            disabled={processing}
-          />
-          {file && <p className="text-sm text-muted-foreground">{file.name}</p>}
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <Switch checked={removeBg} onCheckedChange={setRemoveBg} id="remove-bg" />
-              <Label htmlFor="remove-bg">Remove Background</Label>
+      <CardContent>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left: Upload + Preview + Actions */}
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="image-upload">Upload Image</Label>
+              <Input
+                id="image-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                ref={fileInputRef}
+                disabled={processing}
+              />
+              {file && <p className="text-sm text-muted-foreground">{file.name}</p>}
             </div>
 
-            <div className="flex items-center space-x-2">
-              <Switch checked={addText} onCheckedChange={setAddText} id="add-text" />
-              <Label htmlFor="add-text">Add Text</Label>
-            </div>
-
-            {addText && (
-              <div className="pl-6 space-y-3 border-l-2 border-muted">
-                <Input
-                  value={textContent}
-                  onChange={(e) => setTextContent(e.target.value)}
-                  placeholder="Enter text..."
+            <div className="space-y-2">
+              <Label>Preview Canvas</Label>
+              <div className="border rounded-lg overflow-hidden shadow-lg bg-[#1a1a1a]">
+                <canvas
+                  ref={canvasRef}
+                  width={600}
+                  height={500}
+                  className="w-full h-auto"
                 />
-                <div className="flex items-center gap-3">
-                  <Label>Color:</Label>
-                  <Input
-                    type="color"
-                    value={textColor}
-                    onChange={(e) => setTextColor(e.target.value)}
-                    className="w-12 h-10 p-1 rounded"
-                  />
-                </div>
-                <div className="flex items-center gap-3">
-                  <Label>Size: {textSize}px</Label>
-                  <Slider
-                    min={20}
-                    max={200}
-                    step={5}
-                    value={[textSize]}
-                    onValueChange={([v]) => setTextSize(v)}
-                    className="flex-1"
-                  />
-                </div>
               </div>
-            )}
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              <Button onClick={applyMagic} disabled={processing || !file} className="flex-1">
+                {processing ? "Processing..." : "Apply Magic ✨"}
+              </Button>
+
+              <Button variant="outline" onClick={handleDownload} disabled={!file} className="flex-1">
+                Download Canvas as PNG
+              </Button>
+
+              {file && (
+                <Button variant="ghost" onClick={handleClear} className="flex-1">
+                  Clear
+                </Button>
+              )}
+            </div>
           </div>
 
-          <div className="space-y-4">
-            <div className="space-y-1.5">
-              <Label>Filter</Label>
-              <Select value={filter} onValueChange={setFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select filter" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none">None</SelectItem>
-                  <SelectItem value="grayscale">Grayscale</SelectItem>
-                  <SelectItem value="sepia">Sepia</SelectItem>
-                  <SelectItem value="invert">Invert Colors</SelectItem>
-                </SelectContent>
-              </Select>
+          {/* Right: Controls */}
+          <div className="space-y-8">
+            {/* Top: Main toggles */}
+            <div className="space-y-4 p-4 border rounded-lg bg-muted/30">
+              <div className="flex items-center space-x-2">
+                <Switch checked={removeBg} onCheckedChange={setRemoveBg} id="remove-bg" />
+                <Label htmlFor="remove-bg">Remove Background</Label>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Switch checked={addText} onCheckedChange={setAddText} id="add-text" />
+                <Label htmlFor="add-text">Add Text</Label>
+              </div>
+
+              {addText && (
+                <div className="pl-6 space-y-4 border-l-2 border-muted">
+                  <Input
+                    value={textContent}
+                    onChange={(e) => setTextContent(e.target.value)}
+                    placeholder="Enter text..."
+                  />
+                  <div className="flex items-center gap-4">
+                    <div className="flex-1">
+                      <Label>Color</Label>
+                      <Input
+                        type="color"
+                        value={textColor}
+                        onChange={(e) => setTextColor(e.target.value)}
+                        className="w-full h-10 p-1"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <Label>Size: {textSize}px</Label>
+                      <Slider
+                        min={20}
+                        max={200}
+                        step={5}
+                        value={[textSize]}
+                        onValueChange={([v]) => setTextSize(v)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div className="space-y-1.5">
-              <Label>Brightness ({brightness})</Label>
-              <Slider min={-100} max={100} step={5} value={[brightness]} onValueChange={([v]) => setBrightness(v)} />
+            {/* Crop sliders */}
+            <div className="space-y-6 p-4 border rounded-lg bg-muted/30">
+              <h3 className="font-medium text-lg">Crop Controls</h3>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Symmetric Crop ({symmetricCrop}% from all sides)</Label>
+                  <Slider min={0} max={50} step={1} value={[symmetricCrop]} onValueChange={([v]) => setSymmetricCrop(v)} />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Left/Right Crop ({leftRightCrop}%)</Label>
+                  <Slider min={0} max={50} step={1} value={[leftRightCrop]} onValueChange={([v]) => setLeftRightCrop(v)} />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Top/Bottom Crop ({topBottomCrop}%)</Label>
+                  <Slider min={0} max={50} step={1} value={[topBottomCrop]} onValueChange={([v]) => setTopBottomCrop(v)} />
+                </div>
+              </div>
             </div>
 
-            <div className="space-y-1.5">
-              <Label>Contrast ({contrast})</Label>
-              <Slider min={-100} max={100} step={5} value={[contrast]} onValueChange={([v]) => setContrast(v)} />
-            </div>
+            {/* Filters & adjustments */}
+            <div className="space-y-6 p-4 border rounded-lg bg-muted/30">
+              <h3 className="font-medium text-lg">Filters & Adjustments</h3>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Filter</Label>
+                  <Select value={filter} onValueChange={setFilter}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select filter" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">None</SelectItem>
+                      <SelectItem value="grayscale">Grayscale</SelectItem>
+                      <SelectItem value="sepia">Sepia</SelectItem>
+                      <SelectItem value="invert">Invert Colors</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-            <div className="space-y-1.5">
-              <Label>Saturation ({saturation})</Label>
-              <Slider min={-100} max={100} step={5} value={[saturation]} onValueChange={([v]) => setSaturation(v)} />
+                <div className="space-y-2">
+                  <Label>Brightness ({brightness})</Label>
+                  <Slider min={-100} max={100} step={5} value={[brightness]} onValueChange={([v]) => setBrightness(v)} />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Contrast ({contrast})</Label>
+                  <Slider min={-100} max={100} step={5} value={[contrast]} onValueChange={([v]) => setContrast(v)} />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Saturation ({saturation})</Label>
+                  <Slider min={-100} max={100} step={5} value={[saturation]} onValueChange={([v]) => setSaturation(v)} />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Rounding ({rounding}px)</Label>
+                  <Slider min={0} max={50} step={1} value={[rounding]} onValueChange={([v]) => setRounding(v)} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <Button onClick={applyMagic} disabled={processing || !file}>
+          <Button onClick={applyMagic} disabled={processing || !file} className="flex-1">
             {processing ? "Processing..." : "Apply Magic ✨"}
           </Button>
 
@@ -306,42 +394,16 @@ export function ImageMagic() {
             link.href = dataUrl
             link.download = "magic_image.png"
             link.click()
-          }} disabled={!file}>
+          }} disabled={!file} className="flex-1">
             Download Canvas as PNG
           </Button>
 
           {file && (
-            <Button variant="ghost" onClick={() => {
-              setFile(null)
-              setPreviewUrl("")
-              const canvas = canvasRef.current
-              if (canvas) {
-                const ctx = canvas.getContext("2d")
-                ctx.fillStyle = "#1a1a1a"
-                ctx.fillRect(0, 0, canvas.width, canvas.height)
-                ctx.font = "40px Arial"
-                ctx.fillStyle = "#ffffff"
-                ctx.textAlign = "center"
-                ctx.fillText("Upload an image", canvas.width / 2, canvas.height / 2)
-              }
-            }}>
+            <Button variant="ghost" onClick={handleClear} className="flex-1">
               Clear
             </Button>
           )}
         </div>
-
-        {previewUrl && (
-          <div className="space-y-2">
-            <Label>Preview Canvas (image appears here immediately)</Label>
-            <canvas
-              ref={canvasRef}
-              width={600}
-              height={500}
-              className="border rounded-lg w-full max-w-[600px] shadow-sm"
-              style={{ backgroundColor: "#1a1a1a" }}
-            />
-          </div>
-        )}
       </CardContent>
     </Card>
   )
