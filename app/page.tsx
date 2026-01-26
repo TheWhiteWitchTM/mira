@@ -8,7 +8,7 @@ export default function Home()  {
 			<h1>🛖Welcome Mira's Home☕</h1>
 			<div className={"prose dark:prose-invert"}>
 			<Image
-				src={"/banner.jog"}
+				src={"/banner.jpg"}
 				alt="Home Image"
 				width="150"
 				height="75"
