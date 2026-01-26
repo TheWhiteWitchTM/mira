@@ -8,8 +8,7 @@ import {ThemeToggleButton} from "@/next-static/ui/hemeToggleButton";
 import {PWAInstallButton} from "@/next-static/ui/WAInstallButton";
 import {Appbar} from "@/next-static/ui/Appbar";
 import {DigitalClock} from "@/next-static/ui/DigitalClock";
-import {Button} from "@/next-static/ui/Button";
-import Link from "next/link";
+import {MainMenu} from "@/app/MainMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +22,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = baseMetadata
 
+
 export default function Layout({
   children,
 }: Readonly<{
@@ -33,14 +33,7 @@ export default function Layout({
 			left={<>Mira's World™</>}
 			right={<><PWAInstallButton/><ThemeToggleButton/></>}
 		>
-			<div className={"flex flex-row gap-3"}>
-			<Link href={"/"}>
-				Home
-			</Link>
-			<Link href={"/blog"}>
-				Blog
-			</Link>
-		</div>
+			<MainMenu/>
 		</Appbar>
 	)
 

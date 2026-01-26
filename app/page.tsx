@@ -1,20 +1,22 @@
 import Image from "next/image"
 import {PageContent} from "@/next-static/ui/PageContent";
+import Intro from "./intro.mdx"
 
 export default function Home()  {
 	return (
 		<PageContent className={"prose dark:prose-invert"}>
 			<h1>🛖Welcome Mira's Home☕</h1>
+			<div className={"prose dark:prose-invert"}>
 			<Image
 				src={"/banner.jog"}
 				alt="Home Image"
 				width="150"
 				height="75"
+				className="float-left m-2 rounded-lg shadow-md"
 				priority
 			/>
-			THis is pretty much still a construction area!
-			But it will get better...
-			I hope!
+			<Intro/>
+			</div>
 		</PageContent>
 	)
 }
