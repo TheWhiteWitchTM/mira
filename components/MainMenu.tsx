@@ -25,6 +25,7 @@ import {
 	Flag,
 	Smile,
 	HeartHandshake,
+	Text,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────
@@ -70,6 +71,7 @@ const mainMenuItems: NavItem[] = [
 		subitems: [
 			{ label: "Flags", href: "/tools/flags", icon: Flag },
 			{ label: "Emoji", href: "/tools/emoji", icon: Smile },
+			{ label: "WebFont", href: "/tools/webfont", icon: Text },
 		],
 	},
 	{
