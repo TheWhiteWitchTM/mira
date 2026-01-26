@@ -88,12 +88,12 @@ const mainMenuItems: NavItem[] = [
 				</p>
 				<div className="flex flex-col gap-2">
 					<a
-						href="https://ko-fi.com/thewhitewitchtm"
+						href="https://www.paypal.com/ncp/payment/BVY3E2H2E2VWA"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="inline-flex h-8 items-center justify-center rounded bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary/90"
 					>
-						Buy me a coffee
+						♥️Buy me a coffee!☕
 					</a>
 					<a
 						href="https://github.com/sponsors/TheWhiteWitchTM"
