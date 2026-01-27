@@ -9,6 +9,10 @@ import {PWAInstallButton} from "@/next-static/ui/WAInstallButton";
 import {Appbar} from "@/next-static/ui/Appbar";
 import {DigitalClock} from "@/next-static/ui/DigitalClock";
 import {MainMenu} from "@/components/MainMenu";
+import Link from "next/link";
+import Image from "next/image";
+import {Avatar, AvatarImage} from "@/components/ui/avatar";
+import * as React from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +34,16 @@ export default function Layout({
 }>) {
 	const header = (
 		<Appbar
-			left={<>Mira's World™</>}
+			left={
+			<div className={"flex flex-row gap-2"}>
+				<Avatar>
+					<AvatarImage src={"/icon-192x192.png"}/>
+				</Avatar>
+				<div className={"mt-1"}>
+					<b>Mira's World™</b>
+				</div>
+			</div>
+		}
 			right={<><PWAInstallButton/><ThemeToggleButton/></>}
 		>
 			<MainMenu/>
@@ -38,16 +51,46 @@ export default function Layout({
 	)
 
 	const footer = (
-		<Appbar>
+		<Appbar right={
+			<Link
+				href="https://www.paypal.com/ncp/payment/BVY3E2H2E2VWA"
+				target="_blank"
+				rel="noopener noreferrer"
+				className="pr-2"
+			>
+				♥️Buy me a coffee!☕
+			</Link>
+		}>
 			Build using ⚡NEXT-static & 📃NEXT-blog!
 		</Appbar>
 	)
 
 	const left = (
-		<DigitalClock
-			latitude={49.993}
-			longitude={8.247}
-		/>
+		<div className={"w-45 flex flex-col items-center gap-3"}>
+			<div>
+			<DigitalClock
+				latitude={49.993}
+				longitude={8.247}
+			/>
+			</div>
+			<div>
+				<Link
+					href={"https://thewhitewitchtm.sociallydead.me/"}
+					target={"_blank"}
+					>
+					<p className={"mb-2"}>
+					<b>The unhinged, and way less stable me:</b>
+					</p>
+					🧙‍♀️𝕿𝖍𝖊 𝖂𝖍𝖎𝖙𝖊 𝖂𝖎𝖙𝖈𝖍™✨
+					<Image src={"/witch.png"}
+					       alt={"‍🧙‍♀️𝕿𝖍𝖊 𝖂𝖍𝖎𝖙𝖊 𝖂𝖎𝖙𝖈𝖍™✨"}
+					       width={250}
+					       height={250}
+					       priority/>
+				</Link>
+
+			</div>
+		</div>
 	)
 
   return (
