@@ -1,4 +1,4 @@
-// components/ImageMagic.jsx
+// components/ImageMagic.tsx
 'use client'
 
 import { useState, useRef } from 'react'
@@ -11,23 +11,24 @@ import JSZip from 'jszip'
 
 // Named export
 export const ImageMagic = () => {
-	const fileInputRef = useRef(null)
-	const canvasRef = useRef(null)
-	const [previewSrc, setPreviewSrc] = useState(null)
-	const [originalSrc, setOriginalSrc] = useState(null)
+	const fileInputRef = useRef<HTMLInputElement>(null)
+	const canvasRef = useRef<HTMLCanvasElement>(null)
+	const [previewSrc, setPreviewSrc] = useState<string | null>(null)
+	const [originalSrc, setOriginalSrc] = useState<string | null>(null)
 	const [uploading, setUploading] = useState(false)
 	const [processing, setProcessing] = useState(false)
 	const [progress, setProgress] = useState(0)
 	const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
 	const [selectedSize, setSelectedSize] = useState('original')
 
-	const drawImage = (src, width, height) => {
+	const drawImage = (src: string, width: number, height: number) => {
 		const canvas = canvasRef.current
 		if (!canvas) return
 
 		canvas.width = width
 		canvas.height = height
 		const ctx = canvas.getContext('2d')
+		if (!ctx) return
 
 		const img = new window.Image()
 		img.onload = () => {
@@ -37,7 +38,7 @@ export const ImageMagic = () => {
 		img.src = src
 	}
 
-	const handleFile = (e) => {
+	const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
 		if (!file) return
 
@@ -46,37 +47,43 @@ export const ImageMagic = () => {
 
 		const reader = new FileReader()
 		reader.onload = (ev) => {
-			setOriginalSrc(ev.target.result)
-			setPreviewSrc(ev.target.result)
+			const result = ev.target?.result as string | null
+			if (!result) return
+
+			setOriginalSrc(result)
+			setPreviewSrc(result)
 
 			const img = new window.Image()
 			img.onload = () => {
 				setDimensions({ width: img.width, height: img.height })
-				drawImage(ev.target.result, img.width, img.height)
+				drawImage(result, img.width, img.height)
 			}
-			img.src = ev.target.result
+			img.src = result
 
 			setUploading(false)
 		}
 		reader.readAsDataURL(file)
 	}
 
-	const handleDrop = (e) => {
+	const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
 		e.preventDefault()
 		const file = e.dataTransfer.files?.[0]
 		if (!file || !file.type.startsWith('image/')) return
 
 		const reader = new FileReader()
 		reader.onload = (ev) => {
-			setOriginalSrc(ev.target.result)
-			setPreviewSrc(ev.target.result)
+			const result = ev.target?.result as string | null
+			if (!result) return
+
+			setOriginalSrc(result)
+			setPreviewSrc(result)
 
 			const img = new window.Image()
 			img.onload = () => {
 				setDimensions({ width: img.width, height: img.height })
-				drawImage(ev.target.result, img.width, img.height)
+				drawImage(result, img.width, img.height)
 			}
-			img.src = ev.target.result
+			img.src = result
 		}
 		reader.readAsDataURL(file)
 	}
@@ -106,20 +113,20 @@ export const ImageMagic = () => {
 		}
 	}
 
-	const handleResize = (value) => {
+	const handleResize = (value: string) => {
 		setSelectedSize(value)
 
 		if (value === 'original') {
-			drawImage(originalSrc, dimensions.width, dimensions.height)
+			drawImage(originalSrc || '', dimensions.width, dimensions.height)
 			return
 		}
 
 		const [targetWidth, targetHeight] = value.split('x').map(Number)
 		const img = new window.Image()
 		img.onload = () => {
-			drawImage(originalSrc, targetWidth, targetHeight)
+			drawImage(originalSrc || '', targetWidth, targetHeight)
 		}
-		img.src = originalSrc
+		img.src = originalSrc || ''
 	}
 
 	const reset = () => {
@@ -155,25 +162,29 @@ export const ImageMagic = () => {
 			{ size: 512, name: 'icon-512x512.png' },
 		]
 
-		// favicon.ico
+		// favicon.ico (simple 32x32)
 		const icoCanvas = document.createElement('canvas')
 		icoCanvas.width = 32
 		icoCanvas.height = 32
 		const icoCtx = icoCanvas.getContext('2d')
-		icoCtx.drawImage(canvas, 0, 0, 32, 32)
-		const icoDataUrl = icoCanvas.toDataURL('image/png')
-		const icoBlob = await fetch(icoDataUrl).then(r => r.blob())
-		zip.file('favicon.ico', icoBlob)
+		if (icoCtx) {
+			icoCtx.drawImage(canvas, 0, 0, 32, 32)
+			const icoDataUrl = icoCanvas.toDataURL('image/png')
+			const icoBlob = await fetch(icoDataUrl).then(r => r.blob())
+			zip.file('favicon.ico', icoBlob)
+		}
 
 		for (const { size, name } of sizes) {
 			const tempCanvas = document.createElement('canvas')
 			tempCanvas.width = size
 			tempCanvas.height = size
 			const ctx = tempCanvas.getContext('2d')
-			ctx.drawImage(canvas, 0, 0, size, size)
-			const dataUrl = tempCanvas.toDataURL('image/png')
-			const blob = await fetch(dataUrl).then(r => r.blob())
-			zip.file(name, blob)
+			if (ctx) {
+				ctx.drawImage(canvas, 0, 0, size, size)
+				const dataUrl = tempCanvas.toDataURL('image/png')
+				const blob = await fetch(dataUrl).then(r => r.blob())
+				zip.file(name, blob)
+			}
 		}
 
 		const content = await zip.generateAsync({ type: 'blob' })
@@ -249,7 +260,7 @@ export const ImageMagic = () => {
 					<div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm z-10">
 						<div className="w-80 space-y-4">
 							<p className="text-center text-white font-medium text-lg">Loading image...</p>
-							<Progress value={progress} className="h-2 bg-white/20" indicatorClassName="bg-white" />
+							<Progress value={progress} className="h-2 bg-white/20 [&>div]:bg-white" />
 							<p className="text-center text-white/80 text-sm">{progress}%</p>
 						</div>
 					</div>
