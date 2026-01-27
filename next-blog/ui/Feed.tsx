@@ -29,7 +29,7 @@ export function Feed({ category }: FeedProps) {
 				onFiltered={setFiltered}
 			/>
 
-			<div className="flex flex-col gap-8 max-w-4xl mx-auto w-full mt-6">
+			<div className="flex flex-col gap-2 max-w-4xl mx-auto w-full">
 				{filtered.length === 0 ? (
 					<div className="text-center text-muted-foreground py-16">
 						No posts found {category ? `in category "${category}"` : ''} matching your filters...

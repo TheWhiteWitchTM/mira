@@ -36,26 +36,27 @@ export async function BlogPost({ item }: BlogPostProps) {
 		const [expanded, setExpanded] = React.useState(!!item.expanded)
 
 		return (
-			<Card className="h-full flex flex-col">
-				<CardHeader className="flex flex-row items-center justify-between pb-2">
+			<div className="h-full flex flex-col">
+
+				<div className="flex flex-row items-center justify-between">
 					<div className="flex items-center gap-3">
-						{item.featured && <StarIcon className="h-5 w-5 text-yellow-500 fill-yellow-500" />}
+						{item.featured && <StarIcon className="text-yellow-500 fill-yellow-500" />}
 						<span className="text-2xl">{item.emoji || '📝'}</span>
 						<h3 className="font-bold text-lg line-clamp-2">{item.title}</h3>
 					</div>
-				</CardHeader>
+				</div>
 
-				<CardContent className="flex-grow prose prose-invert max-w-none">
+				<div>
 					<span className={"prose dark:prose-invert"}>
 					{isLong && !expanded ? (
-						<div dangerouslySetInnerHTML={{ __html: excerptHtml }} />
+						<span dangerouslySetInnerHTML={{ __html: excerptHtml }} />
 					) : (
 						<MDX />
 					)}
 					</span>
-				</CardContent>
+				</div>
 
-				<CardFooter className="flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground pt-2 border-t gap-4">
+				<div className="flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground pt-2 border-t gap-4">
 					<DateDisplay date={item.date ?? ''} />
 
 					{isLong && (
@@ -76,8 +77,9 @@ export async function BlogPost({ item }: BlogPostProps) {
 					>
 						<ShareIcon className="h-4 w-4" />
 					</Button>
-				</CardFooter>
-			</Card>
+				</div>
+				<span className={"mb-3"}/>
+			</div>
 		)
 	}
 

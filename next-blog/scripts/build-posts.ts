@@ -101,6 +101,7 @@ async function run() {
 			} else {
 				excerpt = fullHtml;
 			}
+			excerpt = excerpt.slice(10)
 
 			const slug = `${cat.name}/${item.name}`;
 			const fullPath = `${BLOG_URL_PREFIX}/${slug}`;
