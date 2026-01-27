@@ -3,9 +3,13 @@ import {PageContent} from "@/next-static/ui/PageContent";
 
 export default function BlogHome() {
 	return (
-		<PageContent className={"prose dark:prose-invert"}>
-			<h2>📃Bloog Feeds</h2>
-			<Blog/>
-		</PageContent>
+			<PageContent>
+				<span className={"prose dark:prose-invert"}>
+				<h2>
+					📃Bloog Feeds
+				</h2>
+				</span>
+				<Blog/>
+			</PageContent>
 	)
 }

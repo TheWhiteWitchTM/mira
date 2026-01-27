@@ -10,9 +10,11 @@ interface PageProps {
 
 export default function Page({params}:PageProps) {
 	return (
-		<PageContent className={"prose dark:prose-invert"}>
+		<PageContent>
 		<Suspense fallback={<div>Loading feed...</div>}>
+			<span className={"prose dark:prose-invert"}>
 			<Header paramsPromise={params}/>
+			</span>
 			<Content paramsPromise={params}/>
 		</Suspense>
 		</PageContent>

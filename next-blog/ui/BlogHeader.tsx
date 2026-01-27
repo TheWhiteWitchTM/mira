@@ -31,7 +31,7 @@ export function BlogHeader<T>({
                               }: BlogHeaderProps<T>) {
 	const [searchQuery, setSearchQuery] = React.useState('')
 	const [selectedTags, setSelectedTags] = React.useState<Set<string>>(new Set())
-	const [sortBy, setSortBy] = React.useState('alpha')
+	const [sortBy, setSortBy] = React.useState('newest')
 	const [featuredOnly, setFeaturedOnly] = React.useState(false)
 
 	const uniqueTags = React.useMemo(() => {

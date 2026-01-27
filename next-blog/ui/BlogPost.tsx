@@ -46,11 +46,13 @@ export async function BlogPost({ item }: BlogPostProps) {
 				</CardHeader>
 
 				<CardContent className="flex-grow prose prose-invert max-w-none">
+					<span className={"prose dark:prose-invert"}>
 					{isLong && !expanded ? (
 						<div dangerouslySetInnerHTML={{ __html: excerptHtml }} />
 					) : (
 						<MDX />
 					)}
+					</span>
 				</CardContent>
 
 				<CardFooter className="flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground pt-2 border-t gap-4">
