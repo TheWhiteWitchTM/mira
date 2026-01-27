@@ -1,8 +1,8 @@
 // app/(content)/(blog)/politics/meta.ts
 
 export const meta = {
-	title: 'Dev-Blog!',
-	description: "My blog where I share what is on my mind, and what I am working on.",
+	title: '👾We beed ti takj about AI!',
+	description: "AI will cause a great replacement, of well us! And together with automation it will chane our world.",
 	emoji: '',
 	pinned: false,
 	featured: false,

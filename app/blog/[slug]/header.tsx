@@ -33,31 +33,9 @@ export default function Header({
 		});
 	};
 	return(
-		<Card className="h-full flex flex-col">
-			<CardHeader className="flex flex-row items-center justify-between">
-				<div className="flex items-center gap-1">
-					{item.featured && <StarIcon className="h-5 w-5 text-yellow-500 fill-yellow-500" />}
-					<span className="text-2xl">{item.emoji}</span>
-					<h3 className="font-bold text-lg line-clamp-2">{item.title}</h3>
-				</div>
-			</CardHeader>
-			<CardContent className="flex-grow">
-				<p className="text-muted-foreground line-clamp-3">
-					{item.description}
-				</p>
-			</CardContent>
-			<CardFooter className="flex justify-between items-center text-sm text-muted-foreground pt-2 border-t">
-				<DateDisplay date={item.date ?? ''} />
-				<span className="font-medium">📚 {(item as CategoryMeta).posts} posts</span>
-				<Button
-					variant="ghost"
-					size="icon"
-					onClick={() => copyLink(item.path ?? '')}
-					className="shrink-0"
-				>
-					<ShareIcon className="h-4 w-4" />
-				</Button>
-			</CardFooter>
-		</Card>
+		<>
+			<h2>📃Blog Feed: {item.emoji}{item?.title}</h2>
+			{item?.description}
+		</>
 	)
 }
