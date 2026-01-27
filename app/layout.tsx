@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import localFont from "next/font/local";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
 import {baseMetadata} from "@/app/metadata";
@@ -25,14 +24,7 @@ export const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const flagsFont = localFont({
-	src: "/fonts/flags.woff2",  // relative path from this file to public/
-	display: "swap",
-	variable: "--flags-font",  // CSS var for Tailwind/global use
-});
-
 export const metadata: Metadata = baseMetadata
-
 
 export default function Layout({
   children,
