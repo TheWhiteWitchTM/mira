@@ -6,7 +6,7 @@ import * as React from "react";
 export default function () {
 	return (
 		<PageContent className={"prose dark:prose-invert"}>
-			<h2>🏳️‍🌈Flag Builder</h2>
+			<h2>🏳️‍Flag Builder</h2>
 			If you like this tool, and the others you can show your
 			support and appreciation here:
 			<center>
@@ -19,7 +19,9 @@ export default function () {
 					♥️Buy me a coffee!☕
 				</Link>
 			</center>
-		<FlagBuilder/>
+			<span className={"font-flags"}>
+				<FlagBuilder/>
+			</span>
 	</PageContent>
 	)
 }

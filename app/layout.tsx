@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import localFont from "next/font/local";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
 import {baseMetadata} from "@/app/metadata";
@@ -14,14 +15,20 @@ import Image from "next/image";
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import * as React from "react";
 
-const geistSans = Geist({
+export const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+export const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+export const flagsFont = localFont({
+	src: "/fonts/flags.woff2",  // relative path from this file to public/
+	display: "swap",
+	variable: "--flags-font",  // CSS var for Tailwind/global use
 });
 
 export const metadata: Metadata = baseMetadata
@@ -94,9 +101,8 @@ export default function Layout({
 	)
 
   return (
-    <html lang="en" className={"m-0 p-0"} suppressHydrationWarning>
-      <body className="w-full h-full m-0 p-0 min-h-screen bg-background text-foreground antialiased">
-
+    <html lang="en" suppressHydrationWarning>
+      <body className={"w-full h-full m-0 p-0 min-h-screen bg-background text-foreground antialiased"}>
       <>
 	        <AppLayout
 		        header={header}

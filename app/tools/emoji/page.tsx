@@ -19,7 +19,9 @@ export default function Emoji() {
 					♥️Buy me a coffee!☕
 				</Link>
 			</center>
+			<span className={"font-flags"}>
 			<EmojiBuilder/>
+			</span>
 		</PageContent>
 	)
 }

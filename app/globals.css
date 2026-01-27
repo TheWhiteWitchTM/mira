@@ -127,3 +127,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .font-flags {
+    font-family: var(--flags-font);
+  }
+}
