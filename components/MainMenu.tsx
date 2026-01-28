@@ -77,6 +77,7 @@ const mainMenuItems: NavItem[] = [
 			{ label: "Image Magic", href: "/tools/image-magic", icon: PaintbrushIcon },
 		],
 	},
+	/*
 	{
 		type: "card",
 		label: "Support My Work",
@@ -107,6 +108,7 @@ const mainMenuItems: NavItem[] = [
 			</div>
 		),
 	},
+	*/
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────
@@ -124,6 +126,7 @@ export function MainMenu() {
 
 	// Desktop: flex-row left to right
 	const DesktopMenu = () => (
+		<div className={"mx-10 px-10 -my-0.5"}>
 		<div className="hidden md:flex flex-row gap-2">
 			{mainMenuItems.map((item, index) => {
 				const active = isActive(item);
@@ -203,6 +206,7 @@ export function MainMenu() {
 					</div>
 				);
 			})}
+		</div>
 		</div>
 	);
 
