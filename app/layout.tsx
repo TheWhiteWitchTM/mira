@@ -4,8 +4,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
 import {baseMetadata} from "@/app/metadata";
 import {AppLayout} from "@/next-static/legacy/AppLayout";
-import {ThemeToggleButton} from "@/next-static/legacy/hemeToggleButton";
-import {PWAInstallButton} from "@/next-static/legacy/WAInstallButton";
 import {Appbar} from "@/next-static/legacy/Appbar";
 import {DigitalClock} from "@/next-static/legacy/DigitalClock";
 import {MainMenu} from "@/components/MainMenu";
@@ -13,8 +11,9 @@ import Link from "next/link";
 import Image from "next/image";
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import * as React from "react";
+import { ThemeProvider } from "next-themes"
 import {AppInstallButton} from "@/next-static/ui/AppInstallButton";
-import {Button} from "@/next-static/ui/Button";
+import {ThemeToggleButton} from "@/next-static/ui/ThemeToggleButton";
 
 export const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -96,7 +95,12 @@ export default function Layout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={"w-full h-full m-0 p-0 min-h-screen bg-background text-foreground antialiased"}>
-      <>
+      <ThemeProvider
+	      attribute="class"
+	      defaultTheme="system"
+	      enableSystem
+	      disableTransitionOnChange
+      >
 	        <AppLayout
 		        header={header}
 		        footer={footer}
@@ -105,7 +109,7 @@ export default function Layout({
 		        {children}
 	        </AppLayout>
           <Toaster/>
-        </>
+      </ThemeProvider>
       </body>
     </html>
   );
