@@ -24,9 +24,10 @@ import {
 	Wrench,
 	Flag,
 	Smile,
-	HeartHandshake,
+	Lightbulb,
 	Text,
 	PaintbrushIcon,
+	Wind,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────
@@ -75,6 +76,14 @@ const mainMenuItems: NavItem[] = [
 			{ label: "WebFont", href: "/tools/webfont", icon: Text },
 			{ type: "separator" },
 			{ label: "Image Magic", href: "/tools/image-magic", icon: PaintbrushIcon },
+		],
+	},
+	{
+		type: "submenu",
+		label: "Tutorials",
+		icon: Lightbulb,
+		subitems: [
+			{ label: "Tailwind", href: "/tutorials/tailwind", icon: Wind },
 		],
 	},
 	/*
@@ -154,7 +163,6 @@ export function MainMenu() {
 									<Button variant="ghost" className={buttonClasses}>
 										{item.icon && <item.icon className="h-4 w-4" />}
 										{item.label}
-										<ChevronDown className="ml-1 h-3 w-3 opacity-50" />
 									</Button>
 								</PopoverTrigger>
 								<PopoverContent className="w-48 p-0">
@@ -190,7 +198,6 @@ export function MainMenu() {
 									<Button variant="ghost" className={buttonClasses}>
 										{item.icon && <item.icon className="h-4 w-4" />}
 										{item.label}
-										<ChevronDown className="ml-1 h-3 w-3 opacity-50" />
 									</Button>
 								</PopoverTrigger>
 								<PopoverContent className="w-80 p-0 border-0 shadow-md">
