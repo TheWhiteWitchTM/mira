@@ -30,29 +30,33 @@ export const Appbar = forwardRef<HTMLDivElement, AppbarProps>(
 			<div
 				ref={ref}
 				className={cn(
-					"flex w-full items-center justify-between",
+					"grid grid-cols-[auto_1fr_auto]",
 					className
 				)}
 				{...rest}
 			>
 				{/* Left section – aligned to start */}
+				<div>
 				{left && (
-					<div className="flex items-center justify-start shrink-0">
+					<div className="">
 						{left}
 					</div>
 				)}
+				</div>
 
 				{/* Center / main content – expands to fill available space */}
-				<div className="flex-1 flex items-center justify-center min-w-0">
+				<div className="">
 					{children}
 				</div>
 
 				{/* Right section – aligned to end */}
+				<div>
 				{right && (
-					<div className="flex items-center justify-end shrink-0">
+					<div className="">
 						{right}
 					</div>
 				)}
+				</div>
 			</div>
 		);
 	}

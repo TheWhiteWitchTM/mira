@@ -14,6 +14,7 @@ import * as React from "react";
 import { ThemeProvider } from "next-themes"
 import {AppInstallButton} from "@/next-static/ui/AppInstallButton";
 import {ThemeToggleButton} from "@/next-static/ui/ThemeToggleButton";
+import {PopupButton} from "@/next-static/ui/PopupButton";
 
 export const geistSans = Geist({
   variable: "--font-geist-sans",

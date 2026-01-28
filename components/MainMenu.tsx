@@ -124,11 +124,11 @@ export function MainMenu() {
 
 	// Desktop: flex-row left to right
 	const DesktopMenu = () => (
-		<div className="hidden md:flex flex-row items-center gap-1">
+		<div className="hidden md:flex flex-row gap-2">
 			{mainMenuItems.map((item, index) => {
 				const active = isActive(item);
 				const buttonClasses = cn(
-					"h-9 px-3 rounded-md text-sm font-medium transition-colors",
+					"h-9 rounded-md text-sm font-medium transition-colors",
 					"flex items-center gap-1.5",
 					"hover:bg-accent hover:text-accent-foreground",
 					active && "underline underline-offset-4"
@@ -302,7 +302,7 @@ export function MainMenu() {
 	);
 
 	return (
-		<div className="flex items-center gap-2">
+		<div className="flex items-start gap-1">
 			<MobileMenu />
 			<DesktopMenu />
 		</div>

@@ -23,15 +23,18 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
 				{...rest}
 			>
 				{/* Header row - auto height, stays at top */}
+				<div>
 				{header && (
 					<header className="bg-background z-50">
 						{header}
 					</header>
 				)}
+				</div>
 
 				{/* Main row - 1fr takes remaining space, 3-column grid */}
 				<div className="grid grid-cols-[auto_1fr_auto] overflow-hidden bg-background">
 					{/* Left sidebar - full height of this row, no scroll here */}
+					<div>
 					{leftAside && (
 						<aside className="bg-background border-r overflow-hidden">
 							<div className="h-full overflow-y-auto">
@@ -39,6 +42,7 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
 							</div>
 						</aside>
 					)}
+					</div>
 
 					{/* Center - ONLY place with scroll when needed */}
 					<main className="overflow-y-auto">
@@ -46,6 +50,7 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
 					</main>
 
 					{/* Right sidebar - full height of this row, no scroll here */}
+					<div>
 					{rightAside && (
 						<aside className="bg-background border-l overflow-hidden">
 							<div className="h-full overflow-y-auto">
@@ -53,14 +58,17 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
 							</div>
 						</aside>
 					)}
+					</div>
 				</div>
 
 				{/* Footer row - auto height, stays at bottom */}
+				<div>
 				{footer && (
 					<footer className="bg-background border-t z-50">
 						{footer}
 					</footer>
 				)}
+				</div>
 			</div>
 		);
 	}
