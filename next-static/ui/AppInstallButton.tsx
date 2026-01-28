@@ -30,22 +30,8 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 	 }, ref) => {
 		const [deferredPrompt, setDeferredPrompt] = React.useState<Event | null>(null)
 		const [isInstalled, setIsInstalled] = React.useState(false)
-		const [swRegistered, setSwRegistered] = React.useState(false)
 
 		React.useEffect(() => {
-			const registerSW = async () => {
-				if (swRegistered) return
-				if (process.env.NODE_ENV === "development") return
-				if (!("serviceWorker" in navigator)) return
-
-				try {
-					await navigator.serviceWorker.register(swPath, { scope: "/" })
-					setSwRegistered(true)
-				} catch {}
-			}
-
-			registerSW()
-
 			const checkStandalone = () => {
 				if (window.matchMedia("(display-mode: standalone)").matches) {
 					setIsInstalled(true)
@@ -72,7 +58,7 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 				window.removeEventListener("appinstalled", handleAppInstalled)
 				window.removeEventListener("focus", checkStandalone)
 			}
-		}, [swPath, swRegistered])
+		}, [])
 
 		const handleInstall = async () => {
 			if (!deferredPrompt) return
@@ -84,40 +70,27 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 			setDeferredPrompt(null)
 		}
 
-		if (isInstalled) {
-			return (
-				<Button
-					ref={ref}
-					tooltip={showTooltip ? installedTooltip : undefined}
-					size="icon"
-					variant="ghost"
-					className="hover:cursor-pointer transition-colors"
-					{...buttonProps}
-				>
-					<Check className="h-4 w-4" />
-					{showText && installedText}
-				</Button>
-			)
+		if (!deferredPrompt && !isInstalled) {
+			return null
 		}
 
-		if (deferredPrompt) {
-			return (
-				<Button
-					ref={ref}
-					tooltip={showTooltip ? installTooltip : undefined}
-					size="icon"
-					variant="ghost"
-					className="hover:cursor-pointer transition-colors"
-					onClick={handleInstall}
-					{...buttonProps}
-				>
-					<Download className="h-4 w-4" />
-					{showText && installText}
-				</Button>
-			)
-		}
+		const isClickable = !!deferredPrompt && !isInstalled
 
-		return null
+		return (
+			<Button
+				ref={ref}
+				tooltip={showTooltip ? (isInstalled ? installedTooltip : installTooltip) : undefined}
+				size="icon"
+				variant="ghost"
+				className="hover:cursor-pointer hover:bg-accent/50 transition-colors"
+				onClick={isClickable ? handleInstall : undefined}
+				disabled={!isClickable}
+				{...buttonProps}
+			>
+				{isInstalled ? <Check className="h-4 w-4" /> : <Download className="h-4 w-4" />}
+				{showText && (isInstalled ? installedText : installText)}
+			</Button>
+		)
 	}
 )
 AppInstallButton.displayName = "AppInstallButton"
