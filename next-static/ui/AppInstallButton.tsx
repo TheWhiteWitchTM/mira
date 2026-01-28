@@ -103,6 +103,8 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 			setDeferredPrompt(null)
 		}
 
+		const commonClasses = "hover:cursor-pointer transition-colors"
+
 		if (isInstalled || status === "installed") {
 			return (
 				<Button
@@ -110,6 +112,7 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 					tooltip={showTooltip ? installedTooltip : undefined}
 					size="icon"
 					variant="ghost"
+					className={commonClasses}
 					{...buttonProps}
 				>
 					<Check className="h-4 w-4" />
@@ -124,6 +127,8 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 					ref={ref}
 					tooltip={showTooltip ? installTooltip : undefined}
 					size="icon"
+					variant="ghost"
+					className={commonClasses}
 					onClick={handleInstall}
 					{...buttonProps}
 				>
@@ -133,7 +138,7 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 			)
 		}
 
-		// Error/status fallback – icon-only if showText=false, short text if true
+		// Status fallback – icon-only if showText=false
 		const statusIcon = <AlertTriangle className="h-3.5 w-3.5" />
 		let statusLabel = ""
 		if (showText) {
@@ -143,7 +148,7 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 		}
 
 		return (
-			<div className="inline-flex items-center gap-2 rounded border border-red-400 bg-red-50 px-2.5 py-1 text-xs text-red-800 dark:border-red-600 dark:bg-red-950 dark:text-red-300">
+			<div className={`inline-flex items-center gap-2 rounded border border-red-400 bg-red-50 px-2.5 py-1 text-xs text-red-800 dark:border-red-600 dark:bg-red-950 dark:text-red-300 hover:cursor-default ${showText ? "cursor-default" : "cursor-default"}`}>
 				{statusIcon}
 				{showText && <span>{statusLabel}</span>}
 			</div>
