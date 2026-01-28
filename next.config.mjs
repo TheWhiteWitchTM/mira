@@ -1,13 +1,33 @@
-// next.config.mjs
-import nextMDX from '@next/mdx'  // ← default import (fixes named export error)
+import nextMDX from '@next/mdx'
 
 const withMDX = nextMDX({
-  extension: /\.(md|mdx)$/,
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: ['remark-gfm'],  // ← string for serialization
+    rehypePlugins: [
+      'rehype-slug',
+      'rehype-autolink-headings',
+      ['rehype-pretty-code', {  // ← minimal plain object, no functions
+        theme: {
+          dark: 'one-dark-pro',
+          light: 'github-light',
+        },
+        keepBackground: false,
+        defaultLang: 'plaintext',
+        // NO onVisit* functions → use CSS for highlights if needed
+      }],
+    ],
+  },
 })
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  reactCompiler: true,
+  images: {
+    unoptimized: true,
+  },
+  trailingSlash: true,
 }
 
 export default withMDX(nextConfig)
