@@ -1,123 +1,72 @@
 "use client"
 
 import * as React from "react"
+import * as PopoverPrimitive from "@radix-ui/react-popover"
 import { Button } from "./Button"
-import * as Portal from "@radix-ui/react-portal"
 
-export interface PopupButtonProps
-	extends Omit<React.ComponentProps<typeof Button>, "onClick" | "children" | "tooltip"> {
-	popup: React.ReactNode
+export interface PopupButtonProps {
+	icon?: React.ComponentType<{ className?: string }>
+	label?: string
+	popupContent: React.ReactNode
+	buttonClassName?: string
+	contentClassName?: string
 	tooltip?: string
 	showTooltip?: boolean
-	children?: React.ReactNode
 }
 
-const PopupButton = React.forwardRef<HTMLButtonElement, PopupButtonProps>(
+export const PopupButton = React.forwardRef<HTMLButtonElement, PopupButtonProps>(
 	(
 		{
-			popup,
+			icon: Icon,
+			label,
+			popupContent,
+			buttonClassName = "",
+			contentClassName = "",
 			tooltip,
 			showTooltip = false,
-			children,
 			...buttonProps
 		},
 		ref
 	) => {
-		const [open, setOpen] = React.useState(false)
-		const buttonRef = React.useRef<HTMLButtonElement>(null)
-
-		const toggle = () => setOpen((prev) => !prev)
-		const close = () => setOpen(false)
-
-		// Close popup when clicking outside or pressing Escape
-		React.useEffect(() => {
-			const handleClickOutside = (e: MouseEvent) => {
-				if (buttonRef.current && !buttonRef.current.contains(e.target as Node)) {
-					close()
-				}
-			}
-
-			const handleEscape = (e: KeyboardEvent) => {
-				if (e.key === "Escape") {
-					close()
-				}
-			}
-
-			if (open) {
-				document.addEventListener("mousedown", handleClickOutside)
-				document.addEventListener("keydown", handleEscape)
-			}
-
-			return () => {
-				document.removeEventListener("mousedown", handleClickOutside)
-				document.removeEventListener("keydown", handleEscape)
-			}
-		}, [open])
-
-		// Calculate popup position (right below the button)
-		const getPopupPosition = () => {
-			if (!buttonRef.current) {
-				return { top: 0, left: 0 }
-			}
-
-			const rect = buttonRef.current.getBoundingClientRect()
-			return {
-				top: rect.bottom + window.scrollY + 6,    // 6px gap below button
-				left: rect.left + window.scrollX,
-			}
-		}
-
-		const position = open ? getPopupPosition() : { top: 0, left: 0 }
-
 		return (
-			<>
-				<Button
-					ref={(node) => {
-						// Support both forwarded ref and our internal ref
-						if (typeof ref === "function") ref(node)
-						else if (ref) ref.current = node
-						buttonRef.current = node
-					}}
-					size="icon"
-					variant="ghost"
-					className="cursor-pointer hover:bg-accent/50 transition-colors"
-					onClick={toggle}
-					tooltip={showTooltip ? tooltip : undefined}
-					{...buttonProps}
-				>
-					{children}
-				</Button>
+			<PopoverPrimitive.Root>
+				<PopoverPrimitive.Trigger asChild>
+					<Button
+						ref={ref}
+						variant="ghost"
+						className={`inline-flex flex-row gap-2 ${buttonClassName}`}
+						tooltip={showTooltip ? tooltip : undefined}
+						{...buttonProps}
+					>
+						{Icon && <Icon className="text-red-500" />}
+						{label}
+					</Button>
+				</PopoverPrimitive.Trigger>
 
-				{open && (
-					<Portal.Root>
-						<div
-							className="fixed inset-0 z-50"
-							onClick={close}
-						>
-							<div
-								className={`
-                  absolute z-[60] min-w-[200px] rounded-lg border 
-                  bg-popover text-popover-foreground shadow-xl
-                  animate-in fade-in-0 zoom-in-95 slide-in-from-top-2
-                  duration-150 origin-top-left
-                  cursor-pointer
-                `}
-								style={{
-									top: `${position.top}px`,
-									left: `${position.left}px`,
-								}}
-								onClick={(e) => e.stopPropagation()}
-							>
-								{popup}
-							</div>
+				<PopoverPrimitive.Portal>
+					<PopoverPrimitive.Content
+						side="bottom"
+						align="end"                     // or "end" or "center" — "start" is usually best for toolbar-like buttons
+						sideOffset={6}
+						alignOffset={0}
+						avoidCollisions={true}
+						collisionPadding={12}
+						className={`
+              w-80 p-0 border-0 shadow-md rounded-lg
+              bg-popover text-popover-foreground
+              animate-in fade-in-0 zoom-in-95 duration-150 origin-top-left
+              data-[side=bottom]:slide-in-from-top-2
+              ${contentClassName}
+            `}
+					>
+						<div className="border-0 shadow-none rounded-lg">
+							{popupContent}
 						</div>
-					</Portal.Root>
-				)}
-			</>
+					</PopoverPrimitive.Content>
+				</PopoverPrimitive.Portal>
+			</PopoverPrimitive.Root>
 		)
 	}
 )
 
 PopupButton.displayName = "PopupButton"
-
-export { PopupButton }

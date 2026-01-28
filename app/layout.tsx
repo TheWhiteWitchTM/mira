@@ -1,30 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
 import {baseMetadata} from "@/app/metadata";
 import {AppLayout} from "@/next-static/legacy/AppLayout";
 import {Appbar} from "@/next-static/legacy/Appbar";
-import {DigitalClock} from "@/next-static/legacy/DigitalClock";
 import {MainMenu} from "@/components/MainMenu";
 import Link from "next/link";
-import Image from "next/image";
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import * as React from "react";
 import { ThemeProvider } from "next-themes"
-import {AppInstallButton} from "@/next-static/ui/AppInstallButton";
-import {ThemeToggleButton} from "@/next-static/ui/ThemeToggleButton";
-import {PopupButton} from "@/next-static/ui/PopupButton";
-
-export const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-export const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import {Toolbar} from "@/components/Toolbar";import { DigitalClock }  from "@/components/DigitalClock";
+import {Weather} from "@/components/Weather";
+import Image from "next/image";
 
 export const metadata: Metadata = baseMetadata
 
@@ -37,59 +24,63 @@ export default function Layout({
 		<Appbar
 			left={
 			<div className={"flex flex-row gap-2"}>
-				<Avatar>
+				<Avatar className={"border-2 border-red-600 shadow-[0_0_10px_#dc2626] shadow-red-600/70>"}>
 					<AvatarImage src={"/icon-192x192.png"}/>
 				</Avatar>
-				<div className={"mt-1"}>
+				<div className={"mt-1.5 clock-font text-red-600"}>
 					<b>Mira's World™</b>
 				</div>
 			</div>
 		}
-			right={<><AppInstallButton/><ThemeToggleButton/></>}
+			right={<Toolbar/>}
 		>
 			<MainMenu/>
 		</Appbar>
 	)
 
 	const footer = (
-		<Appbar right={
+		<Appbar
+			left={
+				<div className={"px-3 pt-1 flex flex-row gap-2"}>
+					<DigitalClock/>
+					<Weather/>
+				</div>
+			}
+			right={
+			<span className={"px-5"}>
 			<Link
 				href="https://www.paypal.com/ncp/payment/BVY3E2H2E2VWA"
 				target="_blank"
 				rel="noopener noreferrer"
-				className="pr-2"
 			>
 				♥️Buy me a coffee!☕
 			</Link>
+			</span>
 		}>
-			Build using ⚡NEXT-static & 📃NEXT-blog!
+			<span className={"px-5"}>
+				Build using ⚡NEXT-static & 📃NEXT-blog!
+			</span>
 		</Appbar>
 	)
 
 	const left = (
-		<div className={"w-45 flex flex-col items-center gap-3"}>
-			<div>
-			<DigitalClock
-				latitude={49.993}
-				longitude={8.247}
+		<div className={"hidden md:flex w-20 mt-10 flex flex-col items-center gap-2"}>
+		</div>
+	)
+
+	const right = (
+		<div className={"hidden md:flex mt-10 w-20 flex-col items-center gap-2"}>
+			<Link
+				href={"https://thewhitewitchtm.sociallydead.me/"}
+				target={"_blank"}>
+			<Image
+				src={"/witch.png"}
+				alt={"Logo"}
+				width={200}
+				height={200}
+				priority
 			/>
-			</div>
-			<div>
-				<Link
-					href={"https://thewhitewitchtm.sociallydead.me/"}
-					target={"_blank"}
-					>
-					<p className={"mb-2"}>
-					<b>The unhinged, and way less stable me:</b>
-					</p>
-					🧙‍♀️𝕿𝖍𝖊 𝖂𝖍𝖎𝖙𝖊 𝖂𝖎𝖙𝖈𝖍™✨
-					<Image src={"/witch.png"}
-					       alt={"‍🧙‍♀️𝕿𝖍𝖊 𝖂𝖍𝖎𝖙𝖊 𝖂𝖎𝖙𝖈𝖍™✨"}
-					       width={250}
-					       height={250}
-					       priority/>
-				</Link>
-			</div>
+			</Link>
 		</div>
 	)
 
@@ -106,6 +97,7 @@ export default function Layout({
 		        header={header}
 		        footer={footer}
 		        leftAside={left}
+		        rightAside={right}
 	        >
 		        {children}
 	        </AppLayout>
