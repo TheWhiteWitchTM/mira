@@ -1,4 +1,4 @@
-// /next-static/ui/AppLayout.tsx
+// /next-static/legacy/AppLayout.tsx
 import { ReactNode, forwardRef, HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 

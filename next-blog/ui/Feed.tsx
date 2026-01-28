@@ -1,4 +1,4 @@
-// @/components/emoji-ui/blog/Feed.tsx
+// @/components/emoji-legacy/blog/Feed.tsx
 // POST FEED – vertical list of posts
 
 'use client'

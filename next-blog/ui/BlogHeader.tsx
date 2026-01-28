@@ -1,4 +1,4 @@
-// @/components/emoji-ui/blog/BlogHeader.tsx
+// @/components/emoji-legacy/blog/BlogHeader.tsx
 // SHARED HEADER – handles ALL filtering, sorting, pinned/featured priority
 // Returns filtered list to parent via onFiltered callback
 

@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import {PageContent} from "@/next-static/ui/PageContent";
+import {PageContent} from "@/next-static/legacy/PageContent";
 import {ImageMagic} from "@/components/ImageMagic";
 import * as React from "react";
 

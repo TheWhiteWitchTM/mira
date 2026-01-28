@@ -1,4 +1,4 @@
-// @/components/emoji-ui/blog/DateDisplay.tsx
+// @/components/emoji-legacy/blog/DateDisplay.tsx
 
 import * as React from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';

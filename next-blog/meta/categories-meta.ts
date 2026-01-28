@@ -31,11 +31,11 @@ export const categoriesMeta: CategoryMeta[] = [
     "latest": "2026-01-25"
   },
   {
-    "slug": "emoji-ui",
-    "title": "emoji-ui🤣",
+    "slug": "emoji-legacy",
+    "title": "emoji-legacy🤣",
     "description": "✨This is really just me goofing off! I gpt an alter ego 🧙‍♀️𝕿𝖍𝖊 𝖂𝖍𝖎𝖙𝖊 𝖂𝖎𝖙𝖈𝖍™✨ and this keeps her happy!",
     "date": "2026-01-25",
-    "path": "/blog/emoji-ui",
+    "path": "/blog/emoji-legacy",
     "emoji": "🐸",
     "pinned": false,
     "featured": false,

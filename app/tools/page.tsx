@@ -1,4 +1,4 @@
-import {PageContent} from "@/next-static/ui/PageContent";
+import {PageContent} from "@/next-static/legacy/PageContent";
 
 export default function () {
 	<PageContent className={"prose dark:prose-invert"}>

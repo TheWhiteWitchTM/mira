@@ -1,4 +1,4 @@
-// @/components/emoji-ui/blog/BlogCategory.tsx
+// @/components/emoji-legacy/blog/BlogCategory.tsx
 
 import * as React from 'react';
 import { toast } from "sonner";  // ← this is the new import

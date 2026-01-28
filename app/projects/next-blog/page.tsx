@@ -1,4 +1,4 @@
-import {PageContent} from "@/next-static/ui/PageContent";
+import {PageContent} from "@/next-static/legacy/PageContent";
 import Intro from "@/app/blog/next-blog/introduction/page.mdx"
 export default function () {
 	return(

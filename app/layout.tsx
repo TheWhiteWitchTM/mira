@@ -3,16 +3,18 @@ import "./globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
 import {baseMetadata} from "@/app/metadata";
-import {AppLayout} from "@/next-static/ui/AppLayout";
-import {ThemeToggleButton} from "@/next-static/ui/hemeToggleButton";
-import {PWAInstallButton} from "@/next-static/ui/WAInstallButton";
-import {Appbar} from "@/next-static/ui/Appbar";
-import {DigitalClock} from "@/next-static/ui/DigitalClock";
+import {AppLayout} from "@/next-static/legacy/AppLayout";
+import {ThemeToggleButton} from "@/next-static/legacy/hemeToggleButton";
+import {PWAInstallButton} from "@/next-static/legacy/WAInstallButton";
+import {Appbar} from "@/next-static/legacy/Appbar";
+import {DigitalClock} from "@/next-static/legacy/DigitalClock";
 import {MainMenu} from "@/components/MainMenu";
 import Link from "next/link";
 import Image from "next/image";
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import * as React from "react";
+import {AppInstallButton} from "@/next-static/ui/AppInstallButton";
+import {Button} from "@/next-static/ui/Button";
 
 export const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,7 +45,7 @@ export default function Layout({
 				</div>
 			</div>
 		}
-			right={<><PWAInstallButton/><ThemeToggleButton/></>}
+			right={<><AppInstallButton/><ThemeToggleButton/></>}
 		>
 			<MainMenu/>
 		</Appbar>
@@ -87,7 +89,6 @@ export default function Layout({
 					       height={250}
 					       priority/>
 				</Link>
-
 			</div>
 		</div>
 	)

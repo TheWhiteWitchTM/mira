@@ -2,7 +2,7 @@ import * as React from "react";
 import {Suspense, use} from "react";
 import Header from "./header"
 import Content from "./Content"
-import {PageContent} from "@/next-static/ui/PageContent";
+import {PageContent} from "@/next-static/legacy/PageContent";
 
 interface PageProps {
 	params: Promise<any>

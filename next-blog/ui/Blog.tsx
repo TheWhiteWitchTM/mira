@@ -1,4 +1,4 @@
-// @/components/emoji-ui/blog/Blog.tsx
+// @/components/emoji-legacy/blog/Blog.tsx
 // CATEGORY OVERVIEW – grid of categories
 
 'use client'

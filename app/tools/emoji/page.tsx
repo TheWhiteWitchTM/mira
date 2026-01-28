@@ -1,4 +1,4 @@
-import {PageContent} from "@/next-static/ui/PageContent";
+import {PageContent} from "@/next-static/legacy/PageContent";
 import {EmojiBuilder} from "@/components/EmojiBuilder";
 import Link from "next/link";
 import * as React from "react";

@@ -1,5 +1,5 @@
 import Image from "next/image"
-import {PageContent} from "@/next-static/ui/PageContent";
+import {PageContent} from "@/next-static/legacy/PageContent";
 import Intro from "./intro.mdx"
 
 export default function Home()  {

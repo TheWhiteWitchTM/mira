@@ -1,4 +1,4 @@
-import {PageContent} from "@/next-static/ui/PageContent";
+import {PageContent} from "@/next-static/legacy/PageContent";
 import {WebfontBuilder} from "@/components/WebFontBuilder";
 import Link from "next/link";
 import * as React from "react";

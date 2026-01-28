@@ -1,4 +1,4 @@
-// /next-static/ui/DigitalClock.tsx
+// /next-static/legacy/DigitalClock.tsx
 "use client";
 
 import { useState, useEffect } from "react";

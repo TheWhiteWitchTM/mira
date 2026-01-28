@@ -1,5 +1,5 @@
 import {Blog} from "@/next-blog/ui/Blog";
-import {PageContent} from "@/next-static/ui/PageContent";
+import {PageContent} from "@/next-static/legacy/PageContent";
 
 export default function BlogHome() {
 	return (

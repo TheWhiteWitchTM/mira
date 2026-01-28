@@ -50,12 +50,12 @@ export const postsMeta: PostMeta[] = [
     "long": true
   },
   {
-    "slug": "emoji-ui/introduction",
+    "slug": "emoji-legacy/introduction",
     "title": "What is Emoji-UI?",
     "description": ";\r\n\r\n#### What is Emoji-UI? A Retro, Emoji-Powered Twist on NEXT-static\r\n\r\nHey builders (and fellow mischief-makers)! 👋\r\n\r\nAfter diving into NEXT-static and NE…",
     "date": "2026-01-25",
-    "path": "/blog/emoji-ui/introduction",
-    "category": "emoji-ui",
+    "path": "/blog/emoji-legacy/introduction",
+    "category": "emoji-legacy",
     "emoji": "📝",
     "pinned": false,
     "featured": false,

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 
 const components: MDXComponents = {
-	// Use shadcn/ui for callouts/alerts
+	// Use shadcn/legacy for callouts/alerts
 	blockquote: ({ children }) => (
 		<Alert className="my-6 border-l-4 border-primary bg-muted/50">
 			<AlertTitle className="font-semibold">Note</AlertTitle>

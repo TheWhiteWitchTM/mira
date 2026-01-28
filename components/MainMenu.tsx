@@ -1,6 +1,6 @@
 'use client';
 
-// @/next-static/ui/MainMenu.tsx
+// @/next-static/legacy/MainMenu.tsx
 
 import * as React from "react";
 import { usePathname } from "next/navigation";
@@ -62,7 +62,7 @@ const mainMenuItems: NavItem[] = [
 			{ label: "⚡NEXT-static", href: "/projects/next-static" },
 			{ label: "📃NEXT-blog", href: "/projects/next-blog" },
 			{ type: "separator" },
-			{ label: "🤣Emoji UI", href: "/projects/emoji-ui" },
+			{ label: "🤣Emoji UI", href: "/projects/emoji-legacy" },
 		],
 	},
 	{
