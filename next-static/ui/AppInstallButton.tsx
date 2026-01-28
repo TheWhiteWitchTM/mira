@@ -74,17 +74,15 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 			return null
 		}
 
-		const isClickable = !!deferredPrompt && !isInstalled
-
 		return (
 			<Button
 				ref={ref}
 				tooltip={showTooltip ? (isInstalled ? installedTooltip : installTooltip) : undefined}
 				size="icon"
 				variant="ghost"
-				className="hover:cursor-pointer hover:bg-accent/50 transition-colors"
-				onClick={isClickable ? handleInstall : undefined}
-				disabled={!isClickable}
+				className="cursor-pointer hover:cursor-pointer hover:bg-accent/50 transition-colors"
+				onClick={deferredPrompt && !isInstalled ? handleInstall : undefined}
+				disabled={isInstalled}
 				{...buttonProps}
 			>
 				{isInstalled ? <Check className="h-4 w-4" /> : <Download className="h-4 w-4" />}
