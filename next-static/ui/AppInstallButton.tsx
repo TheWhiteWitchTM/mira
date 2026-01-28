@@ -4,7 +4,7 @@
 
 import * as React from "react"
 import { Button } from "./Button"
-import { Download, Check, AlertTriangle } from "lucide-react"
+import { Download, Check } from "lucide-react"
 
 export interface AppInstallButtonProps
 	extends Omit<React.ComponentProps<typeof Button>, "onClick" | "tooltip" | "children"> {
@@ -31,26 +31,17 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 		const [deferredPrompt, setDeferredPrompt] = React.useState<Event | null>(null)
 		const [isInstalled, setIsInstalled] = React.useState(false)
 		const [swRegistered, setSwRegistered] = React.useState(false)
-		const [status, setStatus] = React.useState("checking")
 
 		React.useEffect(() => {
 			const registerSW = async () => {
 				if (swRegistered) return
-				if (process.env.NODE_ENV === "development") {
-					setStatus("dev")
-					return
-				}
-				if (!("serviceWorker" in navigator)) {
-					setStatus("error")
-					return
-				}
+				if (process.env.NODE_ENV === "development") return
+				if (!("serviceWorker" in navigator)) return
 
 				try {
 					await navigator.serviceWorker.register(swPath, { scope: "/" })
 					setSwRegistered(true)
-				} catch {
-					setStatus("error")
-				}
+				} catch {}
 			}
 
 			registerSW()
@@ -58,7 +49,6 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 			const checkStandalone = () => {
 				if (window.matchMedia("(display-mode: standalone)").matches) {
 					setIsInstalled(true)
-					setStatus("installed")
 				}
 			}
 			checkStandalone()
@@ -66,24 +56,16 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 			const handleBeforeInstallPrompt = (e: Event) => {
 				e.preventDefault()
 				setDeferredPrompt(e)
-				setStatus("ready")
 			}
 
 			const handleAppInstalled = () => {
 				setIsInstalled(true)
 				setDeferredPrompt(null)
-				setStatus("installed")
 			}
 
 			window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
 			window.addEventListener("appinstalled", handleAppInstalled)
 			window.addEventListener("focus", checkStandalone)
-
-			setTimeout(() => {
-				if (status === "checking") {
-					setStatus("not-ready")
-				}
-			}, 3000)
 
 			return () => {
 				window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
@@ -98,21 +80,18 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 			const { outcome } = await (deferredPrompt as any).userChoice
 			if (outcome === "accepted") {
 				setIsInstalled(true)
-				setStatus("installed")
 			}
 			setDeferredPrompt(null)
 		}
 
-		const commonClasses = "hover:cursor-pointer transition-colors"
-
-		if (isInstalled || status === "installed") {
+		if (isInstalled) {
 			return (
 				<Button
 					ref={ref}
 					tooltip={showTooltip ? installedTooltip : undefined}
 					size="icon"
 					variant="ghost"
-					className={commonClasses}
+					className="hover:cursor-pointer transition-colors"
 					{...buttonProps}
 				>
 					<Check className="h-4 w-4" />
@@ -121,14 +100,14 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 			)
 		}
 
-		if (status === "ready" || deferredPrompt) {
+		if (deferredPrompt) {
 			return (
 				<Button
 					ref={ref}
 					tooltip={showTooltip ? installTooltip : undefined}
 					size="icon"
 					variant="ghost"
-					className={commonClasses}
+					className="hover:cursor-pointer transition-colors"
 					onClick={handleInstall}
 					{...buttonProps}
 				>
@@ -138,21 +117,7 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 			)
 		}
 
-		// Status fallback – icon-only if showText=false
-		const statusIcon = <AlertTriangle className="h-3.5 w-3.5" />
-		let statusLabel = ""
-		if (showText) {
-			if (status === "dev") statusLabel = "Dev"
-			else if (status === "error") statusLabel = "Error"
-			else statusLabel = "Not ready"
-		}
-
-		return (
-			<div className={`inline-flex items-center gap-2 rounded border border-red-400 bg-red-50 px-2.5 py-1 text-xs text-red-800 dark:border-red-600 dark:bg-red-950 dark:text-red-300 hover:cursor-default ${showText ? "cursor-default" : "cursor-default"}`}>
-				{statusIcon}
-				{showText && <span>{statusLabel}</span>}
-			</div>
-		)
+		return null
 	}
 )
 AppInstallButton.displayName = "AppInstallButton"
