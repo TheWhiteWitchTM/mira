@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner"
 import {baseMetadata} from "@/app/metadata";
@@ -85,7 +87,7 @@ export default function Layout({
 	)
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <body className={"w-full h-full m-0 p-0 min-h-screen bg-background text-foreground antialiased"}>
       <ThemeProvider
 	      attribute="class"
