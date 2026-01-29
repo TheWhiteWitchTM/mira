@@ -214,16 +214,14 @@
 .prose pre [data-line],
 .prose .shiki,
 .prose .shiki span,
-.prose code {
-  all: unset !important;          /* most aggressive reset */
-  /* or more targeted: */
-  /* color: inherit !important; */
-  /* background: transparent !important; */
-  /* font-family: inherit !important; */
-  /* font-size: inherit !important; */
-  /* line-height: inherit !important; */
-  /* margin: 0 !important; */
-  /* padding: 0 !important; */
+.prose code { /* most aggressive reset */
+  color: inherit !important;
+  background: transparent !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Optional: re-apply minimal sane defaults so it doesn't look broken */
