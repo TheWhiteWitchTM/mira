@@ -7,7 +7,7 @@ import {Heart} from "lucide-react";
 
 function Popup () {
 	return (
-		<div className="space-y-3 text-sm">
+		<div className="component space-y-3 text-sm">
 			<p className="text-muted-foreground">
 				If my open-source stuff, rants, or AI tinkering helps — a coffee or sponsor keeps the cauldron bubbling 🧙‍♀️
 			</p>
