@@ -40,12 +40,15 @@ export function BlogCategory({ item }: BlogCategoryProps) {
     hover:text-inherit  // prevent color change on hover
     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring // optional: better focus ring"
 			>
-			<CardHeader className="flex flex-row items-center justify-between">
+			<CardHeader className="w-full flex flex-row items-center justify-between">
 				<div className="flex items-center gap-1">
 					{item.featured && <StarIcon className="h-5 w-5 text-yellow-500 fill-yellow-500" />}
 					<span className="text-2xl">{item.emoji}</span>
 					<h2 className="font-bold text-lg line-clamp-2">{item.title}</h2>
-					<NewIndicator date={item.latest ?? ''} />
+					<NewIndicator
+						className={"ml-5 mt-1 self-start shrink-0"}
+						date={item.latest ?? ''}
+					/>
 				</div>
 			</CardHeader>
 			<CardContent className="flex-grow">

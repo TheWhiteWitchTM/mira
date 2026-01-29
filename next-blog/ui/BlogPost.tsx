@@ -44,7 +44,10 @@ export async function BlogPost({ item }: BlogPostProps) {
 						{item.featured && <StarIcon className="text-yellow-500 fill-yellow-500" />}
 						<span className="text-2xl">{item.emoji || '📝'}</span>
 						<h2 className="font-bold text-lg line-clamp-2">{item.title}</h2>
-						<NewIndicator date={item.date ?? ''} />
+						<NewIndicator
+							className={"ml-5 mt-1 self-start shrink-0"}
+							date={item.date ?? ''}
+						/>
 					</div>
 				</div>
 
