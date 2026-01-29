@@ -24,7 +24,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
 	const header = (
-		<Appbar
+		<Appbar className={"component"}
 			left={
 			<div className={"flex flex-row gap-2"}>
 				<Avatar className={"border-2 border-red-600 shadow-[0_0_10px_#dc2626] shadow-red-600/70>"}>
@@ -42,7 +42,7 @@ export default function Layout({
 	)
 
 	const footer = (
-		<Appbar
+		<Appbar className={"component"}
 			left={
 				<div className={"px-3 pt-1 flex flex-row gap-2"}>
 					<DigitalClock/>
@@ -72,7 +72,7 @@ export default function Layout({
 	)
 
 	const right = (
-		<div className={"hidden md:flex component !mt-10 w-20 flex-col items-center gap-2"}>
+		<div className={"hidden md:flex component w-20 h-auto flex-col items-center gap-1"}>
 			<Link
 				href={"https://thewhitewitchtm.sociallydead.me/"}
 				target={"_blank"}>

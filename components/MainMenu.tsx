@@ -167,7 +167,7 @@ export function MainMenu() {
 									</Button>
 								</PopoverTrigger>
 								<PopoverContent className="w-48 p-0">
-									<div className="flex flex-col py-1">
+									<div className="component !-mt-0.5 flex flex-col py-1">
 										{item.subitems.map((sub, subIndex) => {
 											if (sub.type === "separator") {
 												return <Separator key={subIndex} className="my-1" />;
