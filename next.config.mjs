@@ -12,6 +12,7 @@ const withMDX = nextMDX({
       [
         '@shikijs/rehype', {
         theme: 'nord',
+        eepBackground: true,
         defaultLang: 'plaintext',
         }
       ],
