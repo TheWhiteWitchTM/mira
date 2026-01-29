@@ -88,7 +88,7 @@ export function BlogHeader<T>({
 	}, [filteredAndSorted, onFiltered])
 
 	return (
-		<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-8">
+		<div className="component flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-8">
 			<div className="relative flex-1 min-w-0">
 				<Input
 					type="search"

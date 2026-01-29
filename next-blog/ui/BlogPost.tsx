@@ -36,7 +36,7 @@ export async function BlogPost({ item }: BlogPostProps) {
 		const [expanded, setExpanded] = React.useState(!!item.expanded)
 
 		return (
-			<div className="h-full flex flex-col">
+			<div className="component !p-2 !my-2 h-full flex flex-col">
 
 				<div className="flex flex-row items-center justify-between">
 					<div className="flex items-center gap-3">
