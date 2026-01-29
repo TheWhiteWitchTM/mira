@@ -7,6 +7,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -170,5 +175,36 @@
   }
   .font-clock {
     @apply font-['Orbitron'];
+  }
+  .component {
+    @apply
+    border
+    border-red-600
+    rounded-lg
+    shadow-md
+    shadow-red-600/30
+    m-1
+    p-1;
+  }
+  .scrollbar {
+    @apply
+    scrollbar-thin
+    scrollbar-thumb-red-600
+    scrollbar-track-red-950/30   /* ← subtle dark red-tinted track, adjust opacity */
+    hover:scrollbar-thumb-red-500
+    active:scrollbar-thumb-red-700
+    transition-colors duration-200;
+
+    &::-webkit-scrollbar-thumb {
+      @apply rounded-full;   /* ← Tailwind's built-in rounded-full, applied directly */
+    }
+  }
+  .mobile {
+    @apply block;           /* default: visible */
+    @apply md:hidden;       /* hide from medium (tablet/desktop) and up */
+  }
+  .desktop {
+    @apply hidden;          /* default: hidden */
+    @apply md:block;        /* show from medium (768px) and up */
   }
 }

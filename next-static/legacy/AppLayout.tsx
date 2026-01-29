@@ -45,7 +45,7 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
 					</div>
 
 					{/* Center - ONLY place with scroll when needed */}
-					<main className="overflow-y-auto">
+					<main className="scrollbar overflow-y-auto">
 						{children}
 					</main>
 
