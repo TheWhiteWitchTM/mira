@@ -15,7 +15,7 @@ const withMDX = nextMDX({
             dark: 'github-dark',
             light: 'github-light',
           },
-        keepBackground: false,
+        keepBackground: true,
         defaultLang: 'plaintext',
         }
       ],
