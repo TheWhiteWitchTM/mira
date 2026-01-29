@@ -158,7 +158,33 @@
   pre,
   kbd,
   samp {
-    @apply font-mono;
+    @apply font-mono bg-foreground;
+  }
+}
+@layer components {
+  /* globals.css */
+
+  /* Gentle breathing pulse for the text */
+  @keyframes pulse-soft {
+    0%, 100% {
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  .animate-pulse-soft {
+    animation: pulse-soft 2.8s ease-in-out infinite;
+  }
+
+  /* Optional: slightly slower on larger screens */
+  @media (min-width: 768px) {
+    .animate-pulse-soft {
+      animation-duration: 3.4s;
+    }
   }
 }
 

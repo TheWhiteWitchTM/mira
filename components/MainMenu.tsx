@@ -83,7 +83,8 @@ const mainMenuItems: NavItem[] = [
 		label: "Tutorials",
 		icon: Lightbulb,
 		subitems: [
-			{ label: "Tailwind", href: "/tutorials/tailwind", icon: Wind },
+			{ label: "🌬️Tailwind", href: "/tutorials/tailwind"},
+			{ label: "📃Markdown", href: "/tutorials/markdown"},
 		],
 	},
 	/*

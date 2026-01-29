@@ -5,7 +5,7 @@ import {Wind} from "lucide-react";
 export default function () {
 	return (
 		<PageContent className={"prose dark:prose-invert"}>
-			<h2>💨Tailwind Tutorial</h2>
+			<h2>🌬️Tailwind Tutorial</h2>
 			<MDX/>
 	</PageContent>
 	)
