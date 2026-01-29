@@ -52,13 +52,13 @@ export async function BlogPost({ item }: BlogPostProps) {
 				</div>
 
 				<div>
-					<span className={"prose dark:prose-invert"}>
+					<div className={"prose dark:prose-invert"}>
 					{isLong && !expanded ? (
 						<span dangerouslySetInnerHTML={{ __html: excerptHtml }} />
 					) : (
 						<MDX />
 					)}
-					</span>
+					</div>
 				</div>
 
 				<div className="flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground pt-2 border-t gap-4">
