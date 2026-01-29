@@ -8,6 +8,7 @@ import { StarIcon, ShareIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-reac
 import { DateDisplay } from './DateDisplay'
 import type { PostMeta } from '@/next-blog/types/blog'
 import { mdxLoader } from "@/next-blog/lib/mdxLoader"
+import {NewIndicator} from "@/next-blog/ui/NewIndicator";
 
 interface BlogPostProps {
 	item: PostMeta
@@ -42,7 +43,8 @@ export async function BlogPost({ item }: BlogPostProps) {
 					<div className="flex items-center gap-3">
 						{item.featured && <StarIcon className="text-yellow-500 fill-yellow-500" />}
 						<span className="text-2xl">{item.emoji || '📝'}</span>
-						<h3 className="font-bold text-lg line-clamp-2">{item.title}</h3>
+						<h2 className="font-bold text-lg line-clamp-2">{item.title}</h2>
+						<NewIndicator date={item.date ?? ''} />
 					</div>
 				</div>
 

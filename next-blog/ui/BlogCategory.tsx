@@ -6,11 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { StarIcon, ShareIcon } from 'lucide-react';
 import { DateDisplay } from './DateDisplay';
-import type { MetaBase, PostMeta, CategoryMeta } from '@/next-blog/types/blog';
+import type {CategoryMetaBase} from '@/next-blog/types/blog';
 import Link from "next/link";
+import {NewIndicator} from "@/next-blog/ui/NewIndicator";
 
 interface BlogCategoryProps {
-	item: MetaBase;
+	item: CategoryMetaBase;
 }
 
 export function BlogCategory({ item }: BlogCategoryProps) {
@@ -43,7 +44,8 @@ export function BlogCategory({ item }: BlogCategoryProps) {
 				<div className="flex items-center gap-1">
 					{item.featured && <StarIcon className="h-5 w-5 text-yellow-500 fill-yellow-500" />}
 					<span className="text-2xl">{item.emoji}</span>
-					<h3 className="font-bold text-lg line-clamp-2">{item.title}</h3>
+					<h2 className="font-bold text-lg line-clamp-2">{item.title}</h2>
+					<NewIndicator date={item.latest ?? ''} />
 				</div>
 			</CardHeader>
 			<CardContent className="flex-grow">
