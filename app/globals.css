@@ -9,7 +9,7 @@
 
 @theme {
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-mono: var(--font-geist-mono),
 }
 
 @theme inline {
@@ -205,44 +205,5 @@
   .desktop {
     @apply hidden;          /* default: hidden */
     @apply md:block;        /* show from medium (768px) and up */
-  }
-  .prose pre,
-  .prose pre code,
-  .prose pre code *,
-  .prose pre [data-line],
-  .prose .shiki,
-  .prose .shiki span,
-  .prose code { /* most aggressive reset */
-    color: inherit !important;
-    background: transparent !important;
-  }
-  /* Optional: re-apply minimal sane defaults so it doesn't look broken */
-  .prose pre {
-    margin: 1.5rem 0 !important;
-    border-radius: 0.5rem !important;
-    overflow-x: auto !important;
-  }
-  .prose pre,
-  .prose pre code,
-  .prose pre code *,
-  .prose pre [data-line],
-  .prose .shiki,
-  .prose .shiki span,
-  .prose code { /* most aggressive reset */
-    color: inherit !important;
-    background: transparent !important;
-  }
-
-  .prose pre {
-    margin: 1.5rem 0 !important;
-    border-radius: 0.5rem !important;
-    overflow-x: auto !important;
-    color: inherit !important;
-    background: transparent !important;
-  }
-
-  .prose code {
-    color: inherit !important;
-    background: transparent !important;
   }
 }

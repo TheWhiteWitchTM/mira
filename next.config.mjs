@@ -11,11 +11,7 @@ const withMDX = nextMDX({
       'rehype-autolink-headings',       // string
       [
         '@shikijs/rehype', {
-          themes: {
-            dark: 'github-dark',
-            light: 'github-light',
-          },
-        keepBackground: true,
+        theme: 'nord',
         defaultLang: 'plaintext',
         }
       ],
