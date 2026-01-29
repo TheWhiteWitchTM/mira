@@ -11,10 +11,12 @@ import Link from "next/link";
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import * as React from "react";
 import { ThemeProvider } from "next-themes"
-import {Toolbar} from "@/components/Toolbar";import { DigitalClock }  from "@/components/DigitalClock";
+import {Toolbar} from "@/components/Toolbar";
+import { DigitalClock }  from "@/components/DigitalClock";
 import {Weather} from "@/components/Weather";
 import Image from "next/image";
 import SidebarRight from "@/components/SidebarRight";
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = baseMetadata
 
@@ -91,6 +93,7 @@ export default function Layout({
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <body className={"w-full h-full m-0 p-0 min-h-screen bg-background text-foreground antialiased"}>
+      <Analytics/>
       <ThemeProvider
 	      attribute="class"
 	      defaultTheme="system"
