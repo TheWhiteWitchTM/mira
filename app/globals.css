@@ -207,3 +207,33 @@
     @apply md:block;        /* show from medium (768px) and up */
   }
 }
+/* Completely disable prose styles on all code blocks and their contents */
+.prose pre,
+.prose pre code,
+.prose pre code *,
+.prose pre [data-line],
+.prose .shiki,
+.prose .shiki span,
+.prose code {
+  all: unset !important;          /* most aggressive reset */
+  /* or more targeted: */
+  /* color: inherit !important; */
+  /* background: transparent !important; */
+  /* font-family: inherit !important; */
+  /* font-size: inherit !important; */
+  /* line-height: inherit !important; */
+  /* margin: 0 !important; */
+  /* padding: 0 !important; */
+}
+
+/* Optional: re-apply minimal sane defaults so it doesn't look broken */
+.prose pre {
+  margin: 1.5rem 0 !important;
+  border-radius: 0.5rem !important;
+  overflow-x: auto !important;
+}
+
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-size: 0.95em !important;
+}
