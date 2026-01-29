@@ -14,6 +14,7 @@ import { ThemeProvider } from "next-themes"
 import {Toolbar} from "@/components/Toolbar";import { DigitalClock }  from "@/components/DigitalClock";
 import {Weather} from "@/components/Weather";
 import Image from "next/image";
+import SidebarRight from "@/components/SidebarRight";
 
 export const metadata: Metadata = baseMetadata
 
@@ -71,7 +72,7 @@ export default function Layout({
 	)
 
 	const right = (
-		<div className={"hidden md:flex mt-10 w-20 flex-col items-center gap-2"}>
+		<div className={"hidden md:flex component !mt-10 w-20 flex-col items-center gap-2"}>
 			<Link
 				href={"https://thewhitewitchtm.sociallydead.me/"}
 				target={"_blank"}>
@@ -83,6 +84,7 @@ export default function Layout({
 				priority
 			/>
 			</Link>
+			<SidebarRight/>
 		</div>
 	)
 
