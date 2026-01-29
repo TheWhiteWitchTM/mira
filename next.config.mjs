@@ -3,19 +3,22 @@ import nextMDX from '@next/mdx'
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: ['remark-gfm'],  // ← string for serialization
+    remarkPlugins: [
+      'remark-gfm',  // string name — works great
+    ],
     rehypePlugins: [
-      'rehype-slug',
-      'rehype-autolink-headings',
-      ['rehype-pretty-code', {  // ← minimal plain object, no functions
-        theme: {
-          dark: 'one-dark-pro',
-          light: 'github-light',
-        },
+      'rehype-slug',                    // string
+      'rehype-autolink-headings',       // string
+      [
+        '@shikijs/rehype', {
+          themes: {
+            dark: 'github-dark',
+            light: 'github-light',
+          },
         keepBackground: false,
         defaultLang: 'plaintext',
-        // NO onVisit* functions → use CSS for highlights if needed
-      }],
+        }
+      ],
     ],
   },
 })
@@ -28,6 +31,10 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: false,
+
+  // Optional but recommended: explicitly enable Turbopack if not already via CLI flag
+  // (remove if you run with --turbo flag instead)
+  // turbopack: {},  // or add rules/customizations if needed
 }
 
 export default withMDX(nextConfig)

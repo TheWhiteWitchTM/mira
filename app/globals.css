@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "tw-animate-css";
+@import "tw-animate-css";  ;
 @plugin 'tailwind-scrollbar';
 @plugin '@tailwindcss/typography';
 @plugin '@tailwindcss/forms';
@@ -157,8 +157,7 @@
   code,
   pre,
   kbd,
-  samp
-  {
+  samp {
     @apply font-mono;
   }
 }
