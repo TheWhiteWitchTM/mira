@@ -1,13 +1,11 @@
-// @/components/emoji-legacy/blog/Feed.tsx
-// POST FEED – vertical list of posts
-
-'use client'
+"use client"
 
 import * as React from 'react'
 import { BlogHeader } from './BlogHeader'
 import { BlogPost } from './BlogPost'
 import type { PostMeta } from '@/next-blog/types/blog'
 import {postsMeta} from "@/next-blog/meta/posts-meta";
+import {Suspense} from "react";
 
 interface FeedProps {
 	category?: string

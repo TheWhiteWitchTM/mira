@@ -1,13 +1,14 @@
-import {Suspense} from "react";
+import {Suspense, use} from "react";
 import {mdxLoader} from "@/next-blog/lib/mdxLoader";
 
 interface BlogPostMDXProps {
 	slug: string
 }
-export async function BlogPostMDX({ slug }: BlogPostMDXProps) {
-	const MDX = await mdxLoader(slug)
+export function BlogPostMDX({ slug }: BlogPostMDXProps) {
+	const MDX = use(mdxLoader(slug))
+
 	return(
-		<Suspense key={slug} fallback={"Loading..."}>
+		<Suspense key={slug}>
 			<MDX/>
 		</Suspense>
 	)

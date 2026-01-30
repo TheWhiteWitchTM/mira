@@ -1,21 +1,23 @@
 import * as React from "react";
-import {Suspense, use} from "react";
-import Header from "./header"
-import Content from "./Content"
+import Feed from "./feed"
+import Post from "./post"
 import {PageContent} from "@/next-static/legacy/PageContent";
-import {Waiting} from "@/next-static/ui/Waiting";
 
-interface PageProps {
-	params: Promise<any>
-}
 
-export default function Page({params}:PageProps) {
+type Props = {
+	params: Promise<{ slug: string }>;      // ← Promise in Next.js 15+
+};
+
+export default async function Page({params}:Props) {
+	const { slug } = await params;
+
 	return (
 		<PageContent>
-		<Suspense fallback={<Waiting/>}>
-				<Header paramsPromise={params}/>
-				<Content paramsPromise={params}/>
-		</Suspense>
+			{
+				slug.includes("/")
+					? <div>Page</div>
+					: <Feed params={params} />
+			}
 		</PageContent>
 	)
 }
