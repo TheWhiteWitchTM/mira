@@ -4,7 +4,6 @@ import { GeistMono } from 'geist/font/mono';
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner"
 import {baseMetadata} from "@/app/metadata";
-import {AppLayout} from "@/next-static/legacy/AppLayout";
 import {Appbar} from "@/next-static/legacy/Appbar";
 import {MainMenu} from "@/components/MainMenu";
 import Link from "next/link";
@@ -17,10 +16,11 @@ import {Weather} from "@/components/Weather";
 import Image from "next/image";
 import SidebarRight from "@/components/SidebarRight";
 import { Analytics } from "@vercel/analytics/next"
+import { Layout } from "@/emoji-ui/ui/Layout"
 
 export const metadata: Metadata = baseMetadata
 
-export default function Layout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -69,12 +69,12 @@ export default function Layout({
 	)
 
 	const left = (
-		<div className={"hidden md:flex w-20 mt-10 flex flex-col items-center gap-2"}>
+		<div className={"hidden md:flex flex-col flex-1 !my-4 !p-2 component w-40"}>
 		</div>
 	)
 
 	const right = (
-		<div className={"hidden md:flex component w-20 h-auto flex-col items-center gap-1"}>
+		<div className={"hidden md:flex flex-col flex-1 !my-4 !p-2 component w-20"}>
 			<Link
 				href={"https://thewhitewitchtm.sociallydead.me/"}
 				target={"_blank"}>
@@ -100,14 +100,13 @@ export default function Layout({
 	      enableSystem
 	      disableTransitionOnChange
       >
-	        <AppLayout
+	        <Layout
 		        header={header}
 		        footer={footer}
-		        leftAside={left}
-		        rightAside={right}
-	        >
-		        {children}
-	        </AppLayout>
+		        leftSidebar={left}
+		        rightSidebar={right}
+		        children={children}
+	        />
           <Toaster/>
       </ThemeProvider>
       </body>

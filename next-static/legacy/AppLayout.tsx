@@ -17,7 +17,7 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
 			<div
 				ref={ref}
 				className={cn(
-					"fixed top-0 left-0 grid h-screen w-full grid-rows-[auto_1fr_auto] overflow-hidden",
+					"fixed top-0 left-0 grid h-screen w-full min-h-full grid-rows-[auto_1fr_auto] overflow-hidden",
 					className
 				)}
 				{...rest}
@@ -34,12 +34,10 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
 				{/* Main row - 1fr takes remaining space, 3-column grid */}
 				<div className="grid grid-cols-[auto_1fr_auto] overflow-hidden bg-background">
 					{/* Left sidebar - full height of this row, no scroll here */}
-					<div>
+					<div className={"flex.1 flex-grow"}>
 					{leftAside && (
-						<aside className="bg-background border-r overflow-hidden">
-							<div className="h-full overflow-y-auto">
-								{leftAside}
-							</div>
+						<aside className="flex-1 bg-red-600 overflow-hidden">
+							WTF
 						</aside>
 					)}
 					</div>
