@@ -31,7 +31,7 @@ export const Layout: React.FC<LayoutProps> = (
 					{leftSidebar}
 				</div>
 
-				<div className="scrollbar min-h-0 overflow-auto">
+				<div className="scrollbar min-h-0 overflow-auto overscroll-contain">
 					{children}
 				</div>
 

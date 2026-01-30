@@ -8,7 +8,7 @@ export function BlogPostMDX({ slug }: BlogPostMDXProps) {
 	const MDX = use(mdxLoader(slug))
 
 	return(
-		<Suspense key={slug}>
+		<Suspense>
 			<MDX/>
 		</Suspense>
 	)

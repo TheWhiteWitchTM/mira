@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react'
 import { toast } from "sonner"
 import { Button } from '@/components/ui/button'
@@ -5,11 +7,9 @@ import { StarIcon, ShareIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-reac
 import { DateDisplay } from './DateDisplay'
 import type { PostMeta } from '@/next-blog/types/blog'
 import {NewIndicator} from "@/next-blog/ui/NewIndicator";
-import {Suspense} from "react";
-import {Waiting} from "@/next-static/ui/Waiting";
-import {mdxLoader} from "@/next-blog/lib/mdxLoader";
+import {useState, useEffect} from "react";
+import Link from "next/link";
 import {BlogPostMDX} from "@/next-blog/ui/BlogPostMDX";
-import Loading from "@/app/loading";
 
 interface BlogPostProps {
 	item: PostMeta
@@ -26,14 +26,25 @@ export function BlogPost({ item }: BlogPostProps) {
 		})
 	}
 
-
-
-	// Use meta flags (from build-posts)
+	const id = "post-"+item.slug
 	const isLong = !!item.long
 	const excerptHtml = item.excerpt || item.description || ''
-	const [expanded, setExpanded] = React.useState(!!item.expanded)
+
+	const [expanded, setExpanded] = useState(!!item.expanded)
+
+	useEffect(() => {
+		setTimeout(() => {
+			window.location.hash = "#"+id
+		}, 10);
+
+	}, [expanded]);
+
 	return (
-		<div className="component !p-2 !my-2 h-full flex flex-col">
+		<div
+			id={id}
+			key={id}
+			className="component !p-2 !my-2 [scroll-margin-top: 5rem] [overflow-anchor:none] flex flex-col"
+		>
 			<div className="flex flex-row items-center justify-between">
 				<div className="flex items-center gap-3">
 					{item.featured && <StarIcon className="text-yellow-500 fill-yellow-500" />}
@@ -46,11 +57,14 @@ export function BlogPost({ item }: BlogPostProps) {
 				</div>
 			</div>
 			<div>
-				<div className={"prose dark:prose-invert"}>{isLong && !expanded ? (
-					<span dangerouslySetInnerHTML={{ __html: excerptHtml }} />
-				) : (
-					<BlogPostMDX slug={item.slug}/>
-				)}
+				<div className={"prose dark:prose-invert"}>
+					<span
+					className={expanded?"hidden":""}
+					dangerouslySetInnerHTML={{ __html: excerptHtml }}
+					/>
+					<span className={expanded?"":"hidden"}>
+						<BlogPostMDX slug={item.slug}/>
+					</span>
 				</div>
 			</div>
 			<div className="flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground pt-2 border-t gap-4">
@@ -59,10 +73,14 @@ export function BlogPost({ item }: BlogPostProps) {
 					<Button
 						variant="ghost"
 						className="flex items-center gap-2 mx-auto text-primary hover:text-primary/80"
-						onClick={() => setExpanded(!expanded)}
+						onClick = {() => {
+							setExpanded(!expanded)
+						}}
+						asChild
 					>
-						{expanded ? 'Show Less' : 'Read More'}
-						{expanded ? <ChevronUpIcon className="h-5 w-5" /> : <ChevronDownIcon className="h-5 w-5" />}
+						<Link href={"#"} id={id} scroll={true}>
+							{expanded ? '↑ Show Less ↑' : '↓ Read More ↓'}
+						</Link>
 					</Button>
 				)}
 				<Button
