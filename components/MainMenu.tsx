@@ -63,7 +63,7 @@ const mainMenuItems: NavItem[] = [
 			{ label: "⚡NEXT-static", href: "/projects/next-static" },
 			{ label: "📃NEXT-blog", href: "/projects/next-blog" },
 			{ type: "separator" },
-			{ label: "🤣Emoji UI", href: "/projects/emoji-legacy" },
+			{ label: "🤣Emoji UI", href: "/projects/emoji-ui" },
 		],
 	},
 	{

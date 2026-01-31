@@ -1,44 +1,67 @@
+import Link from "next/link";
 import {Button} from "@/emoji-ui/ui/Button"
 import {
 	Globe,
 	Youtube,
 	Twitter,
 	Github,
-	Mail,
+	Mail, Linkedin,
 } from "lucide-react"
 import {BlueSky} from "@/components/BlueSky";
+
 export default function () {
+
 	return(
 		<div className="flex flex-col gap-0.5">
 			<Button
 				variant={"link"}
 			>
-				<Globe/>
+				<Link
+					href={"https://youtube.com/@thewhitewitchtm"}
+					target="_blank"
+				>
+					<Youtube/>
+				</Link>
 			</Button>
 			<Button
 				variant={"link"}
 			>
-				<Youtube/>
+				<Link
+					href={"https://bsky.app/profile/thewhitewitchtm.sociallydead.me"}
+					target="_blank"
+				>
+					<BlueSky className={"h-6 w-6"}/>
+				</Link>
 			</Button>
 			<Button
 				variant={"link"}
 			>
-				<BlueSky/>
+				<Link
+					href={"https://x.com/@thewhitewitchtm"}
+					target="_blank"
+				>
+					<Twitter/>
+				</Link>
 			</Button>
 			<Button
 				variant={"link"}
 			>
-				<Twitter/>
+				<Link
+					href={"https://github.com/TheWhiteWitchTM"}
+					target="_blank"
+				>
+					<Github/>
+				</Link>
 			</Button>
 			<Button
 				variant={"link"}
 			>
-				<Github/>
-			</Button>
-			<Button
-				variant={"link"}
-			>
-				<Mail/>
+				<Link
+					href={"mailto://thewhitewitchtm@gmail.com"}
+					target="_blank"
+				>
+					<Mail/>
+				</Link>
 			</Button>
 		</div>
 	)
