@@ -34,7 +34,9 @@ export function Feed({ category }: FeedProps) {
 					</div>
 				) : (
 					filtered.map(post => (
-						<BlogPost key={post.slug} item={post} />
+						<Suspense key={post.slug} fallback={"Loading---"}>
+							<BlogPost key={post.slug} item={post} />
+						</Suspense>
 					))
 				)}
 			</div>

@@ -7,9 +7,10 @@ import { StarIcon, ShareIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-reac
 import { DateDisplay } from './DateDisplay'
 import type { PostMeta } from '@/next-blog/types/blog'
 import {NewIndicator} from "@/next-blog/ui/NewIndicator";
-import {useState, useEffect} from "react";
+import {useState, useEffect, Suspense} from "react";
 import Link from "next/link";
 import {BlogPostMDX} from "@/next-blog/ui/BlogPostMDX";
+import {ErrorBoundary} from "next/dist/client/components/error-boundary";
 
 interface BlogPostProps {
 	item: PostMeta
@@ -29,15 +30,17 @@ export function BlogPost({ item }: BlogPostProps) {
 	const id = "post-"+item.slug
 	const isLong = !!item.long
 	const excerptHtml = item.excerpt || item.description || ''
-
+	const [scroll, setScroll] = useState(false)
 	const [expanded, setExpanded] = useState(!!item.expanded)
 
 	useEffect(() => {
-		setTimeout(() => {
-			window.location.hash = "#"+id
-		}, 10);
+		if (scroll) {
+			setTimeout(() => {
+				window.location.hash = "#"+id
+			}, 100);
+		}
 
-	}, [expanded]);
+	}, [scroll]);
 
 	return (
 		<div
@@ -63,7 +66,11 @@ export function BlogPost({ item }: BlogPostProps) {
 					dangerouslySetInnerHTML={{ __html: excerptHtml }}
 					/>
 					<span className={expanded?"":"hidden"}>
-						<BlogPostMDX slug={item.slug}/>
+						{expanded &&
+							<Suspense key={id} fallback={"Loading---"}>
+								<BlogPostMDX slug={item.slug}/>
+							</Suspense>
+						}
 					</span>
 				</div>
 			</div>
@@ -71,12 +78,15 @@ export function BlogPost({ item }: BlogPostProps) {
 				<DateDisplay date={item.date ?? ''} />
 				{isLong && (
 					<Button
-						variant="ghost"
-						className="flex items-center gap-2 mx-auto text-primary hover:text-primary/80"
-						onClick = {() => {
+						variant={"ghost"}
+						className={expanded?"bg-primary":"bg-red-600"}
+						onClick = {exp => {
 							setExpanded(!expanded)
+							{expanded
+									? setScroll(true)
+									: setScroll(false)
+							}
 						}}
-						asChild
 					>
 						<Link href={"#"} id={id} scroll={true}>
 							{expanded ? '↑ Show Less ↑' : '↓ Read More ↓'}
