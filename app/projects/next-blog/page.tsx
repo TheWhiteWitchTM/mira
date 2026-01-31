@@ -1,5 +1,5 @@
 import {PageContent} from "@/next-static/legacy/PageContent";
-import Intro from "@/app/blog/next-blog/introduction/page.mdx"
+import Intro from "@/blog/next-blog/introduction/page.mdx"
 export default function () {
 	return(
 		<PageContent className={"prose dark:prose-invert"}>

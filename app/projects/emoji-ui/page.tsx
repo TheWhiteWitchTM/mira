@@ -1,6 +1,6 @@
 import * as React from "react";
 import {PageContent} from "@/next-static/legacy/PageContent";
-import Intro from "@/app/blog/emoji-ui/introduction/page.mdx"
+import Intro from "@/blog/emoji-ui/introduction/page.mdx"
 
 
 export default function () {
