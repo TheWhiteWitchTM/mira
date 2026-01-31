@@ -34,7 +34,7 @@ export function DigitalClock() {
         font-clock
         text-sm
         tracking-[0.08em]
-        text-red-600
+        text-green-400
         font-medium
         tabular-nums
         opacity-90
@@ -44,7 +44,7 @@ export function DigitalClock() {
       "
 			title="German time (Europe/Berlin)"
 		>
-			<span className="text-red-600">🕒</span>
+			<span className="text-green-400">🕒</span>
 			<span>{time || "••:••"}</span>
 		</div>
 	)

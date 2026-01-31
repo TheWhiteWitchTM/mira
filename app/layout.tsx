@@ -17,6 +17,7 @@ import Image from "next/image";
 import SidebarRight from "@/components/SidebarRight";
 import { Analytics } from "@vercel/analytics/next"
 import { Layout } from "@/emoji-ui/ui/Layout"
+import SidebarLeft from "@/components/SidebarLeft";
 
 export const metadata: Metadata = baseMetadata
 
@@ -70,6 +71,7 @@ export default function RootLayout({
 
 	const left = (
 		<div className={"hidden md:flex flex-col flex-1 !my-4 !p-2 component w-40"}>
+			<SidebarLeft/>
 		</div>
 	)
 

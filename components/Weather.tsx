@@ -54,7 +54,7 @@ export function Weather() {
 			title="Weather in Mainz, Germany"
 		>
 			<span className="text-green-700">{weather.icon}</span>
-			<span>
+			<span className={"!-mt-1"}>
         {weather.temp !== null ? `${Math.round(weather.temp)}°C` : "--"}
       </span>
 			<span>Mainz</span>
