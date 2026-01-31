@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { marked } from 'marked';
 
-const BLOG_ROOT = path.join(process.cwd(), 'app/blog');
+const BLOG_ROOT = path.join(process.cwd(), '/blog');
 
 // ── CONFIGURABLE PART ────────────────────────────────────────────────────────
 const BLOG_URL_PREFIX = '/blog';
