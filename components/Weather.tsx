@@ -43,7 +43,7 @@ export function Weather() {
         font-clock
         text-sm
         tracking-[0.08em]
-        text-red-600
+        text-green-400
         font-medium
         tabular-nums
         opacity-90
@@ -53,7 +53,7 @@ export function Weather() {
       "
 			title="Weather in Mainz, Germany"
 		>
-			<span className="text-red-600">{weather.icon}</span>
+			<span className="text-green-700">{weather.icon}</span>
 			<span>
         {weather.temp !== null ? `${Math.round(weather.temp)}°C` : "--"}
       </span>

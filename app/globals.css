@@ -146,7 +146,6 @@
     --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   }
   * {
-    @apply border-border outline-ring/50;
   }
   html {
     @apply antialiased;   /* smooth font edges */
@@ -158,7 +157,7 @@
   pre,
   kbd,
   samp {
-    @apply font-mono bg-foreground;
+    @apply font-mono;
   }
 }
 @layer components {
@@ -204,20 +203,20 @@
   .component {
     @apply
     border
-    border-red-600
+    border-green-600
     rounded-lg
     shadow-md
-    shadow-red-600/30
+    shadow-green-500/30
     m-1
     p-1;
   }
   .scrollbar {
     @apply
     scrollbar-thin
-    scrollbar-thumb-red-600
-    scrollbar-track-red-950/30   /* ← subtle dark red-tinted track, adjust opacity */
-    hover:scrollbar-thumb-red-500
-    active:scrollbar-thumb-red-700
+    scrollbar-thumb-green-600
+    scrollbar-track-green-950/30   /* ← subtle dark red-tinted track, adjust opacity */
+    hover:scrollbar-thumb-green-500
+    active:scrollbar-thumb-green-700
     transition-colors duration-200;
 
     &::-webkit-scrollbar-thumb {

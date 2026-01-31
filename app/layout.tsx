@@ -29,10 +29,10 @@ export default function RootLayout({
 		<Appbar className={"component"}
 			left={
 			<div className={"flex flex-row gap-2"}>
-				<Avatar className={"border-2 border-red-600 shadow-[0_0_10px_#dc2626] shadow-red-600/70>"}>
+				<Avatar className={"border-2 border-green-600 shadow-[0_0_10px_#dc2626] shadow-green-500/70>"}>
 					<AvatarImage src={"/icon-192x192.png"}/>
 				</Avatar>
-				<div className={"mt-1.5 clock-font text-red-600"}>
+				<div className={"mt-1.5 clock-font text-green-600"}>
 					<b>Mira's World™</b>
 				</div>
 			</div>
