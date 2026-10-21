@@ -1,7 +1,6 @@
 import {categoriesMeta} from "@/next-blog/meta/categories-meta";
 import {Feed} from "@/next-blog/ui/Feed";
 import {Suspense} from "react";
-import {id} from "zod/locales";
 
 type Props = {
 	slug: string     // ← Promise in Next.js 15+

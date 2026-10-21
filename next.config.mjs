@@ -20,18 +20,24 @@ const withMDX = nextMDX({
   },
 })
 
+// GitHub project pages serve this repo at /mira/. `npm run build` sets GITHUB_PAGES.
+const basePath = process.env.GITHUB_PAGES === 'true' ? '/mira' : ''
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  basePath,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   reactCompiler: true,
   images: {
-    unoptimized: true,
+    loader: 'custom',
+    loaderFile: './lib/image-loader.ts',
   },
-  trailingSlash: false,
-
-  // Optional but recommended: explicitly enable Turbopack if not already via CLI flag
-  // (remove if you run with --turbo flag instead)
-  // turbopack: {},  // or add rules/customizations if needed
+  // GitHub Pages resolves /blog/ to /blog/index.html.
+  trailingSlash: true,
 }
 
 export default withMDX(nextConfig)

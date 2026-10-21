@@ -17,7 +17,7 @@ export default function () {
 				variant={"link"}
 			>
 				<Link
-					href={"https://youtube.com/@thewhitewitchtm"}
+					href={"https://youtube.com/@TheWhiteWitchTM"}
 					target="_blank"
 				>
 					<Youtube/>
@@ -37,7 +37,7 @@ export default function () {
 				variant={"link"}
 			>
 				<Link
-					href={"https://x.com/@thewhitewitchtm"}
+					href={"https://x.com/TheWhiteWitchTM"}
 					target="_blank"
 				>
 					<Twitter/>
@@ -57,7 +57,7 @@ export default function () {
 				variant={"link"}
 			>
 				<Link
-					href={"mailto://thewhitewitchtm@gmail.com"}
+					href={"mailto:thewhitewitchtm@gmail.com"}
 					target="_blank"
 				>
 					<Mail/>

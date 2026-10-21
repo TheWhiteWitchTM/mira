@@ -28,9 +28,23 @@ interface CategoryMeta {
 	latest: string;
 }
 
+async function loadPreviousCategories(): Promise<Map<string, { date: string; latest: string }>> {
+	const previous = new Map<string, { date: string; latest: string }>();
+	try {
+		const text = await fs.readFile(OUTPUT, 'utf8');
+		for (const match of text.matchAll(/"slug": "([^"]+)"[\s\S]*?"date": "(\d{4}-\d{2}-\d{2})"[\s\S]*?"latest": "(\d{4}-\d{2}-\d{2})"/g)) {
+			previous.set(match[1], { date: match[2], latest: match[3] });
+		}
+	} catch {
+		// First generation has no file to read.
+	}
+	return previous;
+}
+
 async function run() {
 	await fs.mkdir(META_OUTPUT_DIR, { recursive: true });
 
+	const previousCategories = await loadPreviousCategories();
 	const categories: CategoryMeta[] = [];
 
 	const entries = await fs.readdir(BLOG_ROOT, { withFileTypes: true });
@@ -64,6 +78,7 @@ async function run() {
 			let postCount = 0;
 			let latestPostDate = '1900-01-01';
 			let earliestPostDate = new Date().toISOString().split('T')[0];
+			let sawExplicitDate = false;
 
 			const subItems = await fs.readdir(catFolder, { withFileTypes: true });
 
@@ -86,6 +101,7 @@ async function run() {
 						const meta = new Function(fnBody)();
 						if (meta.date && typeof meta.date === 'string') {
 							postDate = meta.date;
+							sawExplicitDate = true;
 						}
 					}
 				} catch {
@@ -101,11 +117,12 @@ async function run() {
 				if (postDate < earliestPostDate) earliestPostDate = postDate;
 			}
 
+			const previous = previousCategories.get(slug);
 			categories.push({
 				slug,
 				title: item.title || entry.name.replace(/-/g, ' '),
 				description: item.description || '',
-				date: item.date || earliestPostDate,
+				date: item.date || (sawExplicitDate ? earliestPostDate : previous?.date || earliestPostDate),
 				path: `${BLOG_URL_PREFIX}/${entry.name}`,
 				url: item.url,
 				urlType: item.urlType,
@@ -114,7 +131,7 @@ async function run() {
 				featured: item.featured === true,
 				tags: Array.isArray(item.tags) ? item.tags : [],
 				posts: postCount,
-				latest: latestPostDate,
+				latest: sawExplicitDate ? latestPostDate : previous?.latest || latestPostDate,
 			});
 		}
 	}

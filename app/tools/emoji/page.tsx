@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import {PageContent} from "@/next-static/legacy/PageContent";
 import {EmojiBuilder} from "@/components/EmojiBuilder";
-import Link from "next/link";
-import * as React from "react";
+import {pageMetadata} from "@/app/metadata";
+
+export const metadata: Metadata = pageMetadata(
+	'Emoji builder',
+	'Assemble an emoji in the browser on Mira\'s World.',
+	'/tools/emoji',
+)
 
 export default function Emoji() {
 	return (

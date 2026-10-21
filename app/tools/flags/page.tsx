@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import {PageContent} from "@/next-static/legacy/PageContent";
 import {FlagBuilder} from "@/components/FlagBuilder";
-import Link from "next/link";
-import * as React from "react";
+import {pageMetadata} from "@/app/metadata";
+
+export const metadata: Metadata = pageMetadata(
+	'Flag builder',
+	'Build a flag in the browser on Mira\'s World.',
+	'/tools/flags',
+)
 
 export default function () {
 	return (

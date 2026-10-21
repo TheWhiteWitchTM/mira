@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import {PageContent} from "@/next-static/legacy/PageContent";
 import MDX from "./tailwind.mdx"
-import {Wind} from "lucide-react";
+import {pageMetadata} from "@/app/metadata";
+
+export const metadata: Metadata = pageMetadata(
+	'Tailwind tutorial',
+	'A short Tailwind CSS tutorial on Mira\'s World.',
+	'/tutorials/tailwind',
+)
 
 export default function () {
 	return (

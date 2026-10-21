@@ -1,5 +1,4 @@
 import { postsMeta } from "@/next-blog/meta/posts-meta";
-import {SUSE} from "next/dist/compiled/@next/font/dist/google";
 import {Suspense} from "react";
 import {BlogPostMDX} from "@/next-blog/ui/BlogPostMDX";
 

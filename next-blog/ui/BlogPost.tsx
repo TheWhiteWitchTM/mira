@@ -10,7 +10,6 @@ import {NewIndicator} from "@/next-blog/ui/NewIndicator";
 import {useState, useEffect, Suspense} from "react";
 import Link from "next/link";
 import {BlogPostMDX} from "@/next-blog/ui/BlogPostMDX";
-import {ErrorBoundary} from "next/dist/client/components/error-boundary";
 
 interface BlogPostProps {
 	item: PostMeta
@@ -19,7 +18,7 @@ interface BlogPostProps {
 export function BlogPost({ item }: BlogPostProps) {
 	const copyLink = (path: string) => {
 		if (!path) return
-		const url = `${window.location.origin}${path}`
+		const url = `${window.location.origin}${process.env.NEXT_PUBLIC_BASE_PATH || ''}${path}`
 		navigator.clipboard.writeText(url)
 		toast.success("Link copied! 🪄", {
 			description: "The link is now in your clipboard.",

@@ -9,9 +9,9 @@ export default function Home()  {
 			<div className={"prose dark:prose-invert"}>
 			<Image
 				src={"/banner.jpg"}
-				alt="Home Image"
-				width="150"
-				height="75"
+				alt="Mira's World. Blog, tech tips, open source, and AI."
+				width={150}
+				height={150}
 				className="float-left m-2 rounded-lg shadow-md"
 				priority
 			/>

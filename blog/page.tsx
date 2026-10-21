@@ -6,7 +6,7 @@ export default function BlogHome() {
 			<PageContent>
 				<span className={"prose dark:prose-invert"}>
 				<h2>
-					📃Bloog Feeds
+					Blog
 				</h2>
 				</span>
 				<Blog/>

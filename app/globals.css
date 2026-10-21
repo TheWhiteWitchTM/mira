@@ -127,7 +127,7 @@
 @layer base {
   @font-face {
     font-family: 'flagsFont';                    /* exact name – case-sensitive */
-    src: url('/fonts/flags.woff2') format('woff2');
+    src: url('../public/fonts/flags.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap;                          /* shows fallback text while loading */

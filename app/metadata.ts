@@ -1,90 +1,105 @@
-// app/lib/metadata.ts
 import type { Metadata } from 'next'
 
-const siteUrl = 'https://mirasworld.sociallydead.me'
-const siteName = "Mira's World"
-const defaultTitle = "Mira's World – Open Source & Dev Blog"
-const defaultDescription = 'Open-source projects, code experiments, libraries, tools, and blog posts from Mira — a software developer sharing real-world code and thoughts.'
+export const siteOrigin = 'https://thewhitewitchtm.github.io'
+export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+export const siteUrl = `${siteOrigin}${basePath}`
+
+export function withBase(path: string): string {
+	const normalized = path.startsWith('/') ? path : `/${path}`
+	return `${basePath}${normalized}`
+}
+export const siteName = "Mira's World"
+const defaultTitle = "Mira's World – projects, tools, and a dev blog"
+const defaultDescription = "Open-source projects, browser tools, tutorials, and a dev blog by Mira, The White Witch. The pages are static."
 
 export const baseMetadata: Metadata = {
-	// Core
-	metadataBase: new URL(siteUrl),
+	metadataBase: new URL(siteOrigin),
 	title: {
 		default: defaultTitle,
 		template: `%s | ${siteName}`,
 	},
 	description: defaultDescription,
-
-	// Keywords / authors
 	keywords: [
+		"Mira's World",
+		'The White Witch',
+		'Mira',
 		'open source',
-		'github',
-		'software development',
-		'typescript',
-		'next.js',
-		'react',
-		'programming',
-		'blog',
-		'dev tools',
-		'code',
+		'dev blog',
+		'Next.js',
+		'static site',
+		'GitHub Pages',
+		'TypeScript',
+		'React',
 	],
-	authors: [{ name: 'Mira', url: siteUrl }],
+	authors: [{ name: 'Mira', url: siteUrl || siteOrigin }],
 	creator: 'Mira',
-
-	// Open Graph
+	applicationName: siteName,
+	category: 'technology',
 	openGraph: {
 		title: defaultTitle,
 		description: defaultDescription,
-		url: siteUrl,
+		url: withBase('/'),
 		siteName,
 		images: [
 			{
-				url: '/banner.jpg',
-				alt: "Mira's World – Open Source Projects & Blog",
+				url: withBase('/banner.jpg'),
+				width: 1024,
+				height: 1024,
+				alt: "Mira's World. Blog, tech tips, open source, and AI.",
 			},
 		],
 		locale: 'en_US',
 		type: 'website',
 	},
-
-	// Twitter / X Cards
 	twitter: {
 		card: 'summary_large_image',
 		title: defaultTitle,
 		description: defaultDescription,
-		site: '@TheWhiteWitchTM',      // ← your actual handle, change if you prefer
+		site: '@TheWhiteWitchTM',
 		creator: '@TheWhiteWitchTM',
-		images: ['/banner.jpg'],
+		images: [withBase('/banner.jpg')],
 	},
-
-	// ────────────────────────────────────────────────
-	//          F A V I C O N   &   I C O N S
-	// ────────────────────────────────────────────────
 	icons: {
 		icon: [
-			// Primary favicon: your SVG file
-			{ url: '/icon.svg', type: 'image/svg+xml' },
-			'/favicon.svg',
+			{ url: withBase('/icon.svg'), type: 'image/svg+xml' },
+			{ url: withBase('/favicon.ico') },
 		],
-		// Apple Touch Icon for iOS home screen / bookmarks (add the file in public/)
-		apple: '/apple-touch-icon.png',
-
-		// Optional: Safari pinned tab (SVG works here too)
-		other: [
-			{
-				rel: 'mask-icon',
-				url: '/icon.svg',
-				color: '#000000',   // neutral black, or change to your brand color
-			},
-		],
+		apple: withBase('/apple-touch-icon.png'),
 	},
-
-	// Extras
 	alternates: {
-		canonical: siteUrl,
+		canonical: withBase('/'),
+		types: {
+			'application/rss+xml': withBase('/feed.xml'),
+		},
 	},
 	robots: {
 		index: true,
 		follow: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			'max-image-preview': 'large',
+			'max-snippet': -1,
+			'max-video-preview': -1,
+		},
 	},
+}
+
+export function pageMetadata(title: string, description: string, path: string): Metadata {
+	const canonical = withBase(path.endsWith('/') ? path : `${path}/`)
+	return {
+		title,
+		description,
+		alternates: { canonical },
+		openGraph: {
+			title,
+			description,
+			url: canonical,
+			type: 'website',
+		},
+		twitter: {
+			title,
+			description,
+		},
+	}
 }

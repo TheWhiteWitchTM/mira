@@ -1,8 +1,13 @@
-"use client"
-import Link from "next/link"
+import type { Metadata } from "next"
 import {PageContent} from "@/next-static/legacy/PageContent";
 import {ImageMagic} from "@/components/ImageMagic";
-import * as React from "react";
+import {pageMetadata} from "@/app/metadata";
+
+export const metadata: Metadata = pageMetadata(
+	'Image Magic',
+	'Remove a background and resize images in the browser. The pictures stay on this device.',
+	'/tools/image-magic',
+)
 
 export default function () {
 	return (

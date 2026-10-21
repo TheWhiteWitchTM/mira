@@ -1,22 +1,29 @@
 import type { MetadataRoute } from 'next'
+import { withBase } from '@/app/metadata'
+
+export const dynamic = 'force-static'
 
 export default function manifest(): MetadataRoute.Manifest {
 	return {
-		name: "Mira's World™ App",
-		short_name: "Mira's App",
-		description: "Mira's World™, The app that is all about tech!",
-		start_url: '/',
+		name: "Mira's World",
+		short_name: "Mira's World",
+		description: "Open-source projects, browser tools, tutorials, and a dev blog by Mira.",
+		id: withBase('/'),
+		start_url: withBase('/'),
+		scope: withBase('/'),
+		lang: 'en',
 		display: 'standalone',
 		background_color: '#000000',
-		theme_color: '#ffffff',
+		theme_color: '#000000',
+		categories: ['education', 'productivity'],
 		icons: [
 			{
-				src: '/icon-192x192.png',
+				src: withBase('/icon-192x192.png'),
 				sizes: '192x192',
 				type: 'image/png',
 			},
 			{
-				src: '/icon-512x512.png',
+				src: withBase('/icon-512x512.png'),
 				sizes: '512x512',
 				type: 'image/png',
 			},

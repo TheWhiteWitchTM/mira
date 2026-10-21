@@ -23,7 +23,7 @@ const AppInstallButton = React.forwardRef<HTMLButtonElement, AppInstallButtonPro
 		 installedText = "Installed",
 		 installTooltip = "Add to home screen",
 		 installedTooltip = "App installed",
-		 swPath = "/sw.js",
+		 swPath = `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/sw.js`,
 		 showText = false,
 		 showTooltip = false,
 		 ...buttonProps
