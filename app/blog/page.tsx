@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {Blog} from "@/next-blog/ui/Blog";
 import {PageContent} from "@/next-static/legacy/PageContent";
-import {pageMetadata} from "@/app/metadata";
+import {pageMetadata, withBase} from "@/app/metadata";
 
 export const metadata: Metadata = pageMetadata(
 	'Blog',
@@ -16,6 +16,9 @@ export default function BlogHome() {
 				<h1>
 					Blog
 				</h1>
+				<p>
+					<a href={withBase("/feed.xml")}>RSS feed</a>
+				</p>
 				</span>
 				<Blog/>
 			</PageContent>

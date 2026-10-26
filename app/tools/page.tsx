@@ -5,15 +5,16 @@ import {pageMetadata} from "@/app/metadata";
 
 export const metadata: Metadata = pageMetadata(
 	'Tools',
-	'Browser tools on Mira\'s World: flags, emoji, web fonts, and Image Magic. Nothing is uploaded.',
+	"Browser tools on Mira's World: a calling card, emoji, flags, web fonts, and Image Magic. Nothing is uploaded.",
 	'/tools',
 )
 
 const tools = [
-	{ href: '/tools/flags', title: 'Flag builder', text: 'Build a flag in the browser.' },
-	{ href: '/tools/emoji', title: 'Emoji builder', text: 'Assemble an emoji.' },
-	{ href: '/tools/webfont', title: 'Web font builder', text: 'Turn characters into a web font.' },
-	{ href: '/tools/image-magic', title: 'Image Magic', text: 'Remove a background and resize images. The work stays in this browser.' },
+	{ href: "/tools/calling-card", title: "Calling Card", text: "Draw a share image for a post. Wide or square. Nothing is uploaded." },
+	{ href: "/tools/emoji", title: "Emoji builder", text: "Assemble an emoji." },
+	{ href: "/tools/flags", title: "Flag builder", text: "Build a flag in the browser." },
+	{ href: "/tools/webfont", title: "Web font builder", text: "Turn characters into a web font." },
+	{ href: "/tools/image-magic", title: "Image Magic", text: "Remove a background and resize images. The work stays in this browser." },
 ]
 
 export default function ToolsPage() {

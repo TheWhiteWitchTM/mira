@@ -15,15 +15,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		'',
 		'/blog',
 		'/tools',
-		'/tools/flags',
-		'/tools/emoji',
-		'/tools/webfont',
-		'/tools/image-magic',
-		'/projects/next-static',
-		'/projects/next-blog',
-		'/projects/emoji-ui',
-		'/tutorials/tailwind',
-		'/tutorials/markdown',
+		"/tools/calling-card",
+		"/tools/emoji",
+		"/tools/flags",
+		"/tools/webfont",
+		"/tools/image-magic",
+		"/tutorials/tailwind",
+		"/tutorials/markdown",
 	]
 
 	return [

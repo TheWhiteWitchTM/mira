@@ -1,23 +1,34 @@
 # Mira's World
 
-> Projects, browser tools, tutorials, and a dev blog by Mira, The White Witch. The pages are static.
+> The lab of Mira, The White Witch. Browser tools, tutorials, and a dev blog. The pages are static.
 
 ## Here
 
 - [Mira's World](https://thewhitewitchtm.github.io/mira/)
 - [Blog](https://thewhitewitchtm.github.io/mira/blog/)
 - [Tools](https://thewhitewitchtm.github.io/mira/tools/)
-- [Emoji UI](https://thewhitewitchtm.github.io/mira/projects/emoji-ui/)
-- [NEXT-blog](https://thewhitewitchtm.github.io/mira/projects/next-blog/)
-- [NEXT-static](https://thewhitewitchtm.github.io/mira/projects/next-static/)
-- [Feed](https://thewhitewitchtm.github.io/mira/feed.xml)
+- [Calling Card](https://thewhitewitchtm.github.io/mira/tools/calling-card/)
+- [Emoji](https://thewhitewitchtm.github.io/mira/tools/emoji/)
+- [Flags](https://thewhitewitchtm.github.io/mira/tools/flags/)
+- [Web font](https://thewhitewitchtm.github.io/mira/tools/webfont/)
+- [Image Magic](https://thewhitewitchtm.github.io/mira/tools/image-magic/)
+- [Markdown](https://thewhitewitchtm.github.io/mira/tutorials/markdown/)
+- [Tailwind](https://thewhitewitchtm.github.io/mira/tutorials/tailwind/)
+- [RSS](https://thewhitewitchtm.github.io/mira/feed.xml)
 
-## Elsewhere
+## The desk
 
 - [The card](https://thewhitewitchtm.github.io/)
 - [The White Witch](https://thewhitewitchtm.github.io/whitewitch/)
+- [Emoji Games](https://thewhitewitchtm.github.io/emojigames/)
+- [LibreSky](https://thewhitewitchtm.github.io/LibreSky/)
+- [LibreSky Corporate](https://thewhitewitchtm.github.io/corporate/)
+- [SociallyDead](https://thewhitewitchtm.github.io/sociallydead/)
+- [Blogy](https://thewhitewitchtm.github.io/blogy/)
+- [MAGIC Dock](https://thewhitewitchtm.github.io/magic-dock/)
+- [Cinder](https://thewhitewitchtm.github.io/cinder/)
+- [Vesper](https://thewhitewitchtm.github.io/vesper/)
 - [MAGIC](https://thewhitewitchtm.github.io/whitewitch/magic/)
 - [RETRO MAGIC](https://thewhitewitchtm.github.io/whitewitch/magic/retro/)
-- [Emoji Games](https://thewhitewitchtm.github.io/emojigames/)
-- [SociallyDead](https://thewhitewitchtm.github.io/sociallydead/)
-- [GitHub](https://github.com/TheWhiteWitchTM/mira)
+- [FAUX NEWS](https://thewhitewitchtm.github.io/faux-news/)
+- [All projects](https://github.com/TheWhiteWitchTM?tab=repositories)

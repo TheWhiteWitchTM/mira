@@ -4,15 +4,16 @@ import MDX from "./tailwind.mdx"
 import {pageMetadata} from "@/app/metadata";
 
 export const metadata: Metadata = pageMetadata(
-	'Tailwind tutorial',
-	'A short Tailwind CSS tutorial on Mira\'s World.',
-	'/tutorials/tailwind',
+	"Tailwind",
+	"Tailwind CSS 4, the way this site is set up, including a layout that stacks on a phone.",
+	"/tutorials/tailwind",
 )
 
 export default function () {
 	return (
 		<PageContent className={"prose dark:prose-invert"}>
-			<h2>🌬️Tailwind Tutorial</h2>
+			<h1>Tailwind</h1>
+			<p>Utility classes, Tailwind 4, and a card that still works on a phone.</p>
 			<MDX/>
 	</PageContent>
 	)

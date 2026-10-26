@@ -4,15 +4,16 @@ import MDX from "./markdown.mdx"
 import {pageMetadata} from "@/app/metadata";
 
 export const metadata: Metadata = pageMetadata(
-	'Markdown tutorial',
-	'A short Markdown tutorial on Mira\'s World.',
-	'/tutorials/markdown',
+	"Markdown",
+	"Markdown this site actually renders. The code fences are highlighted.",
+	"/tutorials/markdown",
 )
 
 export default function () {
 	return (
 		<PageContent className={"prose dark:prose-invert"}>
-			<h2>📃Markdown Tutorial</h2>
+			<h1>Markdown</h1>
+			<p>A reference for the Markdown on this site. The colored fences are Shiki.</p>
 			<MDX/>
 	</PageContent>
 	)

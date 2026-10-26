@@ -1,322 +1,349 @@
-'use client';
+"use client"
 
-// @/next-static/legacy/MainMenu.tsx
-
-import * as React from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import * as React from "react"
+import { useState } from "react"
+import { usePathname } from "next/navigation"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, Menu } from "lucide-react";
-import { cn } from "@/lib/utils";
-
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuSeparator,
+	DropdownMenuSub,
+	DropdownMenuSubContent,
+	DropdownMenuSubTrigger,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
+import { extraProjects, githubProjects, isExternalHref, projectGroups } from "@/lib/desk"
 import {
-	Home,
-	Newspaper,
-	LayoutDashboard,
-	Wrench,
+	ChevronDown,
+	ExternalLink,
 	Flag,
-	Smile,
+	Github,
+	Home,
+	IdCard,
 	Lightbulb,
-	Text,
+	LayoutDashboard,
+	Menu,
+	Newspaper,
 	PaintbrushIcon,
+	Rss,
+	Smile,
+	Text,
 	Wind,
-} from "lucide-react";
-
-// ─── Types ────────────────────────────────────────────────────────────────
+	Wrench,
+} from "lucide-react"
 
 interface SubItem {
-	type?: "separator";
-	label?: string;
-	href?: string;
-	icon?: typeof Home;
-	shortcut?: string;
+	label: string
+	href: string
+	icon?: typeof Home
 }
 
 interface NavItem {
-	type: "link" | "submenu" | "card";
-	label: string;
-	href?: string;
-	icon?: typeof Home;
-	shortcut?: string;
-	subitems?: SubItem[];
-	cardContent?: React.ReactNode;
+	type: "link" | "submenu"
+	label: string
+	href?: string
+	icon?: typeof Home
+	subitems?: SubItem[]
 }
 
-// ─── Config ───────────────────────────────────────────────────────────────
+const feedHref = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/feed.xml`
+
+const toolItems: SubItem[] = [
+	{ label: "Calling Card", href: "/tools/calling-card", icon: IdCard },
+	{ label: "Emoji", href: "/tools/emoji", icon: Smile },
+	{ label: "Flags", href: "/tools/flags", icon: Flag },
+	{ label: "WebFont", href: "/tools/webfont", icon: Text },
+	{ label: "Image Magic", href: "/tools/image-magic", icon: PaintbrushIcon },
+]
+
+const tutorialItems: SubItem[] = [
+	{ label: "Tailwind", href: "/tutorials/tailwind", icon: Wind },
+	{ label: "Markdown", href: "/tutorials/markdown", icon: Newspaper },
+]
 
 const mainMenuItems: NavItem[] = [
 	{ type: "link", label: "Home", href: "/", icon: Home },
 	{ type: "link", label: "Blog", href: "/blog", icon: Newspaper },
-	{
-		type: "submenu",
-		label: "Projects",
-		icon: LayoutDashboard,
-		subitems: [
-			{ label: "⚡NEXT-static", href: "/projects/next-static" },
-			{ label: "📃NEXT-blog", href: "/projects/next-blog" },
-			{ type: "separator" },
-			{ label: "🤣Emoji UI", href: "/projects/emoji-ui" },
-		],
-	},
-	{
-		type: "submenu",
-		label: "Tools",
-		icon: Wrench,
-		subitems: [
-			{ label: "Flags", href: "/tools/flags", icon: Flag },
-			{ label: "Emoji", href: "/tools/emoji", icon: Smile },
-			{ label: "WebFont", href: "/tools/webfont", icon: Text },
-			{ type: "separator" },
-			{ label: "Image Magic", href: "/tools/image-magic", icon: PaintbrushIcon },
-		],
-	},
-	{
-		type: "submenu",
-		label: "Tutorials",
-		icon: Lightbulb,
-		subitems: [
-			{ label: "🌬️Tailwind", href: "/tutorials/tailwind"},
-			{ label: "📃Markdown", href: "/tutorials/markdown"},
-		],
-	},
-	/*
-	{
-		type: "card",
-		label: "Support My Work",
-		icon: HeartHandshake,
-		cardContent: (
-			<div className="space-y-3 text-sm">
-				<p className="text-muted-foreground">
-					If my open-source stuff, rants, or AI tinkering helps — a coffee or sponsor keeps the cauldron bubbling 🧙‍♀️
-				</p>
-				<div className="flex flex-col gap-2">
-					<a
-						href="https://www.paypal.com/ncp/payment/BVY3E2H2E2VWA"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="inline-flex h-8 items-center justify-center rounded bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary/90"
-					>
-						♥️Buy me a coffee!☕
-					</a>
-					<a
-						href="https://github.com/sponsors/TheWhiteWitchTM"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="text-xs text-muted-foreground hover:text-foreground underline"
-					>
-						Sponsor on GitHub
-					</a>
-				</div>
-			</div>
-		),
-	},
-	*/
-];
+	{ type: "submenu", label: "Projects", icon: LayoutDashboard },
+	{ type: "submenu", label: "Tools", icon: Wrench, subitems: toolItems },
+	{ type: "submenu", label: "Tutorials", icon: Lightbulb, subitems: tutorialItems },
+	{ type: "link", label: "RSS", href: feedHref, icon: Rss },
+]
 
-// ─── Component ────────────────────────────────────────────────────────────
+function isActivePath(pathname: string, href: string | undefined): boolean {
+	if (!href || isExternalHref(href) || href.endsWith(".xml")) return false
+	if (href === "/") return pathname === "/"
+	return pathname === href || pathname.startsWith(`${href}/`)
+}
+
+function MenuAnchor({
+	href,
+	className,
+	children,
+	onNavigate,
+}: {
+	href: string
+	className?: string
+	children: React.ReactNode
+	onNavigate?: () => void
+}) {
+	if (isExternalHref(href) || href.endsWith(".xml")) {
+		return (
+			<a
+				href={href}
+				target={href.endsWith(".xml") ? undefined : "_blank"}
+				rel={href.endsWith(".xml") ? undefined : "noopener noreferrer"}
+				className={className}
+				onClick={onNavigate}
+			>
+				{children}
+			</a>
+		)
+	}
+	return (
+		<Link href={href} className={className} onClick={onNavigate}>
+			{children}
+		</Link>
+	)
+}
+
+function projectAnchor(title: string, href: string) {
+	return (
+		<a href={href} target="_blank" rel="noopener noreferrer" className="flex w-full items-center gap-2">
+			<span className="min-w-0 flex-1 truncate">{title}</span>
+			<ExternalLink className="size-3 shrink-0 opacity-60" />
+		</a>
+	)
+}
 
 export function MainMenu() {
-	const pathname = usePathname();
+	const pathname = usePathname()
+	const [open, setOpen] = useState(false)
+	const close = () => setOpen(false)
 
-	const isActive = (item: NavItem) => {
-		if (item.href && pathname === item.href) return true;
-		if (item.subitems) {
-			return item.subitems.some((sub) => sub.href === pathname);
-		}
-		return false;
-	};
+	const sectionActive = (item: NavItem) => {
+		if (item.href && isActivePath(pathname, item.href)) return true
+		return item.subitems?.some((sub) => isActivePath(pathname, sub.href)) ?? false
+	}
 
-	// Desktop: flex-row left to right
-	const DesktopMenu = () => (
-		<div className={"mx-10 px-10 -my-0.5"}>
-		<div className="hidden md:flex flex-row gap-2">
-			{mainMenuItems.map((item, index) => {
-				const active = isActive(item);
-				const buttonClasses = cn(
-					"h-9 rounded-md text-sm font-medium transition-colors",
-					"flex items-center gap-1.5",
-					"hover:bg-accent hover:text-accent-foreground",
-					active && "underline underline-offset-4"
-				);
+	const buttonClasses = (active: boolean) =>
+		cn(
+			"h-9 rounded-md px-2.5 text-sm font-medium",
+			"flex items-center gap-1.5",
+			active && "underline underline-offset-4",
+		)
 
-				return (
-					<div key={index}>
-						{item.type === "link" && item.href && (
-							<Link href={item.href}>
-								<Button variant="ghost" className={buttonClasses}>
-									{item.icon && <item.icon className="h-4 w-4" />}
-									{item.label}
-								</Button>
-							</Link>
-						)}
-
-						{item.type === "submenu" && item.subitems && (
-							<Popover>
-								<PopoverTrigger asChild>
-									<Button variant="ghost" className={buttonClasses}>
-										{item.icon && <item.icon className="h-4 w-4" />}
-										{item.label}
-									</Button>
-								</PopoverTrigger>
-								<PopoverContent className="w-48 p-0">
-									<div className="component !-mt-0.5 flex flex-col py-1">
-										{item.subitems.map((sub, subIndex) => {
-											if (sub.type === "separator") {
-												return <Separator key={subIndex} className="my-1" />;
-											}
-											const subActive = sub.href === pathname;
-											return (
-												<Link
-													key={subIndex}
-													href={sub.href || "#"}
-													className={cn(
-														"flex items-center gap-2 px-4 py-2 text-sm hover:bg-accent",
-														subActive && "underline underline-offset-4 bg-accent/50"
-													)}
-												>
-													{sub.icon && <sub.icon className="h-4 w-4" />}
-													{sub.label}
-													{sub.shortcut && <span className="ml-auto text-xs opacity-50">{sub.shortcut}</span>}
-												</Link>
-											);
-										})}
-									</div>
-								</PopoverContent>
-							</Popover>
-						)}
-
-						{item.type === "card" && item.cardContent && (
-							<Popover>
-								<PopoverTrigger asChild>
-									<Button variant="ghost" className={buttonClasses}>
-										{item.icon && <item.icon className="h-4 w-4" />}
-										{item.label}
-									</Button>
-								</PopoverTrigger>
-								<PopoverContent className="w-80 p-0 border-0 shadow-md">
-									<Card className="border-0 shadow-none">
-										<CardHeader className="pb-2">
-											<CardTitle className="text-sm">{item.label}</CardTitle>
-										</CardHeader>
-										<CardContent>{item.cardContent}</CardContent>
-									</Card>
-								</PopoverContent>
-							</Popover>
-						)}
-					</div>
-				);
-			})}
-		</div>
-		</div>
-	);
-
-	// Mobile: hamburger sheet with vertical list
-	const MobileMenu = () => (
-		<Sheet>
-			<SheetTrigger asChild>
-				<Button variant="ghost" size="icon" className="md:hidden">
-					<Menu className="h-5 w-5" />
-				</Button>
-			</SheetTrigger>
-			<SheetContent side="left" className="w-64 p-0">
-				<div className="flex flex-col p-4">
-					{mainMenuItems.map((item, index) => {
-						const active = isActive(item);
-						return (
-							<div key={index} className="py-1">
-								{item.type === "link" && item.href && (
-									<Link
+	return (
+		<div className="flex items-center gap-1">
+			<Sheet open={open} onOpenChange={setOpen}>
+				<SheetTrigger asChild>
+					<Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu">
+						<Menu className="h-5 w-5" />
+					</Button>
+				</SheetTrigger>
+				<SheetContent side="left" className="w-[min(100vw-2rem,20rem)] overflow-y-auto p-0">
+					<nav className="flex flex-col p-3" aria-label="Site">
+						{mainMenuItems.map((item) => {
+							if (item.type === "link" && item.href) {
+								const active = isActivePath(pathname, item.href)
+								return (
+									<MenuAnchor
+										key={item.label}
 										href={item.href}
+										onNavigate={close}
 										className={cn(
-											"flex items-center gap-2 px-4 py-2 text-sm font-medium hover:bg-accent",
-											active && "underline underline-offset-4 bg-accent/50"
+											"flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent",
+											active && "bg-accent/50 underline underline-offset-4",
 										)}
 									>
 										{item.icon && <item.icon className="h-4 w-4" />}
 										{item.label}
-										{item.shortcut && <span className="ml-auto text-xs opacity-50">{item.shortcut}</span>}
-									</Link>
-								)}
-
-								{item.type === "submenu" && item.subitems && (
-									<div>
-										<div
-											className={cn(
-												"flex items-center gap-2 px-4 py-2 text-sm font-medium hover:bg-accent",
-												active && "underline underline-offset-4 bg-accent/50"
-											)}
-										>
-											{item.icon && <item.icon className="h-4 w-4" />}
-											{item.label}
-											{item.shortcut && <span className="ml-auto text-xs opacity-50">{item.shortcut}</span>}
-										</div>
-										<div className="ml-6 border-l pl-2 space-y-1">
-											{item.subitems.map((sub, subIndex) => {
-												if (sub.type === "separator") {
-													return <Separator key={subIndex} className="my-1" />;
-												}
-												const subActive = sub.href === pathname;
-												return (
-													<Link
-														key={subIndex}
-														href={sub.href || "#"}
-														className={cn(
-															"flex items-center gap-2 px-2 py-1 text-sm hover:bg-accent/50",
-															subActive && "underline underline-offset-4 bg-accent/30"
-														)}
+									</MenuAnchor>
+								)
+							}
+							if (item.label === "Projects") {
+								return (
+									<details key={item.label} className="group py-1">
+										<summary className="flex cursor-pointer list-none items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent [&::-webkit-details-marker]:hidden">
+											<LayoutDashboard className="h-4 w-4" />
+											Projects
+											<ChevronDown className="ml-auto h-4 w-4 transition-transform group-open:rotate-180" />
+										</summary>
+										<div className="ml-3 border-l pl-2">
+											{projectGroups.map((group) => (
+												<div key={group.title} className="py-1">
+													<p className="px-2 pt-2 text-[0.7rem] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+														{group.title}
+													</p>
+													{group.links.map((link) => (
+														<a
+															key={link.href}
+															href={link.href}
+															target="_blank"
+															rel="noopener noreferrer"
+															onClick={close}
+															className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent"
+														>
+															<span className="min-w-0 flex-1">{link.title}</span>
+															<ExternalLink className="size-3 shrink-0 opacity-60" />
+														</a>
+													))}
+												</div>
+											))}
+											<div className="mt-1 border-t pt-1">
+												{extraProjects.map((link) => (
+													<a
+														key={link.href}
+														href={link.href}
+														target="_blank"
+														rel="noopener noreferrer"
+														onClick={close}
+														className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent"
 													>
-														{sub.icon && <sub.icon className="h-4 w-4" />}
-														{sub.label}
-														{sub.shortcut && <span className="ml-auto text-xs opacity-50">{sub.shortcut}</span>}
-													</Link>
-												);
-											})}
+														{link.title}
+														<ExternalLink className="ml-auto size-3 opacity-60" />
+													</a>
+												))}
+												<a
+													href={githubProjects.href}
+													target="_blank"
+													rel="noopener noreferrer"
+													onClick={close}
+													className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium hover:bg-accent"
+												>
+													<Github className="h-4 w-4" />
+													{githubProjects.title}
+												</a>
+											</div>
 										</div>
+									</details>
+								)
+							}
+							return (
+								<details key={item.label} className="group py-1">
+									<summary className="flex cursor-pointer list-none items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent [&::-webkit-details-marker]:hidden">
+										{item.icon && <item.icon className="h-4 w-4" />}
+										{item.label}
+										<ChevronDown className="ml-auto h-4 w-4 transition-transform group-open:rotate-180" />
+									</summary>
+									<div className="ml-4 border-l pl-2">
+										{item.subitems?.map((sub) => {
+											const subActive = isActivePath(pathname, sub.href)
+											return (
+												<Link
+													key={sub.href}
+													href={sub.href}
+													onClick={close}
+													className={cn(
+														"flex items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent",
+														subActive && "bg-accent/40 underline underline-offset-4",
+													)}
+												>
+													{sub.icon && <sub.icon className="h-4 w-4" />}
+													{sub.label}
+												</Link>
+											)
+										})}
 									</div>
-								)}
+								</details>
+							)
+						})}
+					</nav>
+				</SheetContent>
+			</Sheet>
 
-								{item.type === "card" && item.cardContent && (
-									<div>
-										<div
+			<nav className="hidden flex-wrap items-center gap-0.5 md:flex" aria-label="Site">
+				{mainMenuItems.map((item) => {
+					const active = sectionActive(item) || isActivePath(pathname, item.href)
+					if (item.type === "link" && item.href) {
+						return (
+							<MenuAnchor key={item.label} href={item.href}>
+								<Button variant="ghost" className={buttonClasses(active)}>
+									{item.icon && <item.icon className="h-4 w-4" />}
+									{item.label}
+								</Button>
+							</MenuAnchor>
+						)
+					}
+					if (item.label === "Projects") {
+						return (
+							<DropdownMenu key={item.label}>
+								<DropdownMenuTrigger asChild>
+									<Button variant="ghost" className={buttonClasses(false)}>
+										<LayoutDashboard className="h-4 w-4" />
+										Projects
+										<ChevronDown className="h-3 w-3 opacity-70" />
+									</Button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent align="start" className="w-56">
+									{projectGroups.map((group) => (
+										<DropdownMenuSub key={group.title}>
+											<DropdownMenuSubTrigger>{group.title}</DropdownMenuSubTrigger>
+											<DropdownMenuSubContent className="w-56">
+												{group.links.map((link) => (
+													<DropdownMenuItem key={link.href} asChild>
+														{projectAnchor(link.title, link.href)}
+													</DropdownMenuItem>
+												))}
+											</DropdownMenuSubContent>
+										</DropdownMenuSub>
+									))}
+									<DropdownMenuSeparator />
+									{extraProjects.map((link) => (
+										<DropdownMenuItem key={link.href} asChild>
+											{projectAnchor(link.title, link.href)}
+										</DropdownMenuItem>
+									))}
+									<DropdownMenuSeparator />
+									<DropdownMenuItem asChild>
+										<a
+											href={githubProjects.href}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="flex w-full items-center gap-2"
+										>
+											<Github className="h-4 w-4" />
+											{githubProjects.title}
+										</a>
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						)
+					}
+					return (
+						<DropdownMenu key={item.label}>
+							<DropdownMenuTrigger asChild>
+								<Button variant="ghost" className={buttonClasses(active)}>
+									{item.icon && <item.icon className="h-4 w-4" />}
+									{item.label}
+									<ChevronDown className="h-3 w-3 opacity-70" />
+								</Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent align="start" className="w-48">
+								{item.subitems?.map((sub) => (
+									<DropdownMenuItem key={sub.href} asChild>
+										<Link
+											href={sub.href}
 											className={cn(
-												"flex items-center gap-2 px-4 py-2 text-sm font-medium hover:bg-accent",
-												active && "underline underline-offset-4 bg-accent/50"
+												"flex w-full items-center gap-2",
+												isActivePath(pathname, sub.href) && "underline underline-offset-4",
 											)}
 										>
-											{item.icon && <item.icon className="h-4 w-4" />}
-											{item.label}
-											{item.shortcut && <span className="ml-auto text-xs opacity-50">{item.shortcut}</span>}
-										</div>
-										<div className="ml-6 p-2">
-											<Card className="shadow-none border">
-												<CardHeader className="p-3 pb-1">
-													<CardTitle className="text-sm">{item.label}</CardTitle>
-												</CardHeader>
-												<CardContent className="p-3 pt-0">{item.cardContent}</CardContent>
-											</Card>
-										</div>
-									</div>
-								)}
-							</div>
-						);
-					})}
-				</div>
-			</SheetContent>
-		</Sheet>
-	);
-
-	return (
-		<div className="flex items-start gap-1">
-			<MobileMenu />
-			<DesktopMenu />
+											{sub.icon && <sub.icon className="h-4 w-4" />}
+											{sub.label}
+										</Link>
+									</DropdownMenuItem>
+								))}
+							</DropdownMenuContent>
+						</DropdownMenu>
+					)
+				})}
+			</nav>
 		</div>
-	);
+	)
 }

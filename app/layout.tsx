@@ -3,7 +3,8 @@ import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner"
-import {baseMetadata, siteUrl} from "@/app/metadata";
+import {baseMetadata, siteUrl, withBase} from "@/app/metadata";
+import {extraProjects, githubProjects, projectGroups} from "@/lib/desk";
 import {Appbar} from "@/next-static/legacy/Appbar";
 import {MainMenu} from "@/components/MainMenu";
 import Link from "next/link";
@@ -64,14 +65,20 @@ const jsonLd = {
 			'@type': 'ItemList',
 			name: "Mira's World",
 			itemListElement: [
-				{ '@type': 'ListItem', position: 1, name: 'Blog', url: `${siteUrl}/blog/` },
-				{ '@type': 'ListItem', position: 2, name: 'Tools', url: `${siteUrl}/tools/` },
-				{ '@type': 'ListItem', position: 3, name: 'Emoji UI', url: `${siteUrl}/projects/emoji-ui/` },
-				{ '@type': 'ListItem', position: 4, name: 'NEXT-blog', url: `${siteUrl}/projects/next-blog/` },
-				{ '@type': 'ListItem', position: 5, name: 'NEXT-static', url: `${siteUrl}/projects/next-static/` },
-				{ '@type': 'ListItem', position: 6, name: 'Emoji Games', url: 'https://thewhitewitchtm.github.io/emojigames/' },
-				{ '@type': 'ListItem', position: 7, name: 'The White Witch', url: 'https://thewhitewitchtm.github.io/whitewitch/' },
-			],
+				{ name: 'Blog', url: `${siteUrl}/blog/` },
+				{ name: 'Tools', url: `${siteUrl}/tools/` },
+				{ name: 'Calling Card', url: `${siteUrl}/tools/calling-card/` },
+				{ name: 'Tutorials', url: `${siteUrl}/tutorials/markdown/` },
+				{ name: 'RSS', url: `${siteUrl}/feed.xml` },
+				...projectGroups.flatMap((group) => group.links.map((link) => ({ name: link.title, url: link.href }))),
+				...extraProjects.map((link) => ({ name: link.title, url: link.href })),
+				{ name: githubProjects.title, url: githubProjects.href },
+			].map((item, index) => ({
+				'@type': 'ListItem',
+				position: index + 1,
+				name: item.name,
+				url: item.url,
+			})),
 		},
 	],
 }
@@ -88,7 +95,7 @@ export default function RootLayout({
 				<Avatar className={"border-2 border-green-600 shadow-[0_0_10px_#dc2626] shadow-green-500/70"}>
 					<AvatarImage src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/icon-192x192.png`} alt="Mira's World"/>
 				</Avatar>
-				<div className={"mt-1.5 clock-font text-green-600"}>
+				<div className={"mt-1.5 hidden min-[420px]:block clock-font text-green-600"}>
 					<b>Mira's World™</b>
 				</div>
 			</div>
@@ -100,28 +107,23 @@ export default function RootLayout({
 	)
 
 	const footer = (
-		<Appbar className={"component"}
-			left={
-				<div className={"px-3 pt-1 flex flex-row gap-2"}>
-					<DigitalClock/>
-					<Weather/>
-				</div>
-			}
-			right={
-			<span className={"px-5"}>
-			<Link
-				href="https://www.paypal.com/ncp/payment/BVY3E2H2E2VWA"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				♥️Buy me a coffee!☕
-			</Link>
-			</span>
-		}>
-			<span className={"px-5"}>
-				Build using ⚡NEXT-static & 📃NEXT-blog!
-			</span>
-		</Appbar>
+		<footer className={"component flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-3 py-2 text-sm"}>
+			<div className={"flex flex-wrap items-center gap-3"}>
+				<DigitalClock/>
+				<Weather/>
+			</div>
+			<div className={"flex flex-wrap items-center gap-x-4 gap-y-1"}>
+				<a href={withBase("/feed.xml")}>RSS</a>
+				<a href="https://thewhitewitchtm.github.io/" target="_blank" rel="noopener noreferrer">The card</a>
+				<Link
+					href="https://www.paypal.com/ncp/payment/BVY3E2H2E2VWA"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Buy me a coffee
+				</Link>
+			</div>
+		</footer>
 	)
 
 	const left = (

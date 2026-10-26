@@ -10,7 +10,7 @@ export function withBase(path: string): string {
 }
 export const siteName = "Mira's World"
 const defaultTitle = "Mira's World — projects, tools, and a dev blog by The White Witch"
-const defaultDescription = "Mira's World, by The White Witch. Open-source projects, browser tools, tutorials, and a dev blog. Emoji UI, NEXT-blog, and NEXT-static. The pages are static."
+const defaultDescription = "Mira's World, by The White Witch. A card for the lab: browser tools, tutorials, a dev blog, and the desk of projects. The pages are static."
 
 export const baseMetadata: Metadata = {
 	metadataBase: new URL(siteOrigin),
@@ -22,12 +22,15 @@ export const baseMetadata: Metadata = {
 	keywords: [
 		"Mira's World",
 		'The White Witch',
-		'Mira',
-		'Emoji UI',
-		'NEXT-blog',
-		'NEXT-static',
-		'Emoji Games',
-		'MAGIC',
+		"Mira",
+		"LibreSky",
+		"SociallyDead",
+		"MAGIC",
+		"RETRO MAGIC",
+		"Blogy",
+		"Vesper",
+		"Cinder",
+		"Emoji Games",
 		'open source',
 		'dev blog',
 		'Next.js',
@@ -48,9 +51,9 @@ export const baseMetadata: Metadata = {
 		images: [
 			{
 				url: withBase('/banner.jpg'),
-				width: 1024,
-				height: 1024,
-				alt: "Mira's World. Blog, tech tips, open source, and AI.",
+				width: 720,
+				height: 1280,
+				alt: "Mira, smiling, red hair in a ponytail, black jacket, pointing.",
 			},
 		],
 		locale: 'en_US',
@@ -104,9 +107,9 @@ export function pageMetadata(title: string, description: string, path: string): 
 			images: [
 				{
 					url: withBase('/banner.jpg'),
-					width: 1024,
-					height: 1024,
-					alt: "Mira's World. Blog, tech tips, open source, and AI.",
+					width: 720,
+					height: 1280,
+					alt: "Mira, smiling, red hair in a ponytail, black jacket, pointing.",
 				},
 			],
 		},

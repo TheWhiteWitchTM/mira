@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mira's World</title>
     <link>https://thewhitewitchtm.github.io/mira/</link>
-    <description>Open-source projects, browser tools, tutorials, and a dev blog by Mira.</description>
+    <atom:link href="https://thewhitewitchtm.github.io/mira/feed.xml" rel="self" type="application/rss+xml" />
+    <description>The lab of Mira, The White Witch. Tools, tutorials, and the dev blog.</description>
     <language>en</language>
+    <lastBuildDate>Mon, 26 Oct 2026 03:20:07 GMT</lastBuildDate>
     <item>
       <title>Why We Need to Talk About AI!</title>
       <link>https://thewhitewitchtm.github.io/mira/blog/ai_talk/Why_we_need_to_talk/</link>

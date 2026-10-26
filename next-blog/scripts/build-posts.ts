@@ -215,12 +215,14 @@ ${loaders}
 	}).join('\n');
 
 	const feed = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mira's World</title>
     <link>${SITE_URL}/</link>
-    <description>Open-source projects, browser tools, tutorials, and a dev blog by Mira.</description>
+    <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
+    <description>The lab of Mira, The White Witch. Tools, tutorials, and the dev blog.</description>
     <language>en</language>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
 ${items}
   </channel>
 </rss>
