@@ -22,11 +22,22 @@ const components: MDXComponents = {
 	),
 
 	// Better links
-	a: ({ href, children }) => (
-		<Link href={href as string} className="text-primary underline underline-offset-4 hover:text-primary/80">
-			{children}
-		</Link>
-	),
+	a: ({ href, children }) => {
+		const url = typeof href === "string" ? href : ""
+		const className = "text-primary underline underline-offset-4 hover:text-primary/80"
+		if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("mailto:")) {
+			return (
+				<a href={url} className={className} target="_blank" rel="noopener noreferrer">
+					{children}
+				</a>
+			)
+		}
+		return (
+			<Link href={url || "/"} className={className}>
+				{children}
+			</Link>
+		)
+	},
 
 	// Optional: override headings, etc.
 	h1: ({ children }) => <h1 className="scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl">{children}</h1>,

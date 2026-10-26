@@ -5,11 +5,12 @@ import {pageMetadata} from "@/app/metadata";
 
 export const metadata: Metadata = pageMetadata(
 	'Tools',
-	"Browser tools on Mira's World: a calling card, emoji, flags, web fonts, and Image Magic. Nothing is uploaded.",
+	"Browser tools on Mira's World: link cards, a calling card, emoji, flags, web fonts, and Image Magic. Nothing is uploaded.",
 	'/tools',
 )
 
 const tools = [
+	{ href: "/tools/unfurl", title: "Unfurl", text: "See the link card on X, Bluesky, Discord, and Slack, then copy the meta tags." },
 	{ href: "/tools/calling-card", title: "Calling Card", text: "Draw a share image for a post. Wide or square. Nothing is uploaded." },
 	{ href: "/tools/emoji", title: "Emoji builder", text: "Assemble an emoji." },
 	{ href: "/tools/flags", title: "Flag builder", text: "Build a flag in the browser." },

@@ -27,6 +27,7 @@ import {
 	IdCard,
 	Lightbulb,
 	LayoutDashboard,
+	Link2,
 	Menu,
 	Newspaper,
 	PaintbrushIcon,
@@ -54,6 +55,7 @@ interface NavItem {
 const feedHref = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/feed.xml`
 
 const toolItems: SubItem[] = [
+	{ label: "Unfurl", href: "/tools/unfurl", icon: Link2 },
 	{ label: "Calling Card", href: "/tools/calling-card", icon: IdCard },
 	{ label: "Emoji", href: "/tools/emoji", icon: Smile },
 	{ label: "Flags", href: "/tools/flags", icon: Flag },

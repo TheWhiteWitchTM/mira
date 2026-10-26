@@ -127,16 +127,18 @@ export default function RootLayout({
 	)
 
 	const left = (
-		<div className={"hidden md:flex flex-col flex-1 !my-4 !p-2 component w-40"}>
+		<div className={"hidden md:flex flex-col flex-1 !my-4 !p-2 component w-48"}>
 			<SidebarLeft/>
 		</div>
 	)
 
 	const right = (
 		<div className={"hidden md:flex flex-col flex-1 !my-4 !p-2 component w-20"}>
-			<Link
-				href={"https://thewhitewitchtm.sociallydead.me/"}
-				target={"_blank"}>
+			<a
+				href="https://thewhitewitchtm.github.io/whitewitch/"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
 			<Image
 				src={"/witch.png"}
 				alt={"The White Witch"}
@@ -144,7 +146,7 @@ export default function RootLayout({
 				height={200}
 				priority
 			/>
-			</Link>
+			</a>
 			<SidebarRight/>
 		</div>
 	)

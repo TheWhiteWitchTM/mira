@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		'',
 		'/blog',
 		'/tools',
+		"/tools/unfurl",
 		"/tools/calling-card",
 		"/tools/emoji",
 		"/tools/flags",

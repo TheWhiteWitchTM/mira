@@ -50,10 +50,10 @@ export const baseMetadata: Metadata = {
 		siteName,
 		images: [
 			{
-				url: withBase('/banner.jpg'),
-				width: 720,
-				height: 1280,
-				alt: "Mira, smiling, red hair in a ponytail, black jacket, pointing.",
+				url: withBase('/og.jpg'),
+				width: 1200,
+				height: 630,
+				alt: "Mira, red hair in a ponytail, black jacket, pointing. The lab is open.",
 			},
 		],
 		locale: 'en_US',
@@ -65,12 +65,13 @@ export const baseMetadata: Metadata = {
 		description: defaultDescription,
 		site: '@TheWhiteWitchTM',
 		creator: '@TheWhiteWitchTM',
-		images: [withBase('/banner.jpg')],
+		images: [withBase('/og.jpg')],
 	},
 	icons: {
 		icon: [
-			{ url: withBase('/icon.svg'), type: 'image/svg+xml' },
-			{ url: withBase('/favicon.ico') },
+			{ url: withBase('/favicon.ico'), sizes: '32x32' },
+			{ url: withBase('/icon-192x192.png'), sizes: '192x192', type: 'image/png' },
+			{ url: withBase('/icon-512x512.png'), sizes: '512x512', type: 'image/png' },
 		],
 		apple: withBase('/apple-touch-icon.png'),
 	},
@@ -106,10 +107,10 @@ export function pageMetadata(title: string, description: string, path: string): 
 			type: 'website',
 			images: [
 				{
-					url: withBase('/banner.jpg'),
-					width: 720,
-					height: 1280,
-					alt: "Mira, smiling, red hair in a ponytail, black jacket, pointing.",
+					url: withBase('/og.jpg'),
+					width: 1200,
+					height: 630,
+					alt: "Mira, red hair in a ponytail, black jacket, pointing. The lab is open.",
 				},
 			],
 		},
@@ -117,7 +118,7 @@ export function pageMetadata(title: string, description: string, path: string): 
 			card: 'summary_large_image',
 			title,
 			description,
-			images: [withBase('/banner.jpg')],
+			images: [withBase('/og.jpg')],
 		},
 	}
 }

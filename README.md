@@ -11,6 +11,7 @@
   The lab of Mira, The White Witch. Tools, tutorials, and a dev blog.<br>
   <a href="https://thewhitewitchtm.github.io/mira/blog/">Blog</a> ·
   <a href="https://thewhitewitchtm.github.io/mira/tools/">Tools</a> ·
+  <a href="https://thewhitewitchtm.github.io/mira/tools/unfurl/">Unfurl</a> ·
   <a href="https://thewhitewitchtm.github.io/mira/tools/calling-card/">Calling Card</a> ·
   <a href="https://thewhitewitchtm.github.io/mira/feed.xml">RSS</a>
 </p>

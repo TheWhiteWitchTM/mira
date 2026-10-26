@@ -22,8 +22,8 @@ export default function Home() {
 						<Image
 							src="/banner.jpg"
 							alt="Mira, smiling, red hair in a ponytail, black jacket, pointing."
-							width={720}
-							height={1280}
+							width={1008}
+							height={1792}
 							priority
 							className="aspect-[3/4] h-auto w-full object-cover object-top sm:aspect-auto sm:h-full sm:min-h-[24rem] sm:max-h-[34rem]"
 						/>
