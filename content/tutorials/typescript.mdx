@@ -1,0 +1,159 @@
+---
+title: TypeScript reference
+description: The subset I actually type on a consultant desk. Strict mode, unions, generics you can read, and Next.js static export.
+date: 2026-10-26
+tags: [typescript, nextjs]
+---
+
+TypeScript is JavaScript with names for the shapes. The compiler is a linter that runs before the browser. This site is `strict: true`. That is the default you want on a client project.
+
+I write C# when the server needs a spine. I write TypeScript when the page has to ship as files. The two habits transfer: name the type, keep the function small, fail in one place.
+
+## A file that is enough
+
+```ts
+export interface Person {
+  name: string
+  email: string
+  hire: boolean
+}
+
+export function byline(person: Person): string {
+  return `${person.name} <${person.email}>`
+}
+```
+
+`interface` is a shape. `string` is a string. The function says what it takes and what it returns. If a caller passes a number for `name`, the build stops. That is the whole pitch.
+
+## Strict
+
+`tsconfig.json` on this site:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "paths": { "@/*": ["./*"] }
+  }
+}
+```
+
+`strict` turns on `strictNullChecks`, `noImplicitAny`, and the rest. `noEmit` is for Next.js: the bundler emits, `tsc` only checks. `@/*` is why `import { person } from "@/lib/site"` works.
+
+`any` is a hole. Use `unknown` when you do not know yet, then narrow.
+
+```ts
+function asError(value: unknown): string {
+  if (value instanceof Error) return value.message
+  return String(value)
+}
+```
+
+## Unions instead of flags
+
+```ts
+type Status = "idle" | "loading" | "ready" | "error"
+
+function label(status: Status): string {
+  switch (status) {
+    case "idle":
+      return "Idle"
+    case "loading":
+      return "Loading"
+    case "ready":
+      return "Ready"
+    case "error":
+      return "Error"
+  }
+}
+```
+
+A boolean `isLoading` plus `hasError` is four states you did not name. A union is four states you did. The `switch` is exhaustive under `strict`. Forget a case and the build stops.
+
+## Optional, not nullable soup
+
+```ts
+type Link = {
+  title: string
+  href: string
+  external?: boolean
+}
+```
+
+`external?` is `boolean | undefined`. Check it, or default it.
+
+```ts
+function target(link: Link): "_blank" | undefined {
+  return link.external ? "_blank" : undefined
+}
+```
+
+Do not write `string | null | undefined` unless a third-party API already did.
+
+## Generics you can read
+
+A generic is a hole with a name. Keep the name short and obvious.
+
+```ts
+export function first<T>(items: T[]): T | undefined {
+  return items[0]
+}
+```
+
+If you cannot say the name out loud (`TItem`, `TKey`), the generic is doing too much. Two type parameters is usually the ceiling on a page like this.
+
+## Next.js, static
+
+This site is `output: "export"`. That means:
+
+- No server functions.
+- No `headers()` or `cookies()`.
+- `generateStaticParams` for every dynamic route.
+- `trailingSlash: true` so GitHub Pages finds `blog/foo/index.html`.
+- `basePath: "/mira"` in production, empty in `next dev`.
+
+```ts
+const basePath = process.env.GITHUB_PAGES === "true" ? "/mira" : ""
+
+const nextConfig = {
+  output: "export",
+  trailingSlash: true,
+  basePath,
+  images: { unoptimized: true },
+}
+```
+
+`images.unoptimized` is required on GitHub Pages. There is no image optimizer process. Prefix public files yourself when you use a raw `<img>`:
+
+```ts
+export function withBase(path: string): string {
+  const normalized = path.startsWith("/") ? path : `/${path}`
+  return `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${normalized}`
+}
+```
+
+`next/link` prefixes `href` for you. A raw `<a href="/feed.xml">` does not. Use `withBase` for those.
+
+## C# next to TypeScript
+
+The same idea in C#:
+
+```csharp
+public sealed record Person(string Name, string Email, bool Hire);
+
+public static string Byline(Person person) =>
+    $"{person.Name} <{person.Email}>";
+```
+
+Records, unions (`record` + inheritance, or `OneOf` if you must), and nullability (`string?`) are the transfer. I use C# for services, tools, and Qt-adjacent work. I use TypeScript for the page you are reading.
+
+## Before you ship
+
+- `strict` is on.
+- No `any` in the files you own.
+- Dynamic routes have `generateStaticParams`.
+- The production build is `GITHUB_PAGES=true npm run build`, and `out/` is what GitHub serves.
+- You opened `/mira/` as well as `/`, because the prefix is how project pages work.

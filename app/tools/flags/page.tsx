@@ -1,21 +1,19 @@
-import type { Metadata } from "next";
-import {PageContent} from "@/next-static/legacy/PageContent";
-import {FlagBuilder} from "@/components/FlagBuilder";
-import {pageMetadata} from "@/app/metadata";
+import { FlagBuilder } from "@/components/tools/FlagBuilder"
+import { pageMetadata } from "@/lib/metadata"
 
-export const metadata: Metadata = pageMetadata(
-	'Flag builder',
-	'Build a flag in the browser on Mira\'s World.',
-	'/tools/flags',
+export const metadata = pageMetadata(
+  "Flag builder",
+  "Build a flag sequence from country codes and names. Nothing is uploaded.",
+  "/tools/flags/",
 )
 
-export default function () {
-	return (
-		<PageContent className={"prose dark:prose-invert"}>
-			<h2>🏳️‍Flag Builder</h2>
-			<span className={"font-flags"}>
-				<FlagBuilder/>
-			</span>
-	</PageContent>
-	)
+export default function FlagsPage() {
+  return (
+    <div>
+      <p className="kicker">Tools</p>
+      <h1 className="mt-1 text-4xl font-semibold tracking-tight text-white">Flags</h1>
+      <p className="mt-3 max-w-prose text-muted">Type 2-letter codes or country names. Spaces separate flags. Click a flag to copy it.</p>
+      <FlagBuilder />
+    </div>
+  )
 }

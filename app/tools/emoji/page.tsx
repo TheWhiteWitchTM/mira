@@ -1,21 +1,19 @@
-import type { Metadata } from "next";
-import {PageContent} from "@/next-static/legacy/PageContent";
-import {EmojiBuilder} from "@/components/EmojiBuilder";
-import {pageMetadata} from "@/app/metadata";
+import { EmojiBuilder } from "@/components/tools/EmojiBuilder"
+import { pageMetadata } from "@/lib/metadata"
 
-export const metadata: Metadata = pageMetadata(
-	'Emoji builder',
-	'Assemble an emoji in the browser on Mira\'s World.',
-	'/tools/emoji',
+export const metadata = pageMetadata(
+  "Emoji builder",
+  "Search and assemble emoji in the browser. Nothing is uploaded.",
+  "/tools/emoji/",
 )
 
-export default function Emoji() {
-	return (
-		<PageContent className={"prose dark:prose-invert"}>
-			<h2>🤣Emoji Builder</h2>
-			<span className={"font-flags"}>
-			<EmojiBuilder/>
-			</span>
-		</PageContent>
-	)
+export default function EmojiPage() {
+  return (
+    <div>
+      <p className="kicker">Tools</p>
+      <h1 className="mt-1 text-4xl font-semibold tracking-tight text-white">Emoji</h1>
+      <p className="mt-3 max-w-prose text-muted">Type a description. Separate sequences with commas. Skin tones: light, medium-light, medium, medium-dark, dark.</p>
+      <EmojiBuilder />
+    </div>
+  )
 }

@@ -1,35 +1,28 @@
 # Mira's World
 
-> The lab of Mira, The White Witch. Browser tools, tutorials, and a dev blog. The pages are static.
+> Professional lab of Mira, The White Witch. Freelance consultant in AI, C#, and TypeScript. Browser tools, tutorials, and a dev blog. Static Next.js on GitHub Pages.
 
 ## Here
 
-- [Mira's World](https://thewhitewitchtm.github.io/mira/)
+- [Mira's World](https://thewhitewitchtm.github.io/mira/): Home
+- [About](https://thewhitewitchtm.github.io/mira/about/): Bio and hire
+- [Projects](https://thewhitewitchtm.github.io/mira/projects/): Desk of shipped work
 - [Blog](https://thewhitewitchtm.github.io/mira/blog/)
 - [Tools](https://thewhitewitchtm.github.io/mira/tools/)
 - [Unfurl](https://thewhitewitchtm.github.io/mira/tools/unfurl/)
 - [Calling Card](https://thewhitewitchtm.github.io/mira/tools/calling-card/)
-- [Emoji](https://thewhitewitchtm.github.io/mira/tools/emoji/)
-- [Flags](https://thewhitewitchtm.github.io/mira/tools/flags/)
-- [Web font](https://thewhitewitchtm.github.io/mira/tools/webfont/)
-- [Image Magic](https://thewhitewitchtm.github.io/mira/tools/image-magic/)
+- [Post Meter](https://thewhitewitchtm.github.io/mira/tools/post-meter/)
+- [Tutorials](https://thewhitewitchtm.github.io/mira/tutorials/)
 - [Markdown](https://thewhitewitchtm.github.io/mira/tutorials/markdown/)
-- [Tailwind](https://thewhitewitchtm.github.io/mira/tutorials/tailwind/)
+- [Tailwind 4](https://thewhitewitchtm.github.io/mira/tutorials/tailwind/)
+- [TypeScript](https://thewhitewitchtm.github.io/mira/tutorials/typescript/)
 - [RSS](https://thewhitewitchtm.github.io/mira/feed.xml)
 
 ## The desk
 
 - [The card](https://thewhitewitchtm.github.io/)
 - [The White Witch](https://thewhitewitchtm.github.io/whitewitch/)
-- [Emoji Games](https://thewhitewitchtm.github.io/emojigames/)
+- [GitHub](https://github.com/TheWhiteWitchTM)
 - [LibreSky](https://thewhitewitchtm.github.io/LibreSky/)
-- [LibreSky Corporate](https://thewhitewitchtm.github.io/corporate/)
-- [SociallyDead](https://thewhitewitchtm.github.io/sociallydead/)
-- [Blogy](https://thewhitewitchtm.github.io/blogy/)
-- [MAGIC Dock](https://thewhitewitchtm.github.io/magic-dock/)
-- [Cinder](https://thewhitewitchtm.github.io/cinder/)
-- [Vesper](https://thewhitewitchtm.github.io/vesper/)
-- [MAGIC](https://thewhitewitchtm.github.io/whitewitch/magic/)
-- [RETRO MAGIC](https://thewhitewitchtm.github.io/whitewitch/magic/retro/)
-- [FAUX NEWS](https://thewhitewitchtm.github.io/faux-news/)
+- [Emoji Games](https://thewhitewitchtm.github.io/emojigames/)
 - [All projects](https://github.com/TheWhiteWitchTM?tab=repositories)

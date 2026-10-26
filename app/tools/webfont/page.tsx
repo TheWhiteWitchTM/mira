@@ -1,19 +1,19 @@
-import type { Metadata } from "next";
-import {PageContent} from "@/next-static/legacy/PageContent";
-import {WebfontBuilder} from "@/components/WebFontBuilder";
-import {pageMetadata} from "@/app/metadata";
+import { WebFontBuilder } from "@/components/tools/WebFontBuilder"
+import { pageMetadata } from "@/lib/metadata"
 
-export const metadata: Metadata = pageMetadata(
-	'Web font builder',
-	'Turn a set of characters into a web font in the browser.',
-	'/tools/webfont',
+export const metadata = pageMetadata(
+  "Web font builder",
+  "Pick arrows and direction marks and copy the sequence. Nothing is uploaded.",
+  "/tools/webfont/",
 )
 
-export default function Emoji() {
-	return (
-		<PageContent className={"prose dark:prose-invert"}>
-			<h2>🔤WebFont Builder</h2>
-			<WebfontBuilder/>
-		</PageContent>
-	)
+export default function WebFontPage() {
+  return (
+    <div>
+      <p className="kicker">Tools</p>
+      <h1 className="mt-1 text-4xl font-semibold tracking-tight text-white">WebFont</h1>
+      <p className="mt-3 max-w-prose text-muted">Arrows and direction marks. Type keywords, or click a symbol to copy it.</p>
+      <WebFontBuilder />
+    </div>
+  )
 }

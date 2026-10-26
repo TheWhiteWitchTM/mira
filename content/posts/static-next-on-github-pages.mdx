@@ -1,0 +1,41 @@
+---
+title: Static Next.js on GitHub Pages
+description: How this site ships. output export, trailing slashes, a /mira base path, and the Jekyll underscore trap.
+date: 2026-10-26
+tags: [nextjs, github]
+---
+
+GitHub Pages is a folder of files. Next.js is happy to write that folder if you ask it the long way.
+
+```ts
+const basePath = process.env.GITHUB_PAGES === "true" ? "/mira" : ""
+
+const nextConfig = {
+  output: "export",
+  trailingSlash: true,
+  basePath,
+  images: { unoptimized: true },
+}
+```
+
+`output: "export"` writes `out/`. `trailingSlash` turns `/blog/the-lab-is-open` into a folder with `index.html`, which is how Pages resolves a directory. `basePath` is `/mira` in production because this repo is a project site. Local `next dev` has no prefix, so the same code runs at `/`.
+
+`images.unoptimized` is not optional. Pages has no image optimizer. A raw `<img src="/mira.jpg">` also needs the prefix. `next/link` adds it. An `<a>` does not.
+
+## The underscore trap
+
+Next.js puts assets in `_next/`. Jekyll, which GitHub still runs on a user site, ignores names that start with `_` unless you list them.
+
+This repo deploys with `actions/deploy-pages` and a `.nojekyll` file, so Jekyll stays out of the way. If you copy `out/` into a Jekyll site (the landing page at `TheWhiteWitchTM.github.io` does this for `/mira/`), that parent `_config.yml` must `include: [_next]`. The post-build script in this repo updates that list from the files it just wrote.
+
+## A 404 that is really a slash
+
+`/tools/unfurl` without the trailing slash is a file GitHub does not have. `/tools/unfurl/` is `unfurl/index.html`. The config above makes every internal link end in a slash. If a 404 comes back, look there first, then look at `basePath`.
+
+## The build
+
+```bash
+npm run build
+```
+
+That is `GITHUB_PAGES=true`, an RSS pass, `next build`, then `scripts/gh-pages.mjs`. The script writes `.nojekyll`, copies `out/` next to the landing page when that folder exists, and refreshes the Jekyll include list so `_next` actually ships.
