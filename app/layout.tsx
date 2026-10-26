@@ -16,6 +16,7 @@ import {Weather} from "@/components/Weather";
 import Image from "next/image";
 import SidebarRight from "@/components/SidebarRight";
 import { Analytics } from "@vercel/analytics/next"
+import { GoogleAnalytics } from "@next/third-parties/google"
 import { Layout } from "@/emoji-ui/ui/Layout"
 import SidebarLeft from "@/components/SidebarLeft";
 
@@ -51,8 +52,25 @@ const jsonLd = {
 				'https://x.com/TheWhiteWitchTM',
 				'https://youtube.com/@TheWhiteWitchTM',
 				'https://bsky.app/profile/thewhitewitchtm.sociallydead.me',
+				'https://thewhitewitchtm.github.io/',
 				'https://thewhitewitchtm.github.io/whitewitch/',
+				'https://thewhitewitchtm.github.io/emojigames/',
+				'https://thewhitewitchtm.github.io/sociallydead/',
 				'https://thewhitewitchtm.github.io/LibreSky/',
+				'https://thewhitewitchtm.github.io/whitewitch/magic/',
+			],
+		},
+		{
+			'@type': 'ItemList',
+			name: "Mira's World",
+			itemListElement: [
+				{ '@type': 'ListItem', position: 1, name: 'Blog', url: `${siteUrl}/blog/` },
+				{ '@type': 'ListItem', position: 2, name: 'Tools', url: `${siteUrl}/tools/` },
+				{ '@type': 'ListItem', position: 3, name: 'Emoji UI', url: `${siteUrl}/projects/emoji-ui/` },
+				{ '@type': 'ListItem', position: 4, name: 'NEXT-blog', url: `${siteUrl}/projects/next-blog/` },
+				{ '@type': 'ListItem', position: 5, name: 'NEXT-static', url: `${siteUrl}/projects/next-static/` },
+				{ '@type': 'ListItem', position: 6, name: 'Emoji Games', url: 'https://thewhitewitchtm.github.io/emojigames/' },
+				{ '@type': 'ListItem', position: 7, name: 'The White Witch', url: 'https://thewhitewitchtm.github.io/whitewitch/' },
 			],
 		},
 	],
@@ -134,6 +152,7 @@ export default function RootLayout({
       <body className={"w-full h-full m-0 p-0 min-h-screen bg-background text-foreground antialiased"}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Analytics/>
+      <GoogleAnalytics gaId="G-13S6Z9KCX9" />
       <ThemeProvider
 	      attribute="class"
 	      defaultTheme="system"

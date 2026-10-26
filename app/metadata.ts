@@ -9,8 +9,8 @@ export function withBase(path: string): string {
 	return `${basePath}${normalized}`
 }
 export const siteName = "Mira's World"
-const defaultTitle = "Mira's World – projects, tools, and a dev blog"
-const defaultDescription = "Open-source projects, browser tools, tutorials, and a dev blog by Mira, The White Witch. The pages are static."
+const defaultTitle = "Mira's World — projects, tools, and a dev blog by The White Witch"
+const defaultDescription = "Mira's World, by The White Witch. Open-source projects, browser tools, tutorials, and a dev blog. Emoji UI, NEXT-blog, and NEXT-static. The pages are static."
 
 export const baseMetadata: Metadata = {
 	metadataBase: new URL(siteOrigin),
@@ -23,6 +23,11 @@ export const baseMetadata: Metadata = {
 		"Mira's World",
 		'The White Witch',
 		'Mira',
+		'Emoji UI',
+		'NEXT-blog',
+		'NEXT-static',
+		'Emoji Games',
+		'MAGIC',
 		'open source',
 		'dev blog',
 		'Next.js',
@@ -96,10 +101,20 @@ export function pageMetadata(title: string, description: string, path: string): 
 			description,
 			url: canonical,
 			type: 'website',
+			images: [
+				{
+					url: withBase('/banner.jpg'),
+					width: 1024,
+					height: 1024,
+					alt: "Mira's World. Blog, tech tips, open source, and AI.",
+				},
+			],
 		},
 		twitter: {
+			card: 'summary_large_image',
 			title,
 			description,
+			images: [withBase('/banner.jpg')],
 		},
 	}
 }
