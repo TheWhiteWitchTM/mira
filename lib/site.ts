@@ -21,6 +21,7 @@ export const person = {
   x: "https://x.com/TheWhiteWitchTM",
   bluesky: "https://bsky.app/profile/thewhitewitchtm.bsky.social",
   coffee: "https://www.paypal.com/ncp/payment/BVY3E2H2E2VWA",
+  andreas: "https://thewhitewitchtm.github.io/andreas/",
 }
 
 export function withBase(path: string): string {

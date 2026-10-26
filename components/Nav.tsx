@@ -58,13 +58,45 @@ function Anchor({
 }
 
 const leafClass = "flex items-center justify-between gap-3 px-3 py-1.5 text-sm hover:bg-accent/10 hover:text-accent"
+const compactLeaf = "flex items-center justify-between gap-3 rounded-md px-3 py-1 text-sm hover:bg-accent/10 hover:text-accent"
 
-function Leaf({ item, onClick }: { item: NavLink; onClick?: () => void }) {
+function Leaf({ item, onClick, compact }: { item: NavLink; onClick?: () => void; compact?: boolean }) {
   return (
-    <Anchor href={item.href} onClick={onClick} className={leafClass}>
+    <Anchor href={item.href} onClick={onClick} className={compact ? compactLeaf : leafClass}>
       <span className="min-w-0">{item.title}</span>
       {item.external ? <span aria-hidden="true" className="opacity-60">↗</span> : null}
     </Anchor>
+  )
+}
+
+function WideMenu({ nodes }: { nodes: NavNode[] }) {
+  const links = nodes.filter((node): node is NavLink => node.type === "link")
+  const groups = nodes.filter((node): node is Extract<NavNode, { type: "group" }> => node.type === "group")
+
+  return (
+    <div className="w-[min(38rem,calc(100vw-1.5rem))] rounded-md border border-line bg-panel-2 p-2 shadow-xl">
+      {links.length ? (
+        <div className="mb-1 flex flex-wrap border-b border-line pb-1">
+          {links.map((item) => (
+            <Leaf key={item.href + item.title} item={item} compact />
+          ))}
+        </div>
+      ) : null}
+      <div className="grid grid-cols-2 gap-x-3">
+        {groups.map((node) => (
+          <div key={node.title} className="min-w-0 py-1">
+            <p className="px-3 pt-1 pb-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-accent">{node.title}</p>
+            {node.children.map((child, index) => {
+              if (child.type === "sep") {
+                return <div key={`sep-${index}`} role="separator" className="my-1 border-t border-line" />
+              }
+              if (child.type !== "link") return null
+              return <Leaf key={child.href + child.title} item={child} compact />
+            })}
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
 
@@ -102,7 +134,7 @@ function DesktopGroup({ node }: { node: Extract<NavNode, { type: "group" }> }) {
   )
 }
 
-function DesktopItem({ item, pathname }: { item: NavItem; pathname: string }) {
+function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: string; align: "start" | "end" }) {
   const active = itemActive(pathname, item)
   if (!item.nodes) {
     return (
@@ -129,10 +161,19 @@ function DesktopItem({ item, pathname }: { item: NavItem; pathname: string }) {
           <ChevronDown className="size-3 opacity-70" />
         </button>
       </div>
-      <div className="invisible absolute left-0 top-full z-50 pt-1 opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-        <div className="min-w-52 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
-          <DesktopNodes nodes={item.nodes} />
-        </div>
+      <div
+        className={cn(
+          "invisible absolute top-full z-50 pt-1 opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100",
+          align === "end" ? "right-0" : "left-0",
+        )}
+      >
+        {item.columns ? (
+          <WideMenu nodes={item.nodes} />
+        ) : (
+          <div className="min-w-52 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
+            <DesktopNodes nodes={item.nodes} />
+          </div>
+        )}
       </div>
     </div>
   )
@@ -192,8 +233,8 @@ export function Nav() {
       </button>
 
       <nav className="hidden min-w-0 flex-1 flex-wrap items-center gap-0.5 md:flex" aria-label="Site">
-        {mainNav.map((item) => (
-          <DesktopItem key={item.title} item={item} pathname={pathname} />
+        {mainNav.map((item, index) => (
+          <DesktopItem key={item.title} item={item} pathname={pathname} align={index >= 4 ? "end" : "start"} />
         ))}
         <Anchor href={withBase("/feed.xml")} className="rounded-md px-2.5 py-1.5 text-sm font-medium hover:bg-accent/10 hover:text-accent">
           RSS
@@ -235,6 +276,9 @@ export function Nav() {
             })}
             <Anchor href={withBase("/feed.xml")} onClick={close} className="rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent/10">
               RSS
+            </Anchor>
+            <Anchor href="/ukraine/" onClick={close} className="rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent/10">
+              I support Ukraine
             </Anchor>
             <a
               href={person.coffee}

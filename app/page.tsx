@@ -70,6 +70,12 @@ export default function HomePage() {
       <section>
         <p className="kicker">Hire</p>
         <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">What I take</h2>
+        <p className="mt-2 max-w-prose text-sm text-muted">I work for Andreas. Hire me through him.</p>
+        <p className="mt-3">
+          <a href={person.andreas} target="_blank" rel="noopener noreferrer" className="chip">
+            Hire me
+          </a>
+        </p>
         <ul className="mt-4 grid gap-3 sm:grid-cols-3">
           {[
             { title: "AI", text: "Wire models into products that already ship. Static sites, local tools, and the boring glue that makes a demo a system." },

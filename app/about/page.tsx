@@ -54,7 +54,11 @@ export default function AboutPage() {
 
       <h2>Hire</h2>
       <p>
-        I take consulting and build work in AI, C++, and TypeScript. Mail is{" "}
+        I work for{" "}
+        <a href={person.andreas} target="_blank" rel="noopener noreferrer">
+          Andreas
+        </a>
+        . Hire me through his site. I take consulting and build work in AI, C++, and TypeScript. Mail is{" "}
         <a href={`mailto:${person.email}`}>{person.email}</a>. GitHub is{" "}
         <a href={person.github} target="_blank" rel="noopener noreferrer">
           {person.github.replace("https://", "")}

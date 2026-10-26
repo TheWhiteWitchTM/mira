@@ -20,7 +20,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph()) }} />
         <Gtag />
         <Shell>{children}</Shell>
-        <Toaster theme="dark" />
+        <Toaster theme="dark" offset={88} />
       </body>
     </html>
   )

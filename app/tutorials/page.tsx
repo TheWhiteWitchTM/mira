@@ -1,6 +1,9 @@
 import Link from "next/link"
 import { getTutorials } from "@/lib/content"
+import { sectionLinks } from "@/lib/headings"
 import { pageMetadata } from "@/lib/metadata"
+
+const order = ["markdown", "tailwind", "typescript"]
 
 export const metadata = pageMetadata(
   "Tutorials",
@@ -9,23 +12,41 @@ export const metadata = pageMetadata(
 )
 
 export default function TutorialsPage() {
-  const tutorials = getTutorials()
+  const tutorials = getTutorials().slice().sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug))
   return (
     <div className="space-y-6">
       <header>
         <p className="kicker">Tutorials</p>
         <h1 className="mt-1 text-4xl font-semibold tracking-tight text-white">Reference</h1>
-        <p className="mt-3 max-w-prose text-muted">Keep these open while you write. They match the stack this site is on.</p>
+        <p className="mt-3 max-w-prose text-muted">
+          Read them in this order: Markdown, then Tailwind, then TypeScript. Keep a page open while you write. The sections sit in two columns so you can jump.
+        </p>
       </header>
-      <ul className="grid gap-3">
-        {tutorials.map((doc) => (
-          <li key={doc.slug}>
-            <Link href={`/tutorials/${doc.slug}/`} className="frame block p-4 hover:border-accent">
-              <h2 className="text-xl font-semibold text-white">{doc.title}</h2>
-              <p className="mt-2 text-sm text-muted">{doc.description}</p>
-            </Link>
-          </li>
-        ))}
+      <ul className="grid gap-3 sm:grid-cols-2">
+        {tutorials.map((doc) => {
+          const sections = sectionLinks(doc.body)
+          return (
+            <li key={doc.slug} className={doc.slug === "typescript" ? "sm:col-span-2" : undefined}>
+              <article className="frame h-full p-4">
+                <h2 className="text-xl font-semibold text-white">
+                  <Link href={`/tutorials/${doc.slug}/`} className="hover:text-accent">
+                    {doc.title}
+                  </Link>
+                </h2>
+                <p className="mt-2 text-sm text-muted">{doc.description}</p>
+                <ul className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1 text-sm">
+                  {sections.map((section) => (
+                    <li key={section.id}>
+                      <Link href={`/tutorials/${doc.slug}/#${section.id}`} className="text-paper hover:text-accent">
+                        {section.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </li>
+          )
+        })}
       </ul>
     </div>
   )

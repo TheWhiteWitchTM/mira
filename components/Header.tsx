@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Nav } from "./Nav"
+import { UkraineMark } from "./UkraineMark"
 import { person, withBase } from "@/lib/site"
 
 export function Header() {
@@ -17,14 +18,17 @@ export function Header() {
           <span className="truncate font-semibold tracking-tight text-accent">Mira&apos;s World™</span>
         </Link>
         <Nav />
-        <a
-          href={person.coffee}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="ml-auto hidden shrink-0 rounded-md border border-accent px-3 py-1.5 text-sm font-semibold text-accent hover:bg-accent/10 sm:inline-flex"
-        >
-          Buy me a coffee
-        </a>
+        <div className="ml-auto flex shrink-0 items-center gap-2">
+          <UkraineMark />
+          <a
+            href={person.coffee}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden shrink-0 rounded-md border border-accent px-3 py-1.5 text-sm font-semibold text-accent hover:bg-accent/10 sm:inline-flex"
+          >
+            Buy me a coffee
+          </a>
+        </div>
       </div>
     </header>
   )
