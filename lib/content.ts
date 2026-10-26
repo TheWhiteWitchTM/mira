@@ -15,11 +15,11 @@ export interface Doc extends DocMeta {
   body: string
 }
 
-function dirOf(kind: "posts" | "tutorials"): string {
+function dirOf(kind: "posts" | "tutorials" | "ai"): string {
   return path.join(process.cwd(), "content", kind)
 }
 
-function readDir(kind: "posts" | "tutorials"): Doc[] {
+function readDir(kind: "posts" | "tutorials" | "ai"): Doc[] {
   const root = dirOf(kind)
   if (!fs.existsSync(root)) return []
   return fs
@@ -57,4 +57,12 @@ export function getTutorials(): Doc[] {
 
 export function getTutorial(slug: string): Doc | undefined {
   return getTutorials().find((doc) => doc.slug === slug)
+}
+
+export function getArticles(): Doc[] {
+  return readDir("ai")
+}
+
+export function getArticle(slug: string): Doc | undefined {
+  return getArticles().find((doc) => doc.slug === slug)
 }

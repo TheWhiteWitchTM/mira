@@ -2,7 +2,7 @@
   "name": "mira",
   "version": "2.0.0",
   "private": true,
-  "description": "Mira's World — freelance consultant site. AI, C#, TypeScript. Static Next.js for GitHub Pages.",
+  "description": "Mira's World — freelance consultant site. AI, C++, TypeScript. Static Next.js for GitHub Pages.",
   "scripts": {
     "dev": "next dev",
     "build": "GITHUB_PAGES=true tsx scripts/rss.ts && GITHUB_PAGES=true next build && node scripts/gh-pages.mjs",

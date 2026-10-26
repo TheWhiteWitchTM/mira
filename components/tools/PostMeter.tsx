@@ -65,7 +65,7 @@ function splitThread(text: string, limit: number): string[] {
 }
 
 export function PostMeter() {
-  const [text, setText] = useState("The lab is open.\n\nFreelance software. AI, C#, TypeScript.\nhttps://thewhitewitchtm.github.io/mira/")
+  const [text, setText] = useState("The lab is open.\n\nFreelance software. AI, C++, TypeScript.\nhttps://thewhitewitchtm.github.io/mira/")
 
   const stats = useMemo(() => {
     return {

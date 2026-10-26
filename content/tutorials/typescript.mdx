@@ -7,7 +7,7 @@ tags: [typescript, nextjs]
 
 TypeScript is JavaScript with names for the shapes. The compiler is a linter that runs before the browser. This site is `strict: true`. That is the default you want on a client project.
 
-I write C# when the server needs a spine. I write TypeScript when the page has to ship as files. The two habits transfer: name the type, keep the function small, fail in one place.
+I write C++ when the program has to be native. I write TypeScript when the page has to ship as files. The two habits transfer: name the type, keep the function small, fail in one place.
 
 ## A file that is enough
 
@@ -137,18 +137,25 @@ export function withBase(path: string): string {
 
 `next/link` prefixes `href` for you. A raw `<a href="/feed.xml">` does not. Use `withBase` for those.
 
-## C# next to TypeScript
+## C++ next to TypeScript
 
-The same idea in C#:
+The same idea in C++:
 
-```csharp
-public sealed record Person(string Name, string Email, bool Hire);
+```cpp
+#include <string>
 
-public static string Byline(Person person) =>
-    $"{person.Name} <{person.Email}>";
+struct Person {
+    std::string name;
+    std::string email;
+    bool hire = false;
+};
+
+std::string byline(const Person& person) {
+    return person.name + " <" + person.email + ">";
+}
 ```
 
-Records, unions (`record` + inheritance, or `OneOf` if you must), and nullability (`string?`) are the transfer. I use C# for services, tools, and Qt-adjacent work. I use TypeScript for the page you are reading.
+A struct, a function, and a type you can name. I use C++ for native tools and Qt apps. I use TypeScript for the page you are reading.
 
 ## Before you ship
 

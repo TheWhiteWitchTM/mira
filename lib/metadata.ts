@@ -127,12 +127,12 @@ export function jsonLdGraph() {
         name: person.name,
         alternateName: ["The White Witch", "The White Witch™"],
         jobTitle: person.job,
-        description: "Freelance software consultant. AI, C#, and TypeScript. Dual German-American, based in Germany.",
+        description: "Freelance software consultant. AI, C++, and TypeScript. Dual German-American, based in Germany.",
         url: siteUrl,
         email: person.email,
         image: `${siteUrl}/mira.jpg`,
         nationality: ["German", "American"],
-        knowsAbout: ["Artificial intelligence", "C#", "TypeScript", "Next.js", "Open source"],
+        knowsAbout: ["Artificial intelligence", "C++", "TypeScript", "Next.js", "Open source"],
         sameAs: [
           person.github,
           person.x,
@@ -151,7 +151,7 @@ export function jsonLdGraph() {
         image: `${siteUrl}/og.jpg`,
         founder: { "@id": `${siteUrl}/#mira` },
         areaServed: "Worldwide",
-        serviceType: ["AI consulting", "C# development", "TypeScript development", "Next.js"],
+        serviceType: ["AI consulting", "C++ development", "TypeScript development", "Next.js"],
       },
     ],
   }

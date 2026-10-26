@@ -1,7 +1,7 @@
 import fs from "node:fs"
 import path from "node:path"
 import RSS from "rss"
-import { getPosts, getTutorials } from "../lib/content"
+import { getArticles, getPosts, getTutorials } from "../lib/content"
 import { defaultDescription, siteName, siteUrl, withBase } from "../lib/site"
 
 const feed = new RSS({
@@ -39,8 +39,21 @@ for (const doc of getTutorials()) {
   })
 }
 
+for (const doc of getArticles()) {
+  feed.item({
+    title: doc.title,
+    description: doc.description,
+    url: `${siteUrl}/ai/${doc.slug}/`,
+    date: doc.date,
+    categories: doc.tags,
+    author: "Mira",
+  })
+}
+
 const xml = feed.xml({ indent: true })
 const out = path.join(process.cwd(), "public", "feed.xml")
 fs.mkdirSync(path.dirname(out), { recursive: true })
 fs.writeFileSync(out, xml)
-console.log(`wrote ${withBase("/feed.xml")} (${getPosts().length} posts, ${getTutorials().length} tutorials)`)
+console.log(
+  `wrote ${withBase("/feed.xml")} (${getPosts().length} posts, ${getTutorials().length} tutorials, ${getArticles().length} articles)`,
+)

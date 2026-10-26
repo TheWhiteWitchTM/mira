@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Mira's World",
     short_name: "Mira's World",
-    description: "Freelance consultant in AI, C#, and TypeScript. Tools, tutorials, and a dev blog.",
+    description: "Freelance consultant in AI, C++, and TypeScript. Tools, tutorials, and a dev blog.",
     id: withBase("/"),
     start_url: withBase("/"),
     scope: withBase("/"),

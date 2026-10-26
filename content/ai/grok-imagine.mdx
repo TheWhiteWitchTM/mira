@@ -1,0 +1,51 @@
+---
+title: Grok Imagine
+description: Stills and short video inside Grok. Aurora, the API, Video 1.5, and Image 2.0, and when to reach for HTML instead.
+date: 2026-10-26
+tags: [ai, grok]
+---
+
+Grok Imagine is the picture desk. It makes a still from a sentence, it edits a still you already have, and it turns a still or a sentence into a short video with sound. It lives at [grok.com/imagine](https://grok.com/imagine), in the Grok apps, and on the API. The chatbot can reach it. The desk is where the controls are.
+
+## How it got here
+
+The dates below are the ones on the [x.ai news pages](https://x.ai/news).
+
+- 9 December 2024. Aurora, an autoregressive image model, ships inside Grok on X. This is the start of the in-house image stack. Earlier image features had leaned on other people's models. Aurora is theirs.
+- 28 January 2026. The Imagine API opens, video included.
+- 3 June 2026. Video 1.5 is in preview on the API.
+- 16 June 2026. [Video 1.5](https://x.ai/news/grok-imagine-video-1-5) is generally available. The notes say better motion, sound and dialogue in the same pass, and a fast variant. The speed they quote is a six-second clip at 720p.
+- 31 July 2026. [References](https://x.ai/news/grok-imagine-video-1-5-references). The video model can take text, images, and a voice, and it can generate up to 1080p.
+- 7 August 2026. [Image 2.0](https://x.ai/news/grok-imagine-image-2) is generally available. On the site and the apps it is Quality Mode. On the API the model id is `grok-imagine-image-2.0`.
+
+Through 2025 the consumer feature settled into one Imagine tab that did both stills and clips. I am not going to invent a day for that settling. The 2026 posts are the ones with specs.
+
+## Image 2.0
+
+The [launch post](https://x.ai/news/grok-imagine-image-2) states the goal in one line: images you can use in real work. Instructions followed down to the small details. Layout and type treated as something to plan, so a poster with several parts holds together. Identity held across an edit, so the second generation is the same subject with one thing changed.
+
+The editing tools are the part that matters after the first demo.
+
+The magic wand changes the region you point at and leaves the rest. Segmentation selects a piece of the picture, an object or a region, so the edit has a boundary. Background removal exports the subject with a transparent background, ready to drop into a layout you control. One generation can take up to five reference images, which means a person, a product, a room, and a garment can be inputs. You are no longer hoping a paragraph makes the model remember a face. Smart resize recomposes one scene into another aspect ratio: a tall story frame, a square, a wide banner.
+
+Templates wrap the jobs people repeat. A product photo, a headshot, an icon, a sprite, a background swap. You bring the inputs. The workflow is already chosen. Templates are how a tool admits that most requests are not unique snowflakes. They are the same six jobs with different pixels.
+
+On the API the call is ordinary. You send a prompt and the model name, and you get an image back. The docs are at [docs.x.ai](https://docs.x.ai). I would pin the model id in anything you ship. "Imagine" as a product name will keep moving. `grok-imagine-image-2.0` is a string you can write down.
+
+## Video 1.5
+
+Video 1.5 is the motion model. Text to video, image to video, and reference to video. The sound is generated with the picture: ambience, effects, and dialogue, in one pass, which is why the lip sync is a claimed property of the model and not a second tool you have to align by hand.
+
+The clips people ship are short. Plan on several seconds, and check the current ceiling in the product, because it has moved. Resolution runs through 480p and 720p, and 1080p where the plan and the mode allow it. A reference can be a person, an object, a voice, or a frame you want the clip to hit at the start or the end. That last one is how a character survives from shot to shot. You pin an image of them. You do not ask a sentence to remember a face. Sentences are bad at faces. Pixels are the memory.
+
+A set of shots is a pipeline. One reference for each thing that must stay itself. One generation per shot. Then you cut the shots together in an editor, where the timing is yours. Asking one generation for a whole scene with six beats is how you get a dreamlike smear and a different jacket in every second.
+
+## When I refuse the tool
+
+Exact words are the first refusal. Image 2.0 is better at type than the models of 2024, and it is still the wrong tool when the words are a price, a name, a date, or a sentence you cannot misspell. I build those in HTML and CSS, where the glyph is the glyph. A poster with one short title is a fair Imagine job. A business card with an email address is not. The cards on this site are [markup](/cards/), for that reason. The portrait on them is a crop of a photograph.
+
+Real people are the second refusal. Edit a photo you have the right to edit, and the face stays that person's face. Ask a model to invent a named, living person and you have manufactured a likeness. I do not do that. A character you designed, a product you photographed, a room you described: those are the jobs.
+
+The third refusal is the brief that is three scenes, two moods, and a paragraph of backstory. One scene. The subject, what they are doing, the place, the light, the shape of the frame. Then an edit, stated as a change. The general version of that advice is [A good prompt](/ai/a-good-prompt/). Imagine is obedient in proportion to how few things you asked for at once.
+
+If the still has to become a moving shot and the character has to survive the cut, start from Image 2.0, keep the references, and hand those references to Video 1.5. The two models are a pair. The tab just makes them look like one button.

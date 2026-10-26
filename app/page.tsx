@@ -1,16 +1,16 @@
 import Link from "next/link"
-import { getPosts } from "@/lib/content"
+import { getArticle, getPosts } from "@/lib/content"
 import { pageMetadata } from "@/lib/metadata"
 import { projectGroups } from "@/lib/projects"
 import { person, withBase } from "@/lib/site"
 
 export const metadata = pageMetadata(
-  "Mira — freelance consultant in AI, C#, and TypeScript",
-  "Professional lab of Mira, The White Witch. Freelance consulting in AI, C#, and TypeScript. Tools, tutorials, projects, and a dev blog.",
+  "Mira — freelance consultant in AI, C++, and TypeScript",
+  "Professional lab of Mira, The White Witch. Freelance consulting in AI, C++, and TypeScript. Tools, tutorials, projects, and a dev blog.",
   "/",
 )
 
-const skills = ["AI", "C#", "TypeScript", "Next.js", "Qt", "Open source"]
+const skills = ["AI", "C++", "TypeScript", "Next.js", "Qt", "Open source"]
 
 const contacts = [
   { title: "Mail", href: `mailto:${person.email}` },
@@ -40,7 +40,7 @@ export default function HomePage() {
             <p className="kicker">Mira · The White Witch™</p>
             <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">The lab is open.</h1>
             <p className="max-w-md text-base text-muted">
-              Freelance software consultant. AI systems, C# on the server, TypeScript in the browser. This site is the card for the work. The long pages live with the witch.
+              Freelance software consultant. AI systems, C++ and Qt, TypeScript in the browser. This site is the card for the work. The long pages live with the witch.
             </p>
             <ul className="flex flex-wrap gap-2">
               {skills.map((skill) => (
@@ -73,7 +73,7 @@ export default function HomePage() {
         <ul className="mt-4 grid gap-3 sm:grid-cols-3">
           {[
             { title: "AI", text: "Wire models into products that already ship. Static sites, local tools, and the boring glue that makes a demo a system." },
-            { title: "C#", text: "Backend, tooling, and the years of Borland and SAP that still show up as clean types and fewer surprises." },
+            { title: "C++", text: "Native apps and Qt. Tooling that stays on the machine. The Borland habit of a small program that does one job." },
             { title: "TypeScript", text: "Next.js, static export, GitHub Pages. The stack this site is on. Browser tools that never upload your files." },
           ].map((item) => (
             <li key={item.title} className="frame p-4">
@@ -135,6 +135,32 @@ export default function HomePage() {
               </Link>
             </li>
           ))}
+        </ul>
+      </section>
+
+      <section>
+        <div className="flex items-end justify-between gap-3">
+          <div>
+            <p className="kicker">AI</p>
+            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">The shelf</h2>
+          </div>
+          <Link href="/ai/" className="text-sm text-accent hover:text-accent-2">
+            All articles →
+          </Link>
+        </div>
+        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+          {["history", "modern", "grok", "a-good-prompt"].map((slug) => {
+            const doc = getArticle(slug)
+            if (!doc) return null
+            return (
+              <li key={slug}>
+                <Link href={`/ai/${doc.slug}/`} className="frame block h-full p-4 hover:border-accent">
+                  <h3 className="font-semibold text-white">{doc.title}</h3>
+                  <p className="mt-1 text-sm text-muted">{doc.description}</p>
+                </Link>
+              </li>
+            )
+          })}
         </ul>
       </section>
     </div>

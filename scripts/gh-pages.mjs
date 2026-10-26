@@ -29,19 +29,18 @@ if (existsSync(landing)) {
 
   const configPath = join(landing, "_config.yml")
   if (existsSync(configPath)) {
-    const names = [...collectNames(outDir)].sort()
+    const names = [...collectNames(outDir)]
     const must = ["_next", "_not-found", ".nojekyll"]
-    const include = [...new Set([...must, ...names])].sort()
+    const incoming = [...new Set([...must, ...names])]
     let config = readFileSync(configPath, "utf8")
+    const match = config.match(/^include:\n(?:  - .+\n)*/m)
+    const existing = match ? [...match[0].matchAll(/^  - (.+)\n/gm)].map((item) => item[1]) : []
+    const include = [...new Set([...existing, ...incoming])].sort()
     const block = `include:\n${include.map((name) => `  - ${name}`).join("\n")}\n`
-    if (/^include:\n(?:  - .+\n)+/m.test(config)) {
-      config = config.replace(/^include:\n(?:  - .+\n)+/m, block)
-    } else {
-      config += `\n${block}`
-    }
+    config = match ? config.replace(match[0], block) : `${config.trimEnd()}\n\n${block}`
     writeFileSync(configPath, config)
     console.log(`copied out/ → ${dest}`)
-    console.log(`updated ${configPath} include (${include.length} names)`)
+    console.log(`merged ${configPath} include (${include.length} names)`)
   }
 } else {
   console.log("landing repo not next to this one; skipped copy")

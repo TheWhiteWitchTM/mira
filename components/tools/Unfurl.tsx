@@ -66,7 +66,7 @@ function coverDataUrl(img: HTMLImageElement): string {
 
 export function Unfurl() {
   const [title, setTitle] = useState("Mira's World")
-  const [description, setDescription] = useState("Freelance consultant in AI, C#, and TypeScript. Tools, tutorials, and a dev blog.")
+  const [description, setDescription] = useState("Freelance consultant in AI, C++, and TypeScript. Tools, tutorials, and a dev blog.")
   const [url, setUrl] = useState("https://thewhitewitchtm.github.io/mira/")
   const [site, setSite] = useState("Mira's World")
   const [imageAddress, setImageAddress] = useState(publishedImage)

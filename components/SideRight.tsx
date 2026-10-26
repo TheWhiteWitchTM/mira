@@ -22,7 +22,7 @@ export function SideRight() {
           className="w-full rounded-lg object-cover object-top shadow-[0_4px_16px_rgba(0,0,0,0.45)]"
         />
         <p className="mt-3 text-sm font-medium text-accent">Mira</p>
-        <p className="mt-1 text-xs leading-5 text-muted">Freelance software. AI, C#, TypeScript.</p>
+        <p className="mt-1 text-xs leading-5 text-muted">Freelance software. AI, C++, TypeScript.</p>
         <ul className="mt-3 flex flex-col gap-2">
           {links.map((link) => {
             const Icon = link.icon

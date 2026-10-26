@@ -8,11 +8,12 @@
 
 <p align="center">
   <a href="https://thewhitewitchtm.github.io/mira/"><strong>Open Mira's World</strong></a><br>
-  Freelance consultant in AI, C#, and TypeScript. Tools, tutorials, and a dev blog.<br>
-  <a href="https://thewhitewitchtm.github.io/mira/about/">About</a> ·
-  <a href="https://thewhitewitchtm.github.io/mira/projects/">Projects</a> ·
+  Freelance consultant in AI, C++, and TypeScript. Tools, tutorials, and a dev blog.<br>
   <a href="https://thewhitewitchtm.github.io/mira/blog/">Blog</a> ·
+  <a href="https://thewhitewitchtm.github.io/mira/projects/">Projects</a> ·
   <a href="https://thewhitewitchtm.github.io/mira/tools/">Tools</a> ·
+  <a href="https://thewhitewitchtm.github.io/mira/tutorials/">Tutorials</a> ·
+  <a href="https://thewhitewitchtm.github.io/mira/about/">About</a> ·
   <a href="https://thewhitewitchtm.github.io/mira/feed.xml">RSS</a>
 </p>
 

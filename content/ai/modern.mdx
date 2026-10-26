@@ -1,0 +1,58 @@
+---
+title: Modern AI
+description: What a frontier system actually is in 2026. The model, the tuning, the tools around it, and the part a consultant is hired to build.
+date: 2026-10-26
+tags: [ai]
+---
+
+People say "the model" and point at a chat box. The box is four layers. If you are paying for one of them and receiving another, the invoice will teach you the difference.
+
+## The base model
+
+A transformer, trained to predict the next piece of text on a very large pile of it, and often on images and other streams beside the text. The result continues a pattern. It is a strong guesser. It is not a filing cabinet that looked the fact up, unless a tool went and looked. The capability comes from the data, the size of the network, and the compute spent on training.
+
+As of October 2026 the models people ship products on include [Grok 4.7](/ai/grok/) from xAI, and the current models from OpenAI, Google, and Anthropic. The names move every few months. The shape of this layer does not. You rent it, or you run a smaller open model on a machine you control. The choice is cost, privacy, and how hard the sentences are. It is rarely a matter of taste.
+
+## The tuning
+
+A base model completes text. A product model has been shown examples of good answers, and then shown which of two answers a person preferred. The public names are RLHF and the direct preference methods that came after it. The point is one thing. On top of raw prediction, the model learns a style of following a request, of stopping, and of answering in a shape a person can use. That style is a product decision. Wit, caution, and length are all in there. None of them is a proof that the sentence is true.
+
+## The window and the tools
+
+The model sees a finite context. In 2026 that window is long, often hundreds of thousands of tokens, and it is still a window. Paste a repository and the early files fall out of mind. Around the model sits a harness. The model can ask for a tool: read a file, search the web, run a test, draw a picture, hand a subtask to another copy of itself. The harness runs the call and pastes the result back into the window. That loop is an agent.
+
+The model did not grow hands. The product lent it some. Which hands, and whether a person has to nod before they move, is the design. [Grok Build](/ai/grok-build/) is that loop in a terminal, pointed at a repository. [Grok Bot](/ai/grok-bot/) is that loop on a computer of its own, pointed at the apps a person already uses.
+
+Some models spend extra compute on a hard question, drafting and checking before they answer. Vendors call this reasoning. What you can observe is a slower answer that is often better when the problem has a checkable result, and a bill that moves with the effort setting. It is a dial.
+
+## Pictures, voice, and the clock
+
+The same loop runs with more codecs. A model takes an image in, or emits one. A voice model listens and speaks. A video model takes a still or a sentence and emits a short clip with sound. [Grok Imagine](/ai/grok-imagine/) is one of those desks. They are separate models that a product puts under one name, the way a workshop puts a lathe and a saw under one roof.
+
+There is also the clock. A chat moves when you type. An automation moves when a message arrives or a timer fires. The second kind does more work, and it does more damage if the instructions are loose. A poisoned page is much more interesting to an agent that can send mail than to an agent that can only talk. That failure has its own page: [A good prompt](/ai/a-good-prompt/).
+
+## What the work actually is
+
+The research is the model. The invoice is usually the harness, and the judgment around it.
+
+A client already has users, a store of documents, and a job that is slow because a person reads the same kind of paper every week, or writes the same kind of change. The consulting work is to pick a model, put the private data where the model can see the right slice of it, define what a good answer is, measure that, and leave a person on the decisions that spend money or speak to a customer. The demo is the easy week. The second month is the evaluation set, the cost, and the case the demo never showed.
+
+I plan for these failures.
+
+The model states a fluent fact it was never given. Give it the source and tell it to stay inside the source, or ask it to name the source and then open the source yourself.
+
+The model follows an instruction that was hiding in the document it was asked to read. Retrieved text is data. It can also be a second brief. Treat it as hostile until the product gives you a reason not to.
+
+The tool is too strong for the task. A model that can send mail will eventually send the wrong mail, if the only thing in the way is a sentence.
+
+The evaluation is a feeling. If you cannot say what wrong looks like on a Tuesday, you cannot tell a regression from a mood.
+
+The meter. A long agent loop on a frontier model is a running bill. Keep the context to the files the task needs. Cache what the vendor lets you cache. A small model is the right tool for the step that does not need the frontier.
+
+Open weights and APIs both earn their place. An API is how you ship this month. An open model is how you run a narrow task on hardware you can point at, or how you keep a private corpus off someone else's log. Most of the systems I ship use an API for the hard language and a smaller piece, sometimes local, for the private or the cheap.
+
+## October 2026, in one paragraph
+
+A few labs train the frontier. xAI, which SpaceX acquired on 2 February 2026, ships Grok. The product pages from this year say SpaceXSI. The API and the docs are still at x.ai. The model sits in a chat, in X, in an API, in coding agents, and in image and video tools. The same pattern holds at the other labs. Under that, a long tail of open models runs on rented GPUs and on laptops. The argument worth having is no longer whether a machine can write a paragraph. It is whether your system knows when the paragraph is allowed to leave the building.
+
+The history of how the field got here is [History of AI](/ai/history/). The assistant I use most is [Grok](/ai/grok/).

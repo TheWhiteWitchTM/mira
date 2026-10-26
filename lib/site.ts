@@ -9,7 +9,7 @@ export const person = {
   name: "Mira",
   brand: "The White Witch™",
   job: "Freelance software consultant",
-  notice: "Pro freelance consultant · AI · C# · TypeScript",
+  notice: "Pro freelance consultant · AI · C++ · TypeScript",
   location: "Germany",
   email: "thewhitewitchtm@gmail.com",
   github: "https://github.com/TheWhiteWitchTM",
@@ -32,9 +32,9 @@ export function asset(path: string): string {
   return withBase(path)
 }
 
-export const defaultTitle = "Mira — freelance consultant in AI, C#, and TypeScript"
+export const defaultTitle = "Mira — freelance consultant in AI, C++, and TypeScript"
 export const defaultDescription =
-  "Mira's World is the professional lab of Mira, The White Witch. Freelance software consulting in AI, C#, and TypeScript. Browser tools, tutorials, projects, and a dev blog. Static pages on GitHub."
+  "Mira's World is the professional lab of Mira, The White Witch. Freelance software consulting in AI, C++, and TypeScript. Browser tools, tutorials, projects, and a dev blog. Static pages on GitHub."
 
 export const keywords = [
   "Mira",
@@ -42,7 +42,7 @@ export const keywords = [
   "The White Witch",
   "freelance consultant",
   "AI consultant",
-  "C#",
+  "C++",
   "TypeScript",
   "Next.js",
   "GitHub Pages",

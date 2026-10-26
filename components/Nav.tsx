@@ -3,8 +3,8 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ChevronDown, Menu, X } from "lucide-react"
-import { mainNav, type NavItem, type NavLeaf } from "@/lib/nav"
+import { ChevronDown, ChevronRight, Menu, X } from "lucide-react"
+import { mainNav, type NavItem, type NavLink, type NavNode } from "@/lib/nav"
 import { person, withBase } from "@/lib/site"
 import { cn } from "@/lib/cn"
 import { isExternalHref } from "@/lib/projects"
@@ -12,7 +12,18 @@ import { isExternalHref } from "@/lib/projects"
 function isActive(pathname: string, href?: string) {
   if (!href) return false
   if (href === "/") return pathname === "/"
-  return pathname === href || pathname.startsWith(href)
+  const path = href.endsWith("/") ? href : `${href}/`
+  return pathname === path || pathname === href || pathname.startsWith(path)
+}
+
+function nodeActive(pathname: string, node: NavNode): boolean {
+  if (node.type === "sep") return false
+  if (node.type === "link") return isActive(pathname, node.href)
+  return node.children.some((child) => nodeActive(pathname, child))
+}
+
+function itemActive(pathname: string, item: NavItem) {
+  return isActive(pathname, item.href) || Boolean(item.nodes?.some((node) => nodeActive(pathname, node)))
 }
 
 function Anchor({
@@ -46,18 +57,54 @@ function Anchor({
   )
 }
 
-function Leaf({ item, onClick, className }: { item: NavLeaf; onClick?: () => void; className?: string }) {
+const leafClass = "flex items-center justify-between gap-3 px-3 py-1.5 text-sm hover:bg-accent/10 hover:text-accent"
+
+function Leaf({ item, onClick }: { item: NavLink; onClick?: () => void }) {
   return (
-    <Anchor href={item.href} onClick={onClick} className={className}>
-      <span className="min-w-0 truncate">{item.title}</span>
+    <Anchor href={item.href} onClick={onClick} className={leafClass}>
+      <span className="min-w-0">{item.title}</span>
       {item.external ? <span aria-hidden="true" className="opacity-60">↗</span> : null}
     </Anchor>
   )
 }
 
+function DesktopNodes({ nodes }: { nodes: NavNode[] }) {
+  return (
+    <>
+      {nodes.map((node, index) => {
+        if (node.type === "sep") {
+          return <div key={`sep-${index}`} role="separator" className="my-1 border-t border-line" />
+        }
+        if (node.type === "link") return <Leaf key={node.href + node.title} item={node} />
+        return <DesktopGroup key={node.title} node={node} />
+      })}
+    </>
+  )
+}
+
+function DesktopGroup({ node }: { node: Extract<NavNode, { type: "group" }> }) {
+  return (
+    <div className="group/sub relative">
+      <button
+        type="button"
+        className="flex w-full items-center justify-between gap-3 px-3 py-1.5 text-left text-sm hover:bg-accent/10 hover:text-accent"
+        aria-haspopup="menu"
+      >
+        <span>{node.title}</span>
+        <ChevronRight className="size-3.5 opacity-70" />
+      </button>
+      <div className="invisible absolute left-full top-0 z-50 pl-1 opacity-0 group-hover/sub:visible group-hover/sub:opacity-100 group-focus-within/sub:visible group-focus-within/sub:opacity-100">
+        <div className="min-w-52 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
+          <DesktopNodes nodes={node.children} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function DesktopItem({ item, pathname }: { item: NavItem; pathname: string }) {
-  const active = isActive(pathname, item.href) || item.children?.some((child) => isActive(pathname, child.href))
-  if (!item.children && !item.groups) {
+  const active = itemActive(pathname, item)
+  if (!item.nodes) {
     return (
       <Anchor
         href={item.href || "/"}
@@ -70,42 +117,60 @@ function DesktopItem({ item, pathname }: { item: NavItem; pathname: string }) {
 
   return (
     <div className="group relative">
-      <button
-        type="button"
-        className={cn(
-          "inline-flex items-center gap-1 rounded-md px-2.5 py-1.5 text-sm font-medium hover:bg-accent/10 hover:text-accent",
-          active && "text-accent",
+      <div className={cn("inline-flex items-center rounded-md hover:bg-accent/10 hover:text-accent", active && "text-accent")}>
+        {item.href ? (
+          <Anchor href={item.href} className="py-1.5 pl-2.5 text-sm font-medium">
+            {item.title}
+          </Anchor>
+        ) : (
+          <span className="py-1.5 pl-2.5 text-sm font-medium">{item.title}</span>
         )}
-        aria-haspopup="true"
-      >
-        {item.title}
-        <ChevronDown className="size-3 opacity-70" />
-      </button>
-      <div className="invisible absolute left-0 top-full z-50 min-w-52 pt-1 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-        <div className="max-h-[min(70vh,32rem)] overflow-y-auto rounded-md border border-line bg-panel-2 py-1 shadow-xl">
-          {item.groups
-            ? item.groups.map((group) => (
-                <div key={group.title} className="py-1">
-                  <p className="px-3 pt-1 text-[0.68rem] font-medium uppercase tracking-[0.14em] text-muted">{group.title}</p>
-                  {group.children.map((child) => (
-                    <Leaf
-                      key={child.href}
-                      item={child}
-                      className="flex items-center justify-between gap-2 px-3 py-1.5 text-sm hover:bg-accent/10 hover:text-accent"
-                    />
-                  ))}
-                </div>
-              ))
-            : item.children?.map((child) => (
-                <Leaf
-                  key={child.href}
-                  item={child}
-                  className="flex items-center justify-between gap-2 px-3 py-1.5 text-sm hover:bg-accent/10 hover:text-accent"
-                />
-              ))}
+        <button type="button" className="py-1.5 pr-2 pl-1" aria-haspopup="menu" aria-label={`${item.title} menu`}>
+          <ChevronDown className="size-3 opacity-70" />
+        </button>
+      </div>
+      <div className="invisible absolute left-0 top-full z-50 pt-1 opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+        <div className="min-w-52 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
+          <DesktopNodes nodes={item.nodes} />
         </div>
       </div>
     </div>
+  )
+}
+
+function MobileNodes({ nodes, close }: { nodes: NavNode[]; close: () => void }) {
+  return (
+    <>
+      {nodes.map((node, index) => {
+        if (node.type === "sep") {
+          return <div key={`sep-${index}`} role="separator" className="my-1 border-t border-line" />
+        }
+        if (node.type === "link") {
+          return (
+            <Anchor
+              key={node.href + node.title}
+              href={node.href}
+              onClick={close}
+              className="flex items-center justify-between gap-2 px-3 py-1.5 text-sm hover:bg-accent/10"
+            >
+              <span>{node.title}</span>
+              {node.external ? <span aria-hidden="true" className="opacity-60">↗</span> : null}
+            </Anchor>
+          )
+        }
+        return (
+          <details key={node.title} className="group/sub">
+            <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-1.5 text-sm hover:bg-accent/10 [&::-webkit-details-marker]:hidden">
+              {node.title}
+              <ChevronRight className="size-3.5 opacity-70 transition group-open/sub:rotate-90" />
+            </summary>
+            <div className="ml-3 border-l border-line">
+              <MobileNodes nodes={node.children} close={close} />
+            </div>
+          </details>
+        )
+      })}
+    </>
   )
 }
 
@@ -139,13 +204,13 @@ export function Nav() {
         <div className="absolute inset-x-0 top-full z-50 max-h-[min(80vh,40rem)] overflow-y-auto border-b border-accent/40 bg-ink md:hidden">
           <nav className="flex flex-col p-2" aria-label="Site">
             {mainNav.map((item) => {
-              if (!item.children && !item.groups) {
+              if (!item.nodes) {
                 return (
                   <Anchor
                     key={item.title}
                     href={item.href || "/"}
                     onClick={close}
-                    className={cn("rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent/10", isActive(pathname, item.href) && "text-accent")}
+                    className={cn("rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent/10", itemActive(pathname, item) && "text-accent")}
                   >
                     {item.title}
                   </Anchor>
@@ -158,28 +223,12 @@ export function Nav() {
                     <ChevronDown className="size-4 transition group-open:rotate-180" />
                   </summary>
                   <div className="ml-2 border-l border-line pb-2">
-                    {item.groups
-                      ? item.groups.map((group) => (
-                          <div key={group.title}>
-                            <p className="px-3 pt-2 text-[0.68rem] font-medium uppercase tracking-[0.14em] text-muted">{group.title}</p>
-                            {group.children.map((child) => (
-                              <Leaf
-                                key={child.href}
-                                item={child}
-                                onClick={close}
-                                className="flex items-center justify-between gap-2 px-3 py-1.5 text-sm hover:bg-accent/10"
-                              />
-                            ))}
-                          </div>
-                        ))
-                      : item.children?.map((child) => (
-                          <Leaf
-                            key={child.href}
-                            item={child}
-                            onClick={close}
-                            className="flex items-center justify-between gap-2 px-3 py-1.5 text-sm hover:bg-accent/10"
-                          />
-                        ))}
+                    {item.href ? (
+                      <Anchor href={item.href} onClick={close} className="block px-3 py-1.5 text-sm hover:bg-accent/10">
+                        Overview
+                      </Anchor>
+                    ) : null}
+                    <MobileNodes nodes={item.nodes} close={close} />
                   </div>
                 </details>
               )
