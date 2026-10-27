@@ -21,12 +21,13 @@ const contacts = [
 
 export default function HomePage() {
   const posts = getPosts().slice(0, 3)
-  const featured = projectGroups.slice(0, 3)
+  const [showcase, ...shelves] = projectGroups
+  const client = showcase.links[0]
 
   return (
     <div className="space-y-10">
       <section className="frame overflow-hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,14rem)_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
           <div className="bg-black">
             <img
               src={withBase("/mira.jpg")}
@@ -39,8 +40,12 @@ export default function HomePage() {
           <div className="flex flex-col justify-center gap-4 p-5 sm:p-7">
             <p className="kicker">Mira · The White Witch™</p>
             <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">The lab is open.</h1>
-            <p className="max-w-md text-base text-muted">
-              Freelance software consultant. AI systems, C++ and Qt, TypeScript in the browser. This site is the card for the work. The long pages live with the witch.
+            <p className="max-w-xl text-base text-muted">
+              Freelance software consultant. AI systems, C++ and Qt, TypeScript in the browser. This site is the card for the work. The long pages live with{" "}
+              <a href={person.whitewitch} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-2">
+                the witch
+              </a>
+              .
             </p>
             <ul className="flex flex-wrap gap-2">
               {skills.map((skill) => (
@@ -97,25 +102,37 @@ export default function HomePage() {
             <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">Projects</h2>
           </div>
           <Link href="/projects/" className="text-sm text-accent hover:text-accent-2">
-            Full list →
+            The shelves →
           </Link>
         </div>
-        <div className="mt-4 grid gap-3">
-          {featured.map((group) => (
-            <article key={group.title} className="frame p-4">
-              <p className="kicker">{group.kicker}</p>
-              <h3 className="mt-1 font-semibold text-white">{group.title}</h3>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {group.links.map((link) => (
-                  <li key={link.href}>
-                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="chip">
-                      {link.title} ↗
+        <div className="mt-4">
+          <a className="desk-feature" href={client.href} target="_blank" rel="noopener noreferrer">
+            <img src={withBase(client.image || "")} alt="" width={1200} height={630} />
+            <span className="desk-feature-copy">
+              <span className="kicker">{showcase.kicker}</span>
+              <span className="desk-feature-name">
+                {client.title} <span className="desk-go" aria-hidden="true">↗</span>
+              </span>
+              <span className="desk-feature-text">{client.copy}</span>
+            </span>
+          </a>
+          <ul className="shelf-index">
+            {shelves.map((group) => (
+              <li key={group.id}>
+                <Link href={`/projects/#${group.id}`} className="shelf-index-name">
+                  <span className="kicker">{group.kicker}</span>
+                  <span>{group.title}</span>
+                </Link>
+                <span className="shelf-index-links">
+                  {group.links.map((link) => (
+                    <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
+                      {link.title}
                     </a>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+                  ))}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

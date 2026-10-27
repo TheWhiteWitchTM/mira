@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Nav } from "./Nav"
 import { UkraineMark } from "./UkraineMark"
+import { WitchMark } from "./WitchMark"
 import { person, withBase } from "@/lib/site"
 
 export function Header() {
@@ -19,6 +20,7 @@ export function Header() {
         </Link>
         <Nav />
         <div className="ml-auto flex shrink-0 items-center gap-2">
+          <WitchMark />
           <UkraineMark />
           <a
             href={person.coffee}

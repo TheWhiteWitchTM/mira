@@ -1,231 +1,226 @@
 ---
-title: Markdown reference
-description: The marks this site actually renders. Headings, lists, tables, fences, footnotes, and what to leave out.
-date: 2026-10-26
-tags: [markdown, writing]
+title: "📃Markdown Tutorial"
+description: "A short Markdown tutorial on Mira's World."
+date: 2026-01-29
+tags: [markdown]
 ---
 
-A post is a text file with a few marks in it. The marks become headings, lists, links, and code. You can read the file without a preview and still know what it says. That is the point.
+#### Why Markdown Still Rules in 2026
 
-The fences on this page are highlighted. Name the language on the first line of the fence and Shiki colors it. Leave the name off and the block stays plain.
+Markdown remains the **lingua franca** of technical writing, documentation, blogs, READMEs, notes, newsletters, Obsidian vaults, Notion exports, GitHub issues, Discord messages, and increasingly – full websites via MDX.
 
-## A post, small enough to copy
+**MDX = Markdown + JSX**  
+→ Write Markdown, embed React components, use syntax highlighting, and still get static HTML output.
 
-This is a complete note. The marks are the only things that are not the words.
-
-````markdown
-## The lab
-
-The pages are static. A click on a project opens that project.
-
-- Tools run in the browser
-- The blog is these files
-- The feed is [/feed.xml](/feed.xml)
-
-```ts
-export const site = "https://thewhitewitchtm.github.io/mira/"
-```
-````
-
-Open the preview after you save. If a fence is gray, the language name is missing or misspelled. If a heading is huge, you used one `#` on a line that should have been two.
-
-## Text
+#### 1. Basic Text Formatting
 
 ```markdown
-**bold**
-*italic*
+**bold**   or __bold__
+*italic*   or _italic_
 ***bold italic***
-~~gone~~
-`code`
+~~strikethrough~~
+==highlight==          (not everywhere – GitHub yes, many renderers no)
 ```
 
-**bold**
-*italic*
-***bold italic***
-~~gone~~
-`code`
+**Result:**
 
-Use bold for a name or a label, not for a whole sentence. Italic is for a title or a word you would stress out loud. If everything is bold, nothing is.
+**bold**  
+*italic*  
+***bold italic***  
+~~strikethrough~~
 
-## Headings
+#### 2. Headings
 
-One `#` per level. Do not skip. A screen reader walks the headings in order, and so does a person skimming.
+#### Fourth-level heading (h4)
+
+##### Fifth-level heading (h5)
+
+###### Sixth-level heading (h6)
+
+**Tip:** Most Markdown parsers support up to h6. Never skip levels for accessibility.
+
+#### 3. Lists
+
+**Unordered**
 
 ```markdown
-## Section
-### Subsection
-#### A small label, when you need one
+- Item 1
+- Item 2
+  - Nested
+    - Deeper
+- Item 3
 ```
 
-`#` is the page title. This page already has one, in the template, so the file starts at `##`. A second `#` gives you two page titles.
-
-## Lists
+**Ordered**
 
 ```markdown
-- One
-- Two
-  - Nested, two spaces in
-
 1. First
 2. Second
-
-- [x] Shipped
-- [ ] Still open
+   1. Nested ordered
+   2. Another
+3. Third
 ```
 
-- One
-- Two
-  - Nested, two spaces in
-
-1. First
-2. Second
-
-- [x] Shipped
-- [ ] Still open
-
-A bullet list is for things that have no order. A numbered list is for steps. A task list is for a checklist you mean to finish. Blank line before the list, or some renderers glue it to the paragraph above.
-
-## Links and images
+**Task lists**
 
 ```markdown
-[The White Witch](https://thewhitewitchtm.github.io/whitewitch/)
-
-![Mira, red hair in a ponytail, black jacket, pointing.](/mira.jpg)
+- [x] Done task
+- [ ] Open task
+- [ ] Another open
 ```
 
-The words in the brackets are what a person reads, and what a screen reader says. "Click here" says nothing. The address is the page you mean.
-
-The text in an image mark is the alt text. Say what is in the picture. "Image" and "banner" are not descriptions. The portrait on the home page is "Mira, red hair in a ponytail, black jacket, pointing." A decorative line can take an empty alt, `![](rule.png)`, and then a screen reader skips it.
-
-## Quotes
+#### 4. Links & Images
 
 ```markdown
-> The lab is open.
->
-> A second paragraph stays inside the quote.
+Inline link: [Next.js Docs](https://nextjs.org/docs)
+
+Reference style:
+[MDX][mdx]
+
+[mdx]: https://mdxjs.com "MDX official site"
+
+Image:
+![Alt text](/images/my-image.jpg)
+
+Image with size control (MDX / some renderers):
+<img src="/images/my-image.jpg" alt="Description" width="600" />
 ```
 
-> The lab is open.
+#### 5. Blockquotes
+
+```markdown
+> This is a blockquote.
 >
-> A second paragraph stays inside the quote.
-
-A quote is for a line you are repeating. If the line is yours, write a sentence.
-
-## Code
-
-Inline code uses single backticks. One word or one expression: `const site = "mira"`.
-
-A fence is three backticks, then the language, then the code, then three backticks.
-
-```ts
-export function withBase(path: string): string {
-  const normalized = path.startsWith("/") ? path : `/${path}`
-  return normalized
-}
+> It can span multiple lines.
+>
+>> Nested quote
 ```
+
+> This is a blockquote.  
+> It can span multiple lines.
+>> Nested quote
+
+#### 6. Code
+
+**Inline code**
+
+```markdown
+Use `process.env.NODE_ENV` to check environment.
+```
+
+Use `process.env.NODE_ENV` to check environment.
+
+**Code block with language**
 
 ```tsx
+// app/page.tsx
+import Link from 'next/link'
+
 export default function Home() {
-  return <main className="mx-auto max-w-3xl px-4 py-8">Hello</main>
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+      <h1 className="text-4xl font-bold">Welcome to Next.js + MDX</h1>
+      <Link href="/about" className="mt-8 text-blue-600 hover:underline">
+        Go to About →
+      </Link>
+    </main>
+  )
 }
 ```
 
-```css
-@import "tailwindcss";
-
-.card {
-  border: 1px solid #c9a6ff;
-  border-radius: 1rem;
-}
-```
-
-```bash
-npm install
-npm run dev
-```
-
-```html
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-```
-
-A diff, when the change is the point:
-
-```diff
-- href="https://thewhitewitchtm.sociallydead.me/"
-+ href="https://github.com/TheWhiteWitchTM"
-```
-
-No language, no color:
+**Code block without language**
 
 ```text
-this block is plain on purpose
+Just plain text
+  no highlighting
 ```
 
-`ts` is TypeScript. `tsx` is TypeScript with markup. `js` and `jsx` are the same split without the types. `md` highlights Markdown. `text` is the honest name for a note that is not code.
+**Diff highlighting**
 
-## Tables
+```diff
+- Old line removed
++ New line added
+! Changed line (some renderers)
+```
+
+#### 7. Tables
 
 ```markdown
-| | Reads here | On GitHub |
-| --- | --- | --- |
-| Tables | yes | yes |
-| Task lists | yes | yes |
-| Footnotes | yes | sometimes |
+| Feature          | Markdown | MDX   | GitHub |
+|------------------|----------|-------|--------|
+| Tables           | Yes      | Yes   | Yes    |
+| Task lists       | Partial  | Yes   | Yes    |
+| JSX components   | No       | Yes   | No     |
+| Syntax highlight | Partial  | Full  | Good   |
 ```
 
-| | Reads here | On GitHub |
-| --- | --- | --- |
-| Tables | yes | yes |
-| Task lists | yes | yes |
-| Footnotes | yes | sometimes |
+| Feature          | Markdown | MDX   | GitHub |
+|------------------|----------|-------|--------|
+| Tables           | Yes      | Yes   | Yes    |
+| Task lists       | Partial  | Yes   | Yes    |
+| JSX components   | No       | Yes   | No     |
+| Syntax highlight | Partial  | Full  | Good   |
 
-The dashes under the header are what makes it a table. Three dashes are enough. Use `:---` , `:---:` , and `---:` when a column should sit left, center, or right. Most tables do not need it.
+**Tip:** Align columns with `:---`, `:---:`, `---:` for left/center/right.
 
-Keep tables narrow. Four columns is a lot on a phone. A list is the better shape when each row is a sentence.
-
-## Footnotes
+#### 8. Horizontal Rules
 
 ```markdown
-The feed is linked from the home page.[^feed]
-
-[^feed]: /feed.xml
+---
+***
+___
 ```
 
-The feed is linked from the home page.[^feed]
+---
 
-[^feed]: /feed.xml
+#### 9. Footnotes
 
-The mark is `[^name]` in the sentence. The note is `[^name]:` on its own line, usually at the end of the file. The name can be a word. It does not have to be a number.
+```markdown
+Here's a sentence with a footnote.[^1]
 
-## A file on this blog
+[^1]: This is the footnote content.
+      It can be multi-line.
+```
 
-A post lives at `content/posts/<slug>.mdx`. The file starts with YAML, then the words.
+Here's a sentence with a footnote.[^1]
+
+[^1]: This is the footnote content.  
+It can be multi-line.
+
+#### 10. MDX-specific Features
 
 ```mdx
----
-title: The lab is open
-description: The first paragraph a stranger can use.
-date: 2026-10-26
-tags: [lab]
----
+import { Button } from '@/components/ui/button'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
-The first paragraph is the one the index can quote. Write it as a sentence a stranger can use.
+<Alert variant="destructive">
+  <AlertTitle>Warning!</AlertTitle>
+  <AlertDescription>
+    This is an interactive alert component inside Markdown.
+  </AlertDescription>
+</Alert>
+
+<Button variant="outline" size="sm">
+  Click me – I'm a real button!
+</Button>
 ```
 
-`.mdx` is Markdown that can also hold a component. Most posts never need one. Stay in Markdown until the words cannot do the job.
+#### 11. Best Practices & Gotchas 2026
 
-## What this site leaves plain
+- Use consistent list markers (- or *)
+- Always specify language in code blocks for highlighting
+- Prefer reference-style links for long documents
+- Test footnotes & tables in your renderer
+- For MDX: keep frontmatter simple (title, description, date, image)
+- Avoid too deep nesting in lists (>3 levels → hard to read)
+- Use `> [!NOTE]` / `> [!TIP]` / `> [!WARNING]` callouts
 
-`==highlight==` is a GitHub extra. Leave it out. Write the word in bold, or write a sentence.
+```markdown
+> [!TIP]
+> This is a tip callout – very useful in docs!
+```
 
-GitHub callouts (`> [!NOTE]`) stay as a normal quote here. If the note matters, write it as a sentence under the quote.
+> [!TIP]  
+> This is a tip callout – very useful in docs!
 
-Raw HTML works in spots and fails in others. Prefer the marks above. They travel to GitHub, to the feed, and to a file you open in ten years.
-
-## Before you publish
-
-- The headings step down one at a time.
-- Every image has alt text that says what is in the picture.
-- Every fence names a language, and the preview shows color.
-- Links have words. The address is in the parentheses.
-- You opened the page on a phone width and the table still fits, or you turned it into a list.
+Happy writing 🧙‍♀️✨

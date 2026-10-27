@@ -7,6 +7,14 @@ export function UkraineMark() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
+    const onDoor = (event: Event) => {
+      if ((event as CustomEvent<string>).detail !== "ukraine") setOpen(false)
+    }
+    window.addEventListener("mira-door", onDoor)
+    return () => window.removeEventListener("mira-door", onDoor)
+  }, [])
+
+  useEffect(() => {
     if (!open) return
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false)
@@ -34,7 +42,13 @@ export function UkraineMark() {
         aria-haspopup="menu"
         aria-controls="ua-menu"
         aria-label="I support Ukraine"
-        onClick={() => setOpen((value) => !value)}
+        onClick={() =>
+          setOpen((value) => {
+            const next = !value
+            if (next) window.dispatchEvent(new CustomEvent("mira-door", { detail: "ukraine" }))
+            return next
+          })
+        }
       >
         <svg className="ua-pin" viewBox="0 0 48 32" aria-hidden="true">
           <rect width="48" height="16" fill="#005BBB" />
@@ -42,7 +56,7 @@ export function UkraineMark() {
         </svg>
         <span className="sr-only">I support Ukraine</span>
       </button>
-      <div className="ua-door" id="ua-menu" role="menu" aria-label="I support Ukraine" aria-hidden={open ? undefined : true}>
+      <div className="ua-door" id="ua-menu" role="menu" aria-label="I support Ukraine" aria-hidden={open ? undefined : true} inert={open ? undefined : true}>
         <span className="ua-door-string" aria-hidden="true" />
         <div className="ua-door-card">
           <span className="ua-door-kicker">Stand</span>

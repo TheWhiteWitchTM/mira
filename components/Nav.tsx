@@ -100,6 +100,23 @@ function WideMenu({ nodes }: { nodes: NavNode[] }) {
   )
 }
 
+function SectionMenu({ nodes }: { nodes: NavNode[] }) {
+  const groups = nodes.filter((node): node is Extract<NavNode, { type: "group" }> => node.type === "group")
+  return (
+    <div className="min-w-56 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
+      {groups.map((node) => (
+        <div key={node.title} className="py-1">
+          <p className="px-3 pt-1 pb-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-accent">{node.title}</p>
+          {node.children.map((child, index) => {
+            if (child.type !== "link") return null
+            return <Leaf key={child.href + child.title + index} item={child} compact />
+          })}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function DesktopNodes({ nodes }: { nodes: NavNode[] }) {
   return (
     <>
@@ -169,6 +186,8 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
       >
         {item.columns ? (
           <WideMenu nodes={item.nodes} />
+        ) : item.sections ? (
+          <SectionMenu nodes={item.nodes} />
         ) : (
           <div className="min-w-52 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
             <DesktopNodes nodes={item.nodes} />

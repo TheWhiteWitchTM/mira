@@ -14,7 +14,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       <Header />
       <div className="mx-auto flex w-full max-w-[1400px] flex-1 items-start justify-center gap-6 px-3 py-6 sm:px-5">
         <SideLeft />
-        <main id="main" className="min-w-0 w-full max-w-[46rem] flex-1">
+        <main id="main" className="min-w-0 w-full max-w-[68rem] flex-1">
           {children}
         </main>
         <SideRight />

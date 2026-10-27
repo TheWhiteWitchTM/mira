@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next"
 import { getArticles, getPosts, getTutorials } from "@/lib/content"
-import { toolsNav, tutorialPages } from "@/lib/nav"
+import { tutorialPages } from "@/lib/nav"
+import { allTools } from "@/lib/tools"
 import { siteUrl } from "@/lib/site"
 
 export const dynamic = "force-static"
@@ -18,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: path === "" ? ("weekly" as const) : ("monthly" as const),
       priority: path === "" ? 1 : 0.8,
     })),
-    ...toolsNav.map((item) => ({
+    ...allTools().map((item) => ({
       url: loc(item.href),
       changeFrequency: "monthly" as const,
       priority: 0.6,

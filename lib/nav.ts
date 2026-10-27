@@ -1,4 +1,5 @@
 import { githubProjects, projectGroups } from "./projects"
+import { toolGroups } from "./tools"
 
 export interface NavLink {
   type: "link"
@@ -25,59 +26,50 @@ export interface NavItem {
   nodes?: NavNode[]
   /** Groups open as two columns instead of a flyout. */
   columns?: boolean
+  /** Groups stack in one column, with a heading over each shelf. */
+  sections?: boolean
 }
 
-export const toolsNav: NavLink[] = [
-  { type: "link", title: "Unfurl", href: "/tools/unfurl/" },
-  { type: "link", title: "Calling Card", href: "/tools/calling-card/" },
-  { type: "link", title: "Post Meter", href: "/tools/post-meter/" },
-  { type: "link", title: "Emoji", href: "/tools/emoji/" },
-  { type: "link", title: "Flags", href: "/tools/flags/" },
-  { type: "link", title: "WebFont", href: "/tools/webfont/" },
-  { type: "link", title: "Image Magic", href: "/tools/image-magic/" },
-]
+export const toolsNav: NavNode[] = toolGroups.map(
+  (group): NavGroup => ({
+    type: "group",
+    title: group.title,
+    children: group.links.map((link) => ({
+      type: "link",
+      title: link.title,
+      href: link.href,
+    })),
+  }),
+)
 
 export const tutorialPages: NavLink[] = [
   { type: "link", title: "Markdown", href: "/tutorials/markdown/" },
-  { type: "link", title: "Tailwind 4", href: "/tutorials/tailwind/" },
-  { type: "link", title: "TypeScript", href: "/tutorials/typescript/" },
+  { type: "link", title: "Tailwind", href: "/tutorials/tailwind/" },
 ]
 
 export const tutorialsNav: NavNode[] = [
   {
     type: "group",
-    title: "Markdown",
+    title: "📃 Markdown",
     children: [
       { type: "link", title: "The page", href: "/tutorials/markdown/" },
-      { type: "link", title: "Text", href: "/tutorials/markdown/#text" },
-      { type: "link", title: "Headings", href: "/tutorials/markdown/#headings" },
-      { type: "link", title: "Lists", href: "/tutorials/markdown/#lists" },
-      { type: "link", title: "Code", href: "/tutorials/markdown/#code" },
-      { type: "link", title: "Tables", href: "/tutorials/markdown/#tables" },
+      { type: "link", title: "Text", href: "/tutorials/markdown/#1-basic-text-formatting" },
+      { type: "link", title: "Headings", href: "/tutorials/markdown/#2-headings" },
+      { type: "link", title: "Lists", href: "/tutorials/markdown/#3-lists" },
+      { type: "link", title: "Code", href: "/tutorials/markdown/#6-code" },
+      { type: "link", title: "Tables", href: "/tutorials/markdown/#7-tables" },
     ],
   },
   {
     type: "group",
-    title: "Tailwind 4",
+    title: "🌬️ Tailwind",
     children: [
       { type: "link", title: "The page", href: "/tutorials/tailwind/" },
-      { type: "link", title: "The three files", href: "/tutorials/tailwind/#the-three-files" },
-      { type: "link", title: "The phone comes first", href: "/tutorials/tailwind/#the-phone-comes-first" },
-      { type: "link", title: "The card", href: "/tutorials/tailwind/#the-card-on-the-home-page" },
-      { type: "link", title: "Custom colors", href: "/tutorials/tailwind/#custom-colors-on-this-site" },
-      { type: "link", title: "Where it goes wrong", href: "/tutorials/tailwind/#where-it-goes-wrong" },
-    ],
-  },
-  {
-    type: "group",
-    title: "TypeScript",
-    children: [
-      { type: "link", title: "The page", href: "/tutorials/typescript/" },
-      { type: "link", title: "Strict", href: "/tutorials/typescript/#strict" },
-      { type: "link", title: "Unions", href: "/tutorials/typescript/#unions-instead-of-flags" },
-      { type: "link", title: "Generics", href: "/tutorials/typescript/#generics-you-can-read" },
-      { type: "link", title: "Next.js, static", href: "/tutorials/typescript/#nextjs-static" },
-      { type: "link", title: "Before you ship", href: "/tutorials/typescript/#before-you-ship" },
+      { type: "link", title: "What it is", href: "/tutorials/tailwind/#what-is-tailwind-css" },
+      { type: "link", title: "Quick start", href: "/tutorials/tailwind/#quick-start--play-cdn-great-for-testing--learning" },
+      { type: "link", title: "CLI setup", href: "/tutorials/tailwind/#proper-setup--tailwind-cli-recommended-for-real-projects" },
+      { type: "link", title: "Utilities", href: "/tutorials/tailwind/#core-utilities--what-youll-use-every-day" },
+      { type: "link", title: "Dark mode", href: "/tutorials/tailwind/#dark-mode-setup" },
     ],
   },
 ]
@@ -133,7 +125,7 @@ export const mainNav: NavItem[] = [
   { title: "Blog", href: "/blog/" },
   { title: "AI", href: "/ai/", nodes: aiNav },
   { title: "Projects", columns: true, nodes: projectNodes },
-  { title: "Tools", href: "/tools/", nodes: toolsNav },
+  { title: "Tools", href: "/tools/", sections: true, nodes: toolsNav },
   { title: "Tutorials", href: "/tutorials/", columns: true, nodes: tutorialsNav },
   { title: "About", href: "/about/" },
 ]
