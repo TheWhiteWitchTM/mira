@@ -2,7 +2,8 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import { ChevronDown, ChevronRight } from "lucide-react"
 import { mainNav, type NavItem, type NavLink, type NavNode } from "@/lib/nav"
 import { cn } from "@/lib/cn"
@@ -68,7 +69,7 @@ function Leaf({ item, onClick, compact }: { item: NavLink; onClick?: () => void;
   )
 }
 
-function WideMenu({ nodes }: { nodes: NavNode[] }) {
+function WideMenu({ nodes, onNavigate }: { nodes: NavNode[]; onNavigate?: () => void }) {
   const links = nodes.filter((node): node is NavLink => node.type === "link")
   const groups = nodes.filter((node): node is Extract<NavNode, { type: "group" }> => node.type === "group")
   const columnCount = groups.length === 3 ? 3 : 2
@@ -94,7 +95,7 @@ function WideMenu({ nodes }: { nodes: NavNode[] }) {
                     return <div key={`sep-${index}`} role="separator" className="my-1 border-t border-line" />
                   }
                   if (child.type !== "link") return null
-                  return <Leaf key={child.href + child.title} item={child} compact />
+                  return <Leaf key={child.href + child.title} item={child} compact onClick={onNavigate} />
                 })}
               </div>
             ))}
@@ -104,7 +105,7 @@ function WideMenu({ nodes }: { nodes: NavNode[] }) {
       {links.length ? (
         <div className="mt-1 flex flex-wrap items-center border-t border-line pt-1">
           {links.map((item) => (
-            <Leaf key={item.href + item.title} item={item} compact />
+            <Leaf key={item.href + item.title} item={item} compact onClick={onNavigate} />
           ))}
         </div>
       ) : null}
@@ -112,7 +113,7 @@ function WideMenu({ nodes }: { nodes: NavNode[] }) {
   )
 }
 
-function SectionMenu({ nodes }: { nodes: NavNode[] }) {
+function SectionMenu({ nodes, onNavigate }: { nodes: NavNode[]; onNavigate?: () => void }) {
   const groups = nodes.filter((node): node is Extract<NavNode, { type: "group" }> => node.type === "group")
   return (
     <div className="min-w-56 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
@@ -121,7 +122,7 @@ function SectionMenu({ nodes }: { nodes: NavNode[] }) {
           <p className="px-3 pt-1 pb-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-accent">{node.title}</p>
           {node.children.map((child, index) => {
             if (child.type !== "link") return null
-            return <Leaf key={child.href + child.title + index} item={child} compact />
+            return <Leaf key={child.href + child.title + index} item={child} compact onClick={onNavigate} />
           })}
         </div>
       ))}
@@ -129,21 +130,21 @@ function SectionMenu({ nodes }: { nodes: NavNode[] }) {
   )
 }
 
-function DesktopNodes({ nodes }: { nodes: NavNode[] }) {
+function DesktopNodes({ nodes, onNavigate }: { nodes: NavNode[]; onNavigate?: () => void }) {
   return (
     <>
       {nodes.map((node, index) => {
         if (node.type === "sep") {
           return <div key={`sep-${index}`} role="separator" className="my-1 border-t border-line" />
         }
-        if (node.type === "link") return <Leaf key={node.href + node.title} item={node} />
-        return <DesktopGroup key={node.title} node={node} />
+        if (node.type === "link") return <Leaf key={node.href + node.title} item={node} onClick={onNavigate} />
+        return <DesktopGroup key={node.title} node={node} onNavigate={onNavigate} />
       })}
     </>
   )
 }
 
-function DesktopGroup({ node }: { node: Extract<NavNode, { type: "group" }> }) {
+function DesktopGroup({ node, onNavigate }: { node: Extract<NavNode, { type: "group" }>; onNavigate?: () => void }) {
   return (
     <div className="group/sub relative">
       <button
@@ -156,48 +157,101 @@ function DesktopGroup({ node }: { node: Extract<NavNode, { type: "group" }> }) {
       </button>
       <div className="invisible absolute left-full top-0 z-50 pl-1 opacity-0 group-hover/sub:visible group-hover/sub:opacity-100 group-focus-within/sub:visible group-focus-within/sub:opacity-100">
         <div className="min-w-52 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
-          <DesktopNodes nodes={node.children} />
+          <DesktopNodes nodes={node.children} onNavigate={onNavigate} />
         </div>
       </div>
     </div>
   )
 }
 
-function placeMenu(host: HTMLElement, align: "start" | "end") {
-  const menu = host.querySelector<HTMLElement>("[data-menu]")
-  if (!menu) return
+type MenuBox = { top: number; left: number | null; right: number | null }
+
+function measureMenu(host: HTMLElement, align: "start" | "end", columns: boolean, wide: boolean): MenuBox {
   const rect = host.getBoundingClientRect()
   const edge = document.documentElement.clientWidth
-  menu.style.top = `${rect.bottom}px`
-  if (align === "end") {
-    menu.style.left = "auto"
-    menu.style.right = `${Math.max(0, edge - rect.right)}px`
-  } else {
-    menu.style.right = "auto"
-    menu.style.left = `${Math.max(0, rect.left)}px`
+  const top = Math.max(0, rect.bottom - 2)
+  if (!columns) {
+    if (align === "end") return { top, left: null, right: Math.max(8, edge - rect.right) }
+    return { top, left: Math.max(8, rect.left), right: null }
   }
+  const want = Math.min((wide ? 46 : 42) * 16, edge - 16)
+  let left = rect.left
+  if (left + want > edge - 8) left = Math.max(8, edge - 8 - want)
+  return { top, left, right: null }
 }
 
 function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: string; align: "start" | "end" }) {
   const host = useRef<HTMLDivElement>(null)
+  const panel = useRef<HTMLDivElement>(null)
+  const timer = useRef<number | null>(null)
+  const [open, setOpen] = useState(false)
+  const [box, setBox] = useState<MenuBox | null>(null)
+  const [ready, setReady] = useState(false)
   const active = itemActive(pathname, item)
+  const groupCount = item.nodes?.filter((node) => node.type === "group").length ?? 0
+  const wide = groupCount === 3
+
+  const clearTimer = () => {
+    if (timer.current !== null) window.clearTimeout(timer.current)
+    timer.current = null
+  }
+
+  const place = () => {
+    if (!host.current || !item.nodes) return
+    setBox(measureMenu(host.current, align, Boolean(item.columns), wide))
+  }
+
+  const show = () => {
+    clearTimer()
+    place()
+    setOpen(true)
+  }
+
+  const hide = () => {
+    clearTimer()
+    timer.current = window.setTimeout(() => setOpen(false), 140)
+  }
+
+  const close = () => {
+    clearTimer()
+    setOpen(false)
+  }
 
   useEffect(() => {
-    if (!item.nodes || item.columns) return
-    const el = host.current
-    const nav = el?.closest("nav")
-    if (!el || !nav) return
-    const sync = () => {
-      if (!el.matches(":hover") && !el.matches(":focus-within")) return
-      placeMenu(el, align)
-    }
-    nav.addEventListener("scroll", sync, { passive: true })
+    setReady(true)
+    return clearTimer
+  }, [])
+
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    if (!open) return
+    const sync = () => place()
+    const nav = host.current?.closest("nav")
+    nav?.addEventListener("scroll", sync, { passive: true })
     window.addEventListener("resize", sync)
-    return () => {
-      nav.removeEventListener("scroll", sync)
-      window.removeEventListener("resize", sync)
+    window.addEventListener("scroll", sync, true)
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false)
     }
-  }, [align, item.columns, item.nodes])
+    const onDown = (event: PointerEvent) => {
+      const target = event.target
+      if (!(target instanceof Node)) return
+      if (host.current?.contains(target) || panel.current?.contains(target)) return
+      setOpen(false)
+    }
+    window.addEventListener("keydown", onKey)
+    document.addEventListener("pointerdown", onDown)
+    return () => {
+      nav?.removeEventListener("scroll", sync)
+      window.removeEventListener("resize", sync)
+      window.removeEventListener("scroll", sync, true)
+      window.removeEventListener("keydown", onKey)
+      document.removeEventListener("pointerdown", onDown)
+    }
+  }, [open, align, item.columns, wide])
 
   if (!item.nodes) {
     return (
@@ -210,17 +264,44 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
     )
   }
 
+  const stay = (event: React.FocusEvent) => {
+    const next = event.relatedTarget
+    if (next instanceof Node && (host.current?.contains(next) || panel.current?.contains(next))) return
+    hide()
+  }
+
+  const menu =
+    ready && open && box
+      ? createPortal(
+          <div
+            ref={panel}
+            className="fixed z-50 pt-1"
+            style={{
+              top: box.top,
+              left: box.left ?? undefined,
+              right: box.right ?? undefined,
+            }}
+            onPointerEnter={show}
+            onPointerLeave={hide}
+            onFocus={show}
+            onBlur={stay}
+          >
+            {item.columns ? (
+              <WideMenu nodes={item.nodes} onNavigate={close} />
+            ) : item.sections ? (
+              <SectionMenu nodes={item.nodes} onNavigate={close} />
+            ) : (
+              <div className="min-w-52 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
+                <DesktopNodes nodes={item.nodes} onNavigate={close} />
+              </div>
+            )}
+          </div>,
+          document.body,
+        )
+      : null
+
   return (
-    <div
-      ref={host}
-      className="group relative shrink-0"
-      onPointerEnter={(event) => {
-        if (!item.columns) placeMenu(event.currentTarget, align)
-      }}
-      onFocus={() => {
-        if (host.current && !item.columns) placeMenu(host.current, align)
-      }}
-    >
+    <div ref={host} className="relative shrink-0" onPointerEnter={show} onPointerLeave={hide} onFocus={show} onBlur={stay}>
       <div className={cn("inline-flex items-center rounded-md hover:bg-accent/10 hover:text-accent", active && "text-accent")}>
         {item.href ? (
           <Anchor href={item.href} className="whitespace-nowrap py-1 pl-2 text-sm font-medium">
@@ -229,28 +310,11 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
         ) : (
           <span className="whitespace-nowrap py-1 pl-2 text-sm font-medium">{item.title}</span>
         )}
-        <button type="button" className="py-1 pr-1.5 pl-1" aria-haspopup="menu" aria-label={`${item.title} menu`}>
+        <button type="button" className="py-1 pr-1.5 pl-1" aria-haspopup="menu" aria-expanded={open} aria-label={`${item.title} menu`}>
           <ChevronDown className="size-3 opacity-70" />
         </button>
       </div>
-      {item.columns ? (
-        <div className="fixed inset-x-0 top-12 z-50 hidden justify-center px-3 pt-2 group-hover:flex group-focus-within:flex">
-          <WideMenu nodes={item.nodes} />
-        </div>
-      ) : (
-        <div
-          data-menu
-          className="invisible fixed z-50 pt-1 opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
-        >
-          {item.sections ? (
-            <SectionMenu nodes={item.nodes} />
-          ) : (
-            <div className="min-w-52 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
-              <DesktopNodes nodes={item.nodes} />
-            </div>
-          )}
-        </div>
-      )}
+      {menu}
     </div>
   )
 }
