@@ -1,11 +1,9 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ChevronDown, ChevronRight, Menu, X } from "lucide-react"
+import { ChevronDown, ChevronRight } from "lucide-react"
 import { mainNav, type NavItem, type NavLink, type NavNode } from "@/lib/nav"
-import { person } from "@/lib/site"
 import { cn } from "@/lib/cn"
 import { isExternalHref } from "@/lib/projects"
 
@@ -215,113 +213,14 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
   )
 }
 
-function MobileNodes({ nodes, close }: { nodes: NavNode[]; close: () => void }) {
-  return (
-    <>
-      {nodes.map((node, index) => {
-        if (node.type === "sep") {
-          return <div key={`sep-${index}`} role="separator" className="my-1 border-t border-line" />
-        }
-        if (node.type === "link") {
-          return (
-            <Anchor
-              key={node.href + node.title}
-              href={node.href}
-              onClick={close}
-              className="flex items-center justify-between gap-2 px-3 py-1.5 text-sm hover:bg-accent/10"
-            >
-              <span>{node.title}</span>
-              {node.external ? <span aria-hidden="true" className="opacity-60">↗</span> : null}
-            </Anchor>
-          )
-        }
-        return (
-          <details key={node.title} className="group/sub">
-            <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-1.5 text-sm hover:bg-accent/10 [&::-webkit-details-marker]:hidden">
-              {node.title}
-              <ChevronRight className="size-3.5 opacity-70 transition group-open/sub:rotate-90" />
-            </summary>
-            <div className="ml-3 border-l border-line">
-              <MobileNodes nodes={node.children} close={close} />
-            </div>
-          </details>
-        )
-      })}
-    </>
-  )
-}
-
 export function Nav() {
   const pathname = usePathname()
-  const [open, setOpen] = useState(false)
-  const close = () => setOpen(false)
 
   return (
-    <div className="flex min-w-0 flex-1 items-center gap-2">
-      <button
-        type="button"
-        className="inline-flex size-9 items-center justify-center rounded-md hover:bg-accent/10 min-[900px]:hidden"
-        aria-label={open ? "Close menu" : "Open menu"}
-        aria-expanded={open}
-        onClick={() => setOpen((value) => !value)}
-      >
-        {open ? <X className="size-5" /> : <Menu className="size-5" />}
-      </button>
-
-      <nav className="hidden h-12 min-w-0 flex-1 flex-nowrap items-center gap-0.5 min-[900px]:flex" aria-label="Site">
-        {mainNav.map((item, index) => (
-          <DesktopItem key={item.title} item={item} pathname={pathname} align={index >= 4 ? "end" : "start"} />
-        ))}
-      </nav>
-
-      {open ? (
-        <div className="absolute inset-x-0 top-full z-50 max-h-[min(80vh,40rem)] overflow-y-auto border-b border-accent/40 bg-ink min-[900px]:hidden">
-          <nav className="flex flex-col p-2" aria-label="Site">
-            {mainNav.map((item) => {
-              if (!item.nodes) {
-                return (
-                  <Anchor
-                    key={item.title}
-                    href={item.href || "/"}
-                    onClick={close}
-                    className={cn("rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent/10", itemActive(pathname, item) && "text-accent")}
-                  >
-                    {item.title}
-                  </Anchor>
-                )
-              }
-              return (
-                <details key={item.title} className="group">
-                  <summary className="flex cursor-pointer list-none items-center justify-between rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent/10 [&::-webkit-details-marker]:hidden">
-                    {item.title}
-                    <ChevronDown className="size-4 transition group-open:rotate-180" />
-                  </summary>
-                  <div className="ml-2 border-l border-line pb-2">
-                    {item.href ? (
-                      <Anchor href={item.href} onClick={close} className="block px-3 py-1.5 text-sm hover:bg-accent/10">
-                        Overview
-                      </Anchor>
-                    ) : null}
-                    <MobileNodes nodes={item.nodes} close={close} />
-                  </div>
-                </details>
-              )
-            })}
-            <Anchor href="/ukraine/" onClick={close} className="rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent/10">
-              I support Ukraine
-            </Anchor>
-            <a
-              href={person.coffee}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={close}
-              className="mt-1 rounded-md border border-accent px-3 py-2.5 text-sm font-semibold text-accent"
-            >
-              Buy me a coffee
-            </a>
-          </nav>
-        </div>
-      ) : null}
-    </div>
+    <nav className="flex h-12 min-w-0 flex-1 flex-nowrap items-center gap-0.5" aria-label="Site">
+      {mainNav.map((item, index) => (
+        <DesktopItem key={item.title} item={item} pathname={pathname} align={index >= 4 ? "end" : "start"} />
+      ))}
+    </nav>
   )
 }
