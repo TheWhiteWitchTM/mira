@@ -1,11 +1,11 @@
 ---
 title: "🌬️Tailwind Tutorial"
-description: "A short Tailwind CSS tutorial on Mira's World."
+description: "From quick start to advanced customization – everything you need to master Tailwind CSS."
 date: 2026-01-28
 tags: [tailwind, css]
 ---
 
-#### What is Tailwind CSS?
+## What is Tailwind CSS?
 
 Tailwind is a **utility-first** CSS framework. You build designs by composing small, single-purpose classes directly in your HTML/JSX (e.g. `bg-indigo-600`, `p-6`, `rounded-2xl`).
 
@@ -16,7 +16,7 @@ Main advantages:
 - Full control over your design system via config
 - Works with any JavaScript framework or plain HTML
 
-#### Quick Start – Play CDN (Great for Testing & Learning)
+## Quick Start – Play CDN (Great for Testing & Learning)
 
 Add this one line in your `<head>` – no build tools needed:
 
@@ -56,7 +56,7 @@ Example full page you can save and open right now:
 </html>
 ```
 
-#### Proper Setup – Tailwind CLI (Recommended for Real Projects)
+## Proper Setup – Tailwind CLI (Recommended for Real Projects)
 
 ```bash
 # 1. Create folder & init
@@ -104,35 +104,35 @@ module.exports = {
 
 Run `npm run dev` → link `./dist/output.css` in your HTML.
 
-#### Core Utilities – What You’ll Use Every Day
+## Core Utilities – What You’ll Use Every Day
 
-##### Spacing & Layout
+### Spacing & Layout
 
 - `p-4`, `m-6`, `px-8`, `py-10`
 - `space-x-4`, `space-y-6` (children spacing)
 - `flex`, `flex-col`, `items-center`, `justify-between`
 - `grid`, `grid-cols-3`, `gap-6`
 
-##### Sizing & Positioning
+### Sizing & Positioning
 
 - `w-full`, `w-1/2`, `w-3/4`, `max-w-md`, `min-h-screen`
 - `h-96`, `aspect-[4/3]`
 - `relative`, `absolute`, `sticky`, `z-10`
 
-##### Typography
+### Typography
 
 - `text-sm` → `text-6xl`
 - `font-bold`, `font-medium`, `italic`, `uppercase`
 - `leading-tight`, `tracking-wide`, `text-center`
 
-##### Colors & Effects
+### Colors & Effects
 
 - `bg-indigo-600`, `text-gray-900`, `border-red-400`
 - `bg-gradient-to-r from-purple-500 to-pink-500`
 - `shadow-lg`, `shadow-2xl`, `ring-2 ring-indigo-500`
 - `hover:bg-indigo-700`, `focus:outline-none focus:ring-2`
 
-##### Responsive & States
+### Responsive & States
 
 Mobile-first: base classes → `sm:`, `md:`, `lg:`, `xl:`, `2xl:`
 
@@ -141,7 +141,7 @@ Examples:
 - `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`
 - `hidden md:block`
 
-#### Practical Example – Responsive Feature Card
+## Practical Example – Responsive Feature Card
 
 ```tsx
 <div className="mx-auto mt-16 max-w-2xl rounded-2xl bg-white p-8 shadow-xl transition hover:shadow-2xl">
@@ -164,7 +164,7 @@ Examples:
 </div>
 ```
 
-#### Dark Mode Setup
+## Dark Mode Setup
 
 In `tailwind.config.js`:
 
@@ -182,7 +182,7 @@ Usage:
 </div>
 ```
 
-#### Customization – Make It Yours
+## Customization – Make It Yours
 
 ```js
 theme: {
@@ -204,7 +204,7 @@ theme: {
 }
 ```
 
-#### Tips & Best Practices
+## Tips & Best Practices
 
 - Install **Tailwind CSS IntelliSense** in VS Code
 - Use arbitrary values when needed: `w-[300px]`, `bg-[#1a1a2e]`

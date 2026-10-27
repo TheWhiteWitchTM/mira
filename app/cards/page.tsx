@@ -34,7 +34,7 @@ export default function CardsPage() {
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-[0.16em] text-accent">Front</h2>
         <article
-          className="relative overflow-hidden rounded-2xl border border-accent/60 bg-ink shadow-[0_18px_50px_rgba(0,0,0,0.5)]"
+          className="relative mx-auto w-full max-w-lg overflow-hidden rounded-2xl border border-accent/60 bg-ink shadow-[0_18px_50px_rgba(0,0,0,0.5)]"
           style={{ aspectRatio: "85 / 55" }}
         >
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_120%_at_0%_0%,rgba(201,166,255,0.22),transparent_50%)]" />
@@ -54,7 +54,7 @@ export default function CardsPage() {
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-[0.16em] text-accent">Back</h2>
         <article
-          className="relative overflow-hidden rounded-2xl border border-accent/60 bg-[#120d18] shadow-[0_18px_50px_rgba(0,0,0,0.5)]"
+          className="relative mx-auto w-full max-w-lg overflow-hidden rounded-2xl border border-accent/60 bg-[#120d18] shadow-[0_18px_50px_rgba(0,0,0,0.5)]"
           style={{ aspectRatio: "85 / 55" }}
         >
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_100%_at_100%_100%,rgba(201,166,255,0.16),transparent_55%)]" />
@@ -79,7 +79,7 @@ export default function CardsPage() {
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-[0.16em] text-accent">The lab</h2>
         <article
-          className="relative overflow-hidden rounded-2xl border border-white/15 bg-white text-ink shadow-[0_18px_50px_rgba(0,0,0,0.45)]"
+          className="relative mx-auto w-full max-w-lg overflow-hidden rounded-2xl border border-white/15 bg-white text-ink shadow-[0_18px_50px_rgba(0,0,0,0.45)]"
           style={{ aspectRatio: "85 / 55" }}
         >
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_80%_at_100%_0%,rgba(201,166,255,0.55),transparent_60%)]" />

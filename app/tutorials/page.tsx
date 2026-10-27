@@ -7,7 +7,7 @@ const order = ["tailwind", "markdown"]
 
 export const metadata = pageMetadata(
   "Tutorials",
-  "Markdown and Tailwind tutorials.",
+  "The Markdown guide and the Tailwind reference.",
   "/tutorials/",
 )
 
@@ -18,7 +18,7 @@ export default function TutorialsPage() {
       <header>
         <p className="kicker">Tutorials</p>
         <h1 className="mt-1 text-4xl font-semibold tracking-tight text-white">Tutorials</h1>
-        <p className="mt-3 max-w-prose text-muted">Markdown and Tailwind.</p>
+        <p className="mt-3 max-w-prose text-muted">The Markdown guide and the Tailwind reference.</p>
       </header>
       <ul className="grid gap-3 sm:grid-cols-2">
         {tutorials.map((doc) => {
