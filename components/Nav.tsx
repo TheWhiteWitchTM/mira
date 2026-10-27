@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useEffect, useRef } from "react"
 import { ChevronDown, ChevronRight } from "lucide-react"
 import { mainNav, type NavItem, type NavLink, type NavNode } from "@/lib/nav"
 import { cn } from "@/lib/cn"
@@ -162,13 +163,47 @@ function DesktopGroup({ node }: { node: Extract<NavNode, { type: "group" }> }) {
   )
 }
 
+function placeMenu(host: HTMLElement, align: "start" | "end") {
+  const menu = host.querySelector<HTMLElement>("[data-menu]")
+  if (!menu) return
+  const rect = host.getBoundingClientRect()
+  const edge = document.documentElement.clientWidth
+  menu.style.top = `${rect.bottom}px`
+  if (align === "end") {
+    menu.style.left = "auto"
+    menu.style.right = `${Math.max(0, edge - rect.right)}px`
+  } else {
+    menu.style.right = "auto"
+    menu.style.left = `${Math.max(0, rect.left)}px`
+  }
+}
+
 function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: string; align: "start" | "end" }) {
+  const host = useRef<HTMLDivElement>(null)
   const active = itemActive(pathname, item)
+
+  useEffect(() => {
+    if (!item.nodes || item.columns) return
+    const el = host.current
+    const nav = el?.closest("nav")
+    if (!el || !nav) return
+    const sync = () => {
+      if (!el.matches(":hover") && !el.matches(":focus-within")) return
+      placeMenu(el, align)
+    }
+    nav.addEventListener("scroll", sync, { passive: true })
+    window.addEventListener("resize", sync)
+    return () => {
+      nav.removeEventListener("scroll", sync)
+      window.removeEventListener("resize", sync)
+    }
+  }, [align, item.columns, item.nodes])
+
   if (!item.nodes) {
     return (
       <Anchor
         href={item.href || "/"}
-        className={cn("whitespace-nowrap rounded-md px-2 py-1 text-sm font-medium hover:bg-accent/10 hover:text-accent", active && "text-accent")}
+        className={cn("shrink-0 whitespace-nowrap rounded-md px-2 py-1 text-sm font-medium hover:bg-accent/10 hover:text-accent", active && "text-accent")}
       >
         {item.title}
       </Anchor>
@@ -176,7 +211,16 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
   }
 
   return (
-    <div className="group relative">
+    <div
+      ref={host}
+      className="group relative shrink-0"
+      onPointerEnter={(event) => {
+        if (!item.columns) placeMenu(event.currentTarget, align)
+      }}
+      onFocus={() => {
+        if (host.current && !item.columns) placeMenu(host.current, align)
+      }}
+    >
       <div className={cn("inline-flex items-center rounded-md hover:bg-accent/10 hover:text-accent", active && "text-accent")}>
         {item.href ? (
           <Anchor href={item.href} className="whitespace-nowrap py-1 pl-2 text-sm font-medium">
@@ -195,10 +239,8 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
         </div>
       ) : (
         <div
-          className={cn(
-            "invisible absolute top-full z-50 pt-1 opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100",
-            align === "end" ? "right-0" : "left-0",
-          )}
+          data-menu
+          className="invisible fixed z-50 pt-1 opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
         >
           {item.sections ? (
             <SectionMenu nodes={item.nodes} />
@@ -217,7 +259,10 @@ export function Nav() {
   const pathname = usePathname()
 
   return (
-    <nav className="flex h-12 min-w-0 flex-1 flex-nowrap items-center gap-0.5" aria-label="Site">
+    <nav
+      className="flex h-12 min-w-0 shrink flex-nowrap items-center gap-0.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      aria-label="Site"
+    >
       {mainNav.map((item, index) => (
         <DesktopItem key={item.title} item={item} pathname={pathname} align={index >= 4 ? "end" : "start"} />
       ))}
