@@ -30,7 +30,7 @@ export interface NavItem {
   sections?: boolean
 }
 
-/** Flat list. The Tools menu is these links, Image Magic included. */
+/** Every tool. The menu is this list. */
 export const toolsNav: NavNode[] = allTools().map((link) => ({
   type: "link",
   title: link.title,
@@ -84,7 +84,7 @@ export const mainNav: NavItem[] = [
   { title: "Blog", href: "/blog/" },
   { title: "AI", href: "/ai/", nodes: aiNav },
   { title: "Projects", columns: true, nodes: projectNodes },
-  { title: "Tools", href: "/tools/", nodes: toolsNav },
+  { title: "Tools", nodes: toolsNav },
   { title: "Tutorials", href: "/tutorials/", nodes: tutorialsNav },
   { title: "About", href: "/about/" },
 ]

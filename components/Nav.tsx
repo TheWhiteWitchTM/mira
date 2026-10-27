@@ -191,6 +191,7 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
   const host = useRef<HTMLDivElement>(null)
   const panel = useRef<HTMLDivElement>(null)
   const timer = useRef<number | null>(null)
+  const pinned = useRef(false)
   const [open, setOpen] = useState(false)
   const [box, setBox] = useState<MenuBox | null>(null)
   const [ready, setReady] = useState(false)
@@ -215,13 +216,25 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
   }
 
   const hide = () => {
+    if (pinned.current) return
     clearTimer()
     timer.current = window.setTimeout(() => setOpen(false), 140)
   }
 
   const close = () => {
     clearTimer()
+    pinned.current = false
     setOpen(false)
+  }
+
+  const onMenuButton = (event: React.MouseEvent) => {
+    event.preventDefault()
+    if (pinned.current && open) {
+      close()
+      return
+    }
+    pinned.current = true
+    show()
   }
 
   useEffect(() => {
@@ -230,6 +243,7 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
   }, [])
 
   useEffect(() => {
+    pinned.current = false
     setOpen(false)
   }, [pathname])
 
@@ -241,13 +255,13 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
     window.addEventListener("resize", sync)
     window.addEventListener("scroll", sync, true)
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false)
+      if (event.key === "Escape") close()
     }
     const onDown = (event: PointerEvent) => {
       const target = event.target
       if (!(target instanceof Node)) return
       if (host.current?.contains(target) || panel.current?.contains(target)) return
-      setOpen(false)
+      close()
     }
     window.addEventListener("keydown", onKey)
     document.addEventListener("pointerdown", onDown)
@@ -298,7 +312,7 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
             ) : item.sections ? (
               <SectionMenu nodes={item.nodes} onNavigate={close} />
             ) : (
-              <div className="min-w-52 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
+              <div className="max-h-[min(70vh,36rem)] min-w-52 overflow-y-auto rounded-md border border-line bg-panel-2 py-1 shadow-xl">
                 <DesktopNodes nodes={item.nodes} onNavigate={close} />
               </div>
             )}
@@ -315,7 +329,9 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
             {item.title}
           </Anchor>
         ) : (
-          <span className="whitespace-nowrap py-1 pl-2 text-sm font-medium">{item.title}</span>
+          <button type="button" className="whitespace-nowrap py-1 pl-2 text-sm font-medium" aria-haspopup="menu" aria-expanded={open} onClick={onMenuButton}>
+            {item.title}
+          </button>
         )}
         <button
           type="button"
@@ -323,7 +339,7 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
           aria-haspopup="menu"
           aria-expanded={open}
           aria-label={`${item.title} menu`}
-          onClick={show}
+          onClick={onMenuButton}
         >
           <ChevronDown className="size-3 opacity-70" />
         </button>
