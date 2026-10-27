@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ChevronDown, ChevronRight, Menu, X } from "lucide-react"
 import { mainNav, type NavItem, type NavLink, type NavNode } from "@/lib/nav"
-import { person, withBase } from "@/lib/site"
+import { person } from "@/lib/site"
 import { cn } from "@/lib/cn"
 import { isExternalHref } from "@/lib/projects"
 
@@ -72,19 +72,19 @@ function Leaf({ item, onClick, compact }: { item: NavLink; onClick?: () => void;
 function WideMenu({ nodes }: { nodes: NavNode[] }) {
   const links = nodes.filter((node): node is NavLink => node.type === "link")
   const groups = nodes.filter((node): node is Extract<NavNode, { type: "group" }> => node.type === "group")
-  const mid = Math.ceil(groups.length / 2)
-  const columns = [groups.slice(0, mid), groups.slice(mid)]
+  const columnCount = groups.length === 3 ? 3 : 2
+  const size = Math.ceil(groups.length / columnCount)
+  const columns = Array.from({ length: columnCount }, (_, index) => groups.slice(index * size, (index + 1) * size))
 
   return (
-    <div className="max-h-[min(70vh,36rem)] w-[min(42rem,calc(100vw-1.5rem))] overflow-y-auto rounded-md border border-line bg-panel-2 p-2 shadow-xl">
-      {links.length ? (
-        <div className="mb-1 flex flex-wrap items-center border-b border-line pb-1">
-          {links.map((item) => (
-            <Leaf key={item.href + item.title} item={item} compact />
-          ))}
-        </div>
-      ) : null}
-      <div className="grid grid-cols-2 items-start gap-x-3">
+    <div
+      className={
+        columnCount === 3
+          ? "max-h-[min(70vh,36rem)] w-[min(46rem,calc(100vw-1.5rem))] overflow-y-auto rounded-md border border-line bg-panel-2 p-2 shadow-xl"
+          : "max-h-[min(70vh,36rem)] w-[min(42rem,calc(100vw-1.5rem))] overflow-y-auto rounded-md border border-line bg-panel-2 p-2 shadow-xl"
+      }
+    >
+      <div className={columnCount === 3 ? "grid grid-cols-3 items-start gap-x-3" : "grid grid-cols-2 items-start gap-x-3"}>
         {columns.map((column, columnIndex) => (
           <div key={columnIndex} className="min-w-0">
             {column.map((node) => (
@@ -102,6 +102,13 @@ function WideMenu({ nodes }: { nodes: NavNode[] }) {
           </div>
         ))}
       </div>
+      {links.length ? (
+        <div className="mt-1 flex flex-wrap items-center border-t border-line pt-1">
+          {links.map((item) => (
+            <Leaf key={item.href + item.title} item={item} compact />
+          ))}
+        </div>
+      ) : null}
     </div>
   )
 }
@@ -185,7 +192,7 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
         </button>
       </div>
       {item.columns ? (
-        <div className="fixed inset-x-0 top-11 z-50 hidden justify-center px-3 pt-2 group-hover:flex group-focus-within:flex">
+        <div className="fixed inset-x-0 top-12 z-50 hidden justify-center px-3 pt-2 group-hover:flex group-focus-within:flex">
           <WideMenu nodes={item.nodes} />
         </div>
       ) : (
@@ -261,13 +268,10 @@ export function Nav() {
         {open ? <X className="size-5" /> : <Menu className="size-5" />}
       </button>
 
-      <nav className="hidden min-w-0 flex-1 flex-nowrap items-center gap-0.5 lg:flex" aria-label="Site">
+      <nav className="hidden h-12 min-w-0 flex-1 flex-nowrap items-center gap-0.5 lg:flex" aria-label="Site">
         {mainNav.map((item, index) => (
           <DesktopItem key={item.title} item={item} pathname={pathname} align={index >= 4 ? "end" : "start"} />
         ))}
-        <Anchor href={withBase("/feed.xml")} className="whitespace-nowrap rounded-md px-2 py-1 text-sm font-medium hover:bg-accent/10 hover:text-accent">
-          RSS
-        </Anchor>
       </nav>
 
       {open ? (
@@ -303,9 +307,6 @@ export function Nav() {
                 </details>
               )
             })}
-            <Anchor href={withBase("/feed.xml")} onClick={close} className="rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent/10">
-              RSS
-            </Anchor>
             <Anchor href="/ukraine/" onClick={close} className="rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent/10">
               I support Ukraine
             </Anchor>

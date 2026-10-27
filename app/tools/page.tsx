@@ -36,22 +36,18 @@ export default function ToolsPage() {
               <p className="mt-1 text-sm text-muted">{group.note}</p>
             </div>
           </div>
-          <ol className="catalog">
+          <ul className={group.links.length === 3 ? "desk-shelf desk-shelf-3" : group.links.length > 1 ? "desk-shelf desk-shelf-2" : "desk-shelf"}>
             {group.links.map((tool, index) => (
               <li key={tool.href}>
-                <Link href={tool.href} className="catalog-row">
-                  <span className="catalog-index">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="min-w-0">
-                    <span className="catalog-title">{tool.title}</span>
-                    <span className="catalog-copy">{tool.copy}</span>
-                  </span>
-                  <span className="catalog-go" aria-hidden="true">
-                    Open →
-                  </span>
+                <Link href={tool.href} className={group.links.length === 1 ? "tool-card is-wide" : "tool-card"}>
+                  <span className="tool-card-index">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="tool-card-title">{tool.title}</span>
+                  <span className="tool-card-copy">{tool.copy}</span>
+                  <span className="tool-card-go">Open →</span>
                 </Link>
               </li>
             ))}
-          </ol>
+          </ul>
         </section>
       ))}
     </div>

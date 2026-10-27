@@ -120,35 +120,22 @@ export const aiNav: NavNode[] = [
   { type: "link", title: "Cards", href: "/cards/" },
 ]
 
+/** Shelf order, including the one-link shelves. Full list and GitHub sit under them. */
 const projectNodes: NavNode[] = [
-  { type: "link", title: "Full list", href: "/projects/" },
+  ...projectGroups.map(
+    (group): NavGroup => ({
+      type: "group",
+      title: group.title,
+      children: group.links.map((link) => ({
+        type: "link",
+        title: link.title,
+        href: link.href,
+        external: true,
+      })),
+    }),
+  ),
   { type: "sep" },
-  ...projectGroups
-    .filter((group) => group.links.length > 1)
-    .map(
-      (group): NavGroup => ({
-        type: "group",
-        title: group.title,
-        children: group.links.map((link) => ({
-          type: "link",
-          title: link.title,
-          href: link.href,
-          external: true,
-        })),
-      }),
-    ),
-  ...projectGroups
-    .filter((group) => group.links.length === 1)
-    .flatMap((group) =>
-      group.links.map(
-        (link): NavLink => ({
-          type: "link",
-          title: link.title,
-          href: link.href,
-          external: true,
-        }),
-      ),
-    ),
+  { type: "link", title: "Full list", href: "/projects/" },
   { type: "link", title: "GitHub", href: githubProjects.href, external: true },
 ]
 
@@ -157,7 +144,7 @@ export const mainNav: NavItem[] = [
   { title: "Blog", href: "/blog/" },
   { title: "AI", href: "/ai/", nodes: aiNav },
   { title: "Projects", columns: true, nodes: projectNodes },
-  { title: "Tools", href: "/tools/", sections: true, nodes: toolsNav },
+  { title: "Tools", href: "/tools/", columns: true, nodes: toolsNav },
   { title: "Tutorials", href: "/tutorials/", columns: true, nodes: tutorialsNav },
   { title: "About", href: "/about/" },
 ]

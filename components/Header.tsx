@@ -19,7 +19,7 @@ export function Header() {
           <span className="truncate font-semibold tracking-tight text-accent">Mira&apos;s World™</span>
         </Link>
         <Nav />
-        <div className="ml-auto flex shrink-0 items-center gap-2">
+        <div className="ml-auto flex h-12 shrink-0 items-center gap-2">
           <WitchMark />
           <UkraineMark />
           <a

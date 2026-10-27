@@ -192,6 +192,7 @@ a {
   display: block;
   width: 42px;
   height: 28px;
+  margin: 0;
   padding: 0;
   border: 0;
   border-radius: 6px;
@@ -404,9 +405,11 @@ a {
 .witch-mark {
   position: relative;
   z-index: 4;
-  display: block;
-  width: 34px;
-  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -1024,6 +1027,79 @@ a {
   font-size: 0.85rem;
   font-weight: 650;
   white-space: nowrap;
+}
+
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+  height: 100%;
+  min-height: 10.5rem;
+  padding: 1rem 1.05rem 0.95rem;
+  border: 1px solid rgba(201, 166, 255, 0.38);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #16121c 0%, #111111 100%);
+  color: inherit;
+  text-decoration: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 14px 32px rgba(0, 0, 0, 0.28);
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.tool-card:hover {
+  color: inherit;
+  transform: translateY(-3px);
+  border-color: #c9a6ff;
+}
+
+.tool-card-index {
+  color: #c9a6ff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
+}
+
+.tool-card-title {
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.tool-card-copy {
+  flex: 1;
+  color: #b7b0c4;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.tool-card-go {
+  margin-top: 0.35rem;
+  color: #c9a6ff;
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+@media (min-width: 640px) {
+  .tool-card.is-wide {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem 1.25rem;
+    min-height: 0;
+  }
+
+  .tool-card.is-wide .tool-card-copy {
+    flex: 1;
+  }
+
+  .tool-card.is-wide .tool-card-go {
+    margin-top: 0;
+    margin-left: auto;
+  }
 }
 
 @media (max-width: 640px) {
