@@ -260,7 +260,7 @@ export function Nav() {
     <div className="flex min-w-0 flex-1 items-center gap-2">
       <button
         type="button"
-        className="inline-flex size-9 items-center justify-center rounded-md hover:bg-accent/10 lg:hidden"
+        className="inline-flex size-9 items-center justify-center rounded-md hover:bg-accent/10 min-[900px]:hidden"
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
@@ -268,14 +268,14 @@ export function Nav() {
         {open ? <X className="size-5" /> : <Menu className="size-5" />}
       </button>
 
-      <nav className="hidden h-12 min-w-0 flex-1 flex-nowrap items-center gap-0.5 lg:flex" aria-label="Site">
+      <nav className="hidden h-12 min-w-0 flex-1 flex-nowrap items-center gap-0.5 min-[900px]:flex" aria-label="Site">
         {mainNav.map((item, index) => (
           <DesktopItem key={item.title} item={item} pathname={pathname} align={index >= 4 ? "end" : "start"} />
         ))}
       </nav>
 
       {open ? (
-        <div className="absolute inset-x-0 top-full z-50 max-h-[min(80vh,40rem)] overflow-y-auto border-b border-accent/40 bg-ink lg:hidden">
+        <div className="absolute inset-x-0 top-full z-50 max-h-[min(80vh,40rem)] overflow-y-auto border-b border-accent/40 bg-ink min-[900px]:hidden">
           <nav className="flex flex-col p-2" aria-label="Site">
             {mainNav.map((item) => {
               if (!item.nodes) {
