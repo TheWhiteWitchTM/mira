@@ -554,6 +554,31 @@ a {
   color: #c9a6ff;
 }
 
+.witch-solo {
+  margin: 0 0 2px;
+}
+
+.witch-solo img {
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin: 0 auto;
+  object-fit: cover;
+  object-position: center 42%;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(201, 166, 255, 0.65), 0 6px 12px rgba(0, 0, 0, 0.35);
+}
+
+.witch-solo figcaption {
+  display: block;
+  margin-top: 4px;
+  color: #c9a6ff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .witch-door-note {
   display: block;
   margin-top: 6px;
@@ -602,7 +627,7 @@ a {
 
 .shelf-jump {
   position: sticky;
-  top: 3.25rem;
+  top: 3rem;
   z-index: 20;
   display: flex;
   flex-wrap: wrap;

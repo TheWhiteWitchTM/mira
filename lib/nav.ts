@@ -43,36 +43,13 @@ export const toolsNav: NavNode[] = toolGroups.map(
 )
 
 export const tutorialPages: NavLink[] = [
-  { type: "link", title: "Markdown", href: "/tutorials/markdown/" },
-  { type: "link", title: "Tailwind", href: "/tutorials/tailwind/" },
+  { type: "link", title: "🌬️Tailwind", href: "/tutorials/tailwind/" },
+  { type: "link", title: "📃Markdown", href: "/tutorials/markdown/" },
+  { type: "link", title: "🟨JavaScript", href: "/tutorials/javascript/" },
+  { type: "link", title: "🔷TypeScript", href: "/tutorials/typescript/" },
 ]
 
-export const tutorialsNav: NavNode[] = [
-  {
-    type: "group",
-    title: "📃 Markdown",
-    children: [
-      { type: "link", title: "The page", href: "/tutorials/markdown/" },
-      { type: "link", title: "Text", href: "/tutorials/markdown/#1-basic-text-formatting" },
-      { type: "link", title: "Headings", href: "/tutorials/markdown/#2-headings" },
-      { type: "link", title: "Lists", href: "/tutorials/markdown/#3-lists" },
-      { type: "link", title: "Code", href: "/tutorials/markdown/#6-code" },
-      { type: "link", title: "Tables", href: "/tutorials/markdown/#7-tables" },
-    ],
-  },
-  {
-    type: "group",
-    title: "🌬️ Tailwind",
-    children: [
-      { type: "link", title: "The page", href: "/tutorials/tailwind/" },
-      { type: "link", title: "What it is", href: "/tutorials/tailwind/#what-is-tailwind-css" },
-      { type: "link", title: "Quick start", href: "/tutorials/tailwind/#quick-start--play-cdn-great-for-testing--learning" },
-      { type: "link", title: "CLI setup", href: "/tutorials/tailwind/#proper-setup--tailwind-cli-recommended-for-real-projects" },
-      { type: "link", title: "Utilities", href: "/tutorials/tailwind/#core-utilities--what-youll-use-every-day" },
-      { type: "link", title: "Dark mode", href: "/tutorials/tailwind/#dark-mode-setup" },
-    ],
-  },
-]
+export const tutorialsNav: NavNode[] = tutorialPages
 
 /** Menu order. History and the modern stack, then the Grok products, then practice. */
 export const aiNav: NavNode[] = [
@@ -126,6 +103,6 @@ export const mainNav: NavItem[] = [
   { title: "AI", href: "/ai/", nodes: aiNav },
   { title: "Projects", columns: true, nodes: projectNodes },
   { title: "Tools", href: "/tools/", sections: true, nodes: toolsNav },
-  { title: "Tutorials", href: "/tutorials/", columns: true, nodes: tutorialsNav },
+  { title: "Tutorials", href: "/tutorials/", nodes: tutorialsNav },
   { title: "About", href: "/about/" },
 ]

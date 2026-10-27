@@ -3,11 +3,11 @@ import { getTutorials } from "@/lib/content"
 import { sectionLinks } from "@/lib/headings"
 import { pageMetadata } from "@/lib/metadata"
 
-const order = ["tailwind", "markdown"]
+const order = ["tailwind", "markdown", "javascript", "typescript"]
 
 export const metadata = pageMetadata(
   "Tutorials",
-  "The Markdown guide and the Tailwind reference.",
+  "Tailwind, Markdown, JavaScript, and TypeScript.",
   "/tutorials/",
 )
 
@@ -18,7 +18,7 @@ export default function TutorialsPage() {
       <header>
         <p className="kicker">Tutorials</p>
         <h1 className="mt-1 text-4xl font-semibold tracking-tight text-white">Tutorials</h1>
-        <p className="mt-3 max-w-prose text-muted">The Markdown guide and the Tailwind reference.</p>
+        <p className="mt-3 max-w-prose text-muted">Tailwind, Markdown, JavaScript, and TypeScript.</p>
       </header>
       <ul className="grid gap-3 sm:grid-cols-2">
         {tutorials.map((doc) => {

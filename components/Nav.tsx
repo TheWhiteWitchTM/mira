@@ -157,7 +157,7 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
     return (
       <Anchor
         href={item.href || "/"}
-        className={cn("rounded-md px-2.5 py-1.5 text-sm font-medium hover:bg-accent/10 hover:text-accent", active && "text-accent")}
+        className={cn("whitespace-nowrap rounded-md px-2 py-1 text-sm font-medium hover:bg-accent/10 hover:text-accent", active && "text-accent")}
       >
         {item.title}
       </Anchor>
@@ -168,13 +168,13 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
     <div className="group relative">
       <div className={cn("inline-flex items-center rounded-md hover:bg-accent/10 hover:text-accent", active && "text-accent")}>
         {item.href ? (
-          <Anchor href={item.href} className="py-1.5 pl-2.5 text-sm font-medium">
+          <Anchor href={item.href} className="whitespace-nowrap py-1 pl-2 text-sm font-medium">
             {item.title}
           </Anchor>
         ) : (
-          <span className="py-1.5 pl-2.5 text-sm font-medium">{item.title}</span>
+          <span className="whitespace-nowrap py-1 pl-2 text-sm font-medium">{item.title}</span>
         )}
-        <button type="button" className="py-1.5 pr-2 pl-1" aria-haspopup="menu" aria-label={`${item.title} menu`}>
+        <button type="button" className="py-1 pr-1.5 pl-1" aria-haspopup="menu" aria-label={`${item.title} menu`}>
           <ChevronDown className="size-3 opacity-70" />
         </button>
       </div>
@@ -243,7 +243,7 @@ export function Nav() {
     <div className="flex min-w-0 flex-1 items-center gap-2">
       <button
         type="button"
-        className="inline-flex size-9 items-center justify-center rounded-md hover:bg-accent/10 md:hidden"
+        className="inline-flex size-9 items-center justify-center rounded-md hover:bg-accent/10 lg:hidden"
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
@@ -251,17 +251,17 @@ export function Nav() {
         {open ? <X className="size-5" /> : <Menu className="size-5" />}
       </button>
 
-      <nav className="hidden min-w-0 flex-1 flex-wrap items-center gap-0.5 md:flex" aria-label="Site">
+      <nav className="hidden min-w-0 flex-1 flex-nowrap items-center gap-0.5 lg:flex" aria-label="Site">
         {mainNav.map((item, index) => (
           <DesktopItem key={item.title} item={item} pathname={pathname} align={index >= 4 ? "end" : "start"} />
         ))}
-        <Anchor href={withBase("/feed.xml")} className="rounded-md px-2.5 py-1.5 text-sm font-medium hover:bg-accent/10 hover:text-accent">
+        <Anchor href={withBase("/feed.xml")} className="whitespace-nowrap rounded-md px-2 py-1 text-sm font-medium hover:bg-accent/10 hover:text-accent">
           RSS
         </Anchor>
       </nav>
 
       {open ? (
-        <div className="absolute inset-x-0 top-full z-50 max-h-[min(80vh,40rem)] overflow-y-auto border-b border-accent/40 bg-ink md:hidden">
+        <div className="absolute inset-x-0 top-full z-50 max-h-[min(80vh,40rem)] overflow-y-auto border-b border-accent/40 bg-ink lg:hidden">
           <nav className="flex flex-col p-2" aria-label="Site">
             {mainNav.map((item) => {
               if (!item.nodes) {

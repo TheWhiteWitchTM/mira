@@ -13,7 +13,7 @@ const links = [
 export function SideRight() {
   return (
     <aside className="hidden w-[140px] shrink-0 lg:block">
-      <div className="sticky top-24">
+      <div className="sticky top-14">
         <img
           src={withBase("/mira.jpg")}
           alt="Mira, smiling, red hair in a ponytail, black jacket, pointing."

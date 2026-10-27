@@ -1,0 +1,161 @@
+---
+title: "🔷TypeScript Tutorial"
+description: "JavaScript with the shapes named. Strict mode, unions, interfaces, a generic you can read, and a static Next.js build."
+date: 2026-01-31
+tags: [typescript]
+---
+
+## What TypeScript adds
+
+TypeScript is JavaScript plus names for the shapes. The compiler checks the names and then erases them. The browser still receives JavaScript. A wrong shape fails the build, on your machine, before the page ships.
+
+This site is `strict: true`. That is the setting to start with. Turning it off later is how a project grows a second, quieter language.
+
+## A file that is enough
+
+```ts
+export interface Person {
+  name: string
+  email: string
+  hire: boolean
+}
+
+export function byline(person: Person): string {
+  return `${person.name} <${person.email}>`
+}
+```
+
+`interface` is a shape. `string` is a string. The function says what it takes and what it returns. Pass a number for `name` and the build stops.
+
+Save it as `byline.ts`. `npx tsc --strict --noEmit byline.ts` checks it and writes nothing.
+
+## The types you write every day
+
+```ts
+const title: string = "Markdown"
+const year: number = 2026
+const draft: boolean = false
+const tags: string[] = ["markdown", "mdx"]
+
+function blank(value: string | null): boolean {
+  return value === null || value.trim() === ""
+}
+```
+
+`string | null` is a union. The function has to handle both sides. After `value === null` returns, TypeScript knows the rest of the function has a string.
+
+An optional field is `field?: string`, which means `string | undefined`. It is not the same as `null`. Pick one absence and keep it.
+
+## Objects
+
+```ts
+interface Post {
+  title: string
+  date: string
+  tags: string[]
+  draft?: boolean
+}
+
+function label(post: Post): string {
+  const mark = post.draft ? "draft" : "live"
+  return `${post.date} ${post.title} (${mark})`
+}
+```
+
+Extra fields on an object *variable* are allowed when you pass it. Extra fields on an object *written in the call* are an error. That catches a typo at the call site.
+
+```ts
+label({ title: "Tailwind", date: "2026-01-28", tags: ["css"], draf: true })
+```
+
+`draf` is not `draft`. The build says so.
+
+## Unions instead of flags
+
+Two booleans can be true at once. A union cannot.
+
+```ts
+type Status = "draft" | "live" | "hidden"
+
+function tone(status: Status): string {
+  switch (status) {
+    case "draft":
+      return "muted"
+    case "live":
+      return "accent"
+    case "hidden":
+      return "dim"
+  }
+}
+```
+
+Add a fourth status and forget a `case`, and `strict` plus `noImplicitReturns` (included in `strict`) makes the function fail. A pair of booleans would have stayed quiet.
+
+## A generic you can read
+
+A generic is a type argument. `T` is whatever the caller passes, and the return has to match.
+
+```ts
+function first<T>(items: readonly T[]): T | undefined {
+  return items[0]
+}
+
+const name = first(["Mira", "Witch"])
+const year = first([2026, 2027])
+```
+
+`name` is `string | undefined`. `year` is `number | undefined`. You did not write two functions.
+
+`readonly` means the function will not `push` or `sort` the caller's array.
+
+## strict
+
+`tsconfig.json` on a site like this one:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "paths": { "@/*": ["./*"] }
+  }
+}
+```
+
+`strict` turns on the checks that catch the quiet bugs: unset values, implicit `any`, and a `this` you did not mean. `noEmit` means another tool writes the JavaScript. Next.js does that here. `tsc --noEmit` is the check.
+
+`any` turns the check off for that one value. Use it when a library has no types, and keep it on that line. `unknown` is the honest version: you have to narrow it before you read a field.
+
+```ts
+function isPost(value: unknown): value is { title: string } {
+  return typeof value === "object" && value !== null && "title" in value
+}
+```
+
+## Next.js, static
+
+A page that lists files can run at build time. The type is the contract between the file on disk and the page.
+
+```ts
+interface Doc {
+  slug: string
+  title: string
+  date: string
+}
+
+export function getTutorials(): Doc[] {
+  return []
+}
+```
+
+`output: "export"` writes a folder of HTML. There is no server at request time. A function that reads the tutorials runs while the site builds, and the HTML is what GitHub Pages serves. If a field is missing in the front matter, the type should make the build fail, not the browser.
+
+## Before you ship
+
+- `strict: true` stays on.
+- A public function has a return type when the caller is another file. Inference is fine inside the file.
+- Prefer `unknown` at the edge (JSON, a form, a query string) and narrow it once.
+- Do not silence an error with `as`. A cast says you know better than the checker. Most days you do not.
+- The JavaScript page is the language underneath. This page only names the shapes.

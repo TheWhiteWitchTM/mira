@@ -1,0 +1,175 @@
+---
+title: "🟨JavaScript Tutorial"
+description: "The JavaScript you actually ship. Values, functions, the DOM, modules, and async, with code you can run."
+date: 2026-01-30
+tags: [javascript]
+---
+
+## What JavaScript is
+
+JavaScript runs in the browser and in Node. A `.js` file is a list of statements. A newline does not end a statement. A semicolon can, and a line break often does, but do not rely on that when the next line starts with `(` or `[`.
+
+The language is the same in both places. The browser adds the page (`document`, `window`). Node adds the disk and the network (`fs`, `fetch` in current Node). This page is the language, then the page.
+
+## A file you can run
+
+Save this as `hello.js` and run `node hello.js`.
+
+```js
+const site = "https://thewhitewitchtm.github.io/mira/"
+
+function greet(name) {
+  return `Hello, ${name}`
+}
+
+console.log(greet("Mira"))
+console.log(site)
+```
+
+`const` is a name you do not reassign. `let` is a name you do. Skip `var`. It leaks out of the block.
+
+## Values
+
+```js
+const n = 42
+const label = "Tailwind"
+const on = true
+const missing = null
+const bag = { title: "Markdown", year: 2026 }
+const list = ["text", "headings", "lists"]
+```
+
+`typeof null` is `"object"`. That is a long-standing lie. Check `value === null`.
+
+`===` compares without converting types. `==` converts first, and `"1" == 1` is true. Use `===`.
+
+A string and a number add by turning the number into text:
+
+```js
+"4" + 2      // "42"
+Number("4") + 2  // 6
+```
+
+## Functions
+
+```js
+function area(w, h) {
+  return w * h
+}
+
+const area2 = (w, h) => w * h
+```
+
+The first form has its own `this` and can be called before the line it is written on. The arrow form takes `this` from the surrounding function, and it is the one you want for a callback.
+
+Default values and a rest list:
+
+```js
+function tag(name, ...words) {
+  return words.map((word) => `${name}:${word}`)
+}
+
+tag("lang", "js", "ts")
+```
+
+## Objects and arrays
+
+```js
+const post = { title: "The lab", tags: ["lab", "next"] }
+const { title, tags } = post
+const [first] = tags
+
+const next = { ...post, draft: false }
+const more = [...tags, "static"]
+```
+
+`...` copies the top level. Nested objects are still shared. Do not mutate a value you received as an argument if the caller still holds it.
+
+`map`, `filter`, and `find` return a new array. `push` and `sort` change the one you have.
+
+```js
+const published = posts.filter((post) => !post.draft)
+const titles = published.map((post) => post.title)
+```
+
+## The page
+
+The browser builds a tree from the HTML. You read it and you change it.
+
+```html
+<button id="copy" type="button">Copy</button>
+<p id="out"></p>
+```
+
+```js
+const button = document.querySelector("#copy")
+const out = document.querySelector("#out")
+
+button.addEventListener("click", () => {
+  out.textContent = "Copied"
+})
+```
+
+`textContent` writes text. `innerHTML` writes HTML and will run whatever markup you hand it. If the string came from a person, use `textContent`.
+
+A form field is a string until you convert it.
+
+```js
+const form = document.querySelector("form")
+form.addEventListener("submit", (event) => {
+  event.preventDefault()
+  const data = new FormData(form)
+  const title = String(data.get("title") || "").trim()
+  if (!title) return
+})
+```
+
+## Modules
+
+One file, one job. `export` marks what other files may use. `import` names it.
+
+```js
+export function slug(title) {
+  return title.toLowerCase().replaceAll(" ", "-")
+}
+```
+
+```js
+import { slug } from "./slug.js"
+```
+
+In the browser, the script tag needs `type="module"`. Modules are deferred, and they run once.
+
+## Async
+
+`fetch` returns a promise. `await` pauses the function until the promise settles. The function must be `async`.
+
+```js
+async function loadPosts() {
+  const response = await fetch("/mira/feed.xml")
+  if (!response.ok) throw new Error(String(response.status))
+  return response.text()
+}
+```
+
+`await` without `try` rejects the promise of the caller. Catch it where you can show the failure.
+
+```js
+try {
+  const xml = await loadPosts()
+  console.log(xml.length)
+} catch (error) {
+  console.error(error)
+}
+```
+
+`Promise.all` runs the independent ones together. If one fails, the whole `all` fails.
+
+## What bites people
+
+- A missing property is `undefined`, and `undefined.foo` throws. Optional `post?.title` stops at the missing step.
+- `forEach` ignores a returned promise. Use `for...of` when the body uses `await`.
+- Dates: `new Date("2026-01-30")` is UTC midnight. Format with the calendar day you stored, not the local timezone, if the day is the point.
+- `const list = []` can still `push`. `const` blocks a new binding, not a change inside the value.
+
+The Markdown page is the writing. The Tailwind page is the styling. TypeScript is the same language with the shapes named. That page is next.

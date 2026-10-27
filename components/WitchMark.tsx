@@ -59,16 +59,10 @@ export function WitchMark() {
         <div className="witch-door-card">
           <span className="witch-door-kicker">The hat</span>
           <strong>WITCH</strong>
-          <div className="witch-pair">
-            <figure className="is-person">
-              <img src={withBase("/avatar.jpg")} alt="Mira" width={512} height={512} />
-              <figcaption>The person</figcaption>
-            </figure>
-            <figure className="is-hat">
-              <img src={withBase("/witch-avatar.jpg")} alt="The White Witch" width={512} height={512} />
-              <figcaption>The hat</figcaption>
-            </figure>
-          </div>
+          <figure className="witch-solo">
+            <img src={withBase("/witch.jpg")} alt="The White Witch" width={512} height={512} />
+            <figcaption>The White Witch</figcaption>
+          </figure>
           <span className="witch-door-note">The long pages. The hat is the job.</span>
           <a className="witch-item" role="menuitem" href={person.whitewitch} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
             The White Witch

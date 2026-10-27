@@ -3,7 +3,7 @@ import { person, withBase } from "@/lib/site"
 export function SideLeft() {
   return (
     <aside className="hidden w-[140px] shrink-0 lg:block">
-      <div className="sticky top-24">
+      <div className="sticky top-14">
         <a href={person.whitewitch} target="_blank" rel="noopener noreferrer" className="block">
           <img
             src={withBase("/witch.jpg")}
