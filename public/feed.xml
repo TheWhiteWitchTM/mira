@@ -2,22 +2,22 @@
     <channel>
         <title><![CDATA[Mira's World]]></title>
         <description><![CDATA[Mira's World is the professional lab of Mira, The White Witch. Freelance software consulting in AI, C++, and TypeScript. Browser tools, tutorials, projects, and a dev blog. Static pages on GitHub.]]></description>
-        <link>https://thewhitewitchtm.github.io/</link>
+        <link>https://thewhitewitchtm.github.io/mira/</link>
         <image>
-            <url>https://thewhitewitchtm.github.io/og.jpg</url>
+            <url>https://thewhitewitchtm.github.io/mira/og.jpg</url>
             <title>Mira&apos;s World</title>
-            <link>https://thewhitewitchtm.github.io/</link>
+            <link>https://thewhitewitchtm.github.io/mira/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 27 Oct 2026 08:50:03 GMT</lastBuildDate>
-        <atom:link href="https://thewhitewitchtm.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 27 Oct 2026 08:50:03 GMT</pubDate>
+        <lastBuildDate>Tue, 27 Oct 2026 09:36:57 GMT</lastBuildDate>
+        <atom:link href="https://thewhitewitchtm.github.io/mira/feed.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Tue, 27 Oct 2026 09:36:57 GMT</pubDate>
         <language><![CDATA[en]]></language>
         <item>
             <title><![CDATA[The coffee button]]></title>
             <description><![CDATA[Freelance income is uneven. The coffee button is a small, honest way to keep the lab open without ads.]]></description>
-            <link>https://thewhitewitchtm.github.io/blog/coffee-and-freelance/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/blog/coffee-and-freelance/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/blog/coffee-and-freelance/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/blog/coffee-and-freelance/</guid>
             <category><![CDATA[freelance]]></category>
             <dc:creator><![CDATA[Mira]]></dc:creator>
             <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>
@@ -25,8 +25,8 @@
         <item>
             <title><![CDATA[Static Next.js on GitHub Pages]]></title>
             <description><![CDATA[How this site ships. output export, trailing slashes, a /mira base path, and the Jekyll underscore trap.]]></description>
-            <link>https://thewhitewitchtm.github.io/blog/static-next-on-github-pages/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/blog/static-next-on-github-pages/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/blog/static-next-on-github-pages/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/blog/static-next-on-github-pages/</guid>
             <category><![CDATA[nextjs]]></category>
             <category><![CDATA[github]]></category>
             <dc:creator><![CDATA[Mira]]></dc:creator>
@@ -35,8 +35,8 @@
         <item>
             <title><![CDATA[The lab is open]]></title>
             <description><![CDATA[Mira's World is the professional card. Freelance consulting in AI, C++, and TypeScript. Tools, tutorials, and a static site on GitHub.]]></description>
-            <link>https://thewhitewitchtm.github.io/blog/the-lab-is-open/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/blog/the-lab-is-open/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/blog/the-lab-is-open/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/blog/the-lab-is-open/</guid>
             <category><![CDATA[lab]]></category>
             <dc:creator><![CDATA[Mira]]></dc:creator>
             <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>
@@ -44,8 +44,8 @@
         <item>
             <title><![CDATA[Tools that stay in the browser]]></title>
             <description><![CDATA[Unfurl, Calling Card, Post Meter, emoji, flags, fonts, Image Magic. Useful for social posts and for shipping a page. Nothing is uploaded.]]></description>
-            <link>https://thewhitewitchtm.github.io/blog/tools-that-stay-put/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/blog/tools-that-stay-put/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/blog/tools-that-stay-put/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/blog/tools-that-stay-put/</guid>
             <category><![CDATA[tools]]></category>
             <dc:creator><![CDATA[Mira]]></dc:creator>
             <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>
@@ -53,17 +53,27 @@
         <item>
             <title><![CDATA[Why the card is Next.js]]></title>
             <description><![CDATA[A consultant site has to be fast, cheap to host, and easy to change. Static Next.js on GitHub Pages is that. PHP was a server I did not want to keep.]]></description>
-            <link>https://thewhitewitchtm.github.io/blog/why-the-card-is-next/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/blog/why-the-card-is-next/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/blog/why-the-card-is-next/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/blog/why-the-card-is-next/</guid>
             <category><![CDATA[nextjs]]></category>
             <dc:creator><![CDATA[Mira]]></dc:creator>
             <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[Tutorial: 📃Markdown Tutorial]]></title>
+            <description><![CDATA[A short Markdown tutorial on Mira's World.]]></description>
+            <link>https://thewhitewitchtm.github.io/mira/tutorials/markdown/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/tutorials/markdown/</guid>
+            <category><![CDATA[tutorial]]></category>
+            <category><![CDATA[markdown]]></category>
+            <dc:creator><![CDATA[Mira]]></dc:creator>
+            <pubDate>Thu, 29 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[Tutorial: 🌬️Tailwind Tutorial]]></title>
             <description><![CDATA[A short Tailwind CSS tutorial on Mira's World.]]></description>
-            <link>https://thewhitewitchtm.github.io/tutorials/tailwind/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/tutorials/tailwind/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/tutorials/tailwind/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/tutorials/tailwind/</guid>
             <category><![CDATA[tutorial]]></category>
             <category><![CDATA[tailwind]]></category>
             <category><![CDATA[css]]></category>
@@ -71,20 +81,10 @@
             <pubDate>Wed, 28 Jan 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Tutorial: 📃Markdown Tutorial]]></title>
-            <description><![CDATA[A short Markdown tutorial on Mira's World.]]></description>
-            <link>https://thewhitewitchtm.github.io/tutorials/markdown/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/tutorials/markdown/</guid>
-            <category><![CDATA[tutorial]]></category>
-            <category><![CDATA[markdown]]></category>
-            <dc:creator><![CDATA[Mira]]></dc:creator>
-            <pubDate>Thu, 29 Jan 2026 00:00:00 GMT</pubDate>
-        </item>
-        <item>
             <title><![CDATA[A good prompt]]></title>
             <description><![CDATA[How to brief a model so the work comes back in the shape you meant, and what a poisoned prompt is when the brief is hiding in the data.]]></description>
-            <link>https://thewhitewitchtm.github.io/ai/a-good-prompt/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/ai/a-good-prompt/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/ai/a-good-prompt/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/ai/a-good-prompt/</guid>
             <category><![CDATA[ai]]></category>
             <category><![CDATA[prompts]]></category>
             <dc:creator><![CDATA[Mira]]></dc:creator>
@@ -93,8 +93,8 @@
         <item>
             <title><![CDATA[Grok Bot]]></title>
             <description><![CDATA[Always-on agents with a computer of their own, announced 11 August 2026. What that product is, and what @grok on X is.]]></description>
-            <link>https://thewhitewitchtm.github.io/ai/grok-bot/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/ai/grok-bot/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/ai/grok-bot/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/ai/grok-bot/</guid>
             <category><![CDATA[ai]]></category>
             <category><![CDATA[grok]]></category>
             <dc:creator><![CDATA[Mira]]></dc:creator>
@@ -103,8 +103,8 @@
         <item>
             <title><![CDATA[Grok Build]]></title>
             <description><![CDATA[The coding agent in the terminal. Plan mode, subagents, skills, and the grok command. What it is for, and how I brief it.]]></description>
-            <link>https://thewhitewitchtm.github.io/ai/grok-build/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/ai/grok-build/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/ai/grok-build/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/ai/grok-build/</guid>
             <category><![CDATA[ai]]></category>
             <category><![CDATA[grok]]></category>
             <dc:creator><![CDATA[Mira]]></dc:creator>
@@ -113,8 +113,8 @@
         <item>
             <title><![CDATA[Grok Imagine]]></title>
             <description><![CDATA[Stills and short video inside Grok. Aurora, the API, Video 1.5, and Image 2.0, and when to reach for HTML instead.]]></description>
-            <link>https://thewhitewitchtm.github.io/ai/grok-imagine/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/ai/grok-imagine/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/ai/grok-imagine/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/ai/grok-imagine/</guid>
             <category><![CDATA[ai]]></category>
             <category><![CDATA[grok]]></category>
             <dc:creator><![CDATA[Mira]]></dc:creator>
@@ -123,8 +123,8 @@
         <item>
             <title><![CDATA[Grok]]></title>
             <description><![CDATA[The assistant from xAI. Where it runs, how the model line was named, and what Grok 4.7 is as of October 2026.]]></description>
-            <link>https://thewhitewitchtm.github.io/ai/grok/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/ai/grok/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/ai/grok/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/ai/grok/</guid>
             <category><![CDATA[ai]]></category>
             <category><![CDATA[grok]]></category>
             <dc:creator><![CDATA[Mira]]></dc:creator>
@@ -133,8 +133,8 @@
         <item>
             <title><![CDATA[History of AI]]></title>
             <description><![CDATA[From the 1956 Dartmouth workshop to the transformer. The winters, the expert systems, and the turn in 2012.]]></description>
-            <link>https://thewhitewitchtm.github.io/ai/history/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/ai/history/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/ai/history/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/ai/history/</guid>
             <category><![CDATA[ai]]></category>
             <category><![CDATA[history]]></category>
             <dc:creator><![CDATA[Mira]]></dc:creator>
@@ -143,8 +143,8 @@
         <item>
             <title><![CDATA[Modern AI]]></title>
             <description><![CDATA[What a frontier system actually is in 2026. The model, the tuning, the tools around it, and the part a consultant is hired to build.]]></description>
-            <link>https://thewhitewitchtm.github.io/ai/modern/</link>
-            <guid isPermaLink="true">https://thewhitewitchtm.github.io/ai/modern/</guid>
+            <link>https://thewhitewitchtm.github.io/mira/ai/modern/</link>
+            <guid isPermaLink="true">https://thewhitewitchtm.github.io/mira/ai/modern/</guid>
             <category><![CDATA[ai]]></category>
             <dc:creator><![CDATA[Mira]]></dc:creator>
             <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>

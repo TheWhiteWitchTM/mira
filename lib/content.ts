@@ -19,6 +19,18 @@ function dirOf(kind: "posts" | "tutorials" | "ai"): string {
   return path.join(process.cwd(), "content", kind)
 }
 
+/** YAML dates arrive as Date objects at UTC midnight. Keep the calendar day in the file. */
+function asDate(value: unknown): string {
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    const year = value.getUTCFullYear()
+    const month = String(value.getUTCMonth() + 1).padStart(2, "0")
+    const day = String(value.getUTCDate()).padStart(2, "0")
+    return `${year}-${month}-${day}`
+  }
+  const match = String(value ?? "").trim().match(/^(\d{4}-\d{2}-\d{2})/)
+  return match ? match[1] : "1970-01-01"
+}
+
 function readDir(kind: "posts" | "tutorials" | "ai"): Doc[] {
   const root = dirOf(kind)
   if (!fs.existsSync(root)) return []
@@ -33,7 +45,7 @@ function readDir(kind: "posts" | "tutorials" | "ai"): Doc[] {
         slug,
         title: String(data.title ?? slug),
         description: String(data.description ?? ""),
-        date: String(data.date ?? "1970-01-01"),
+        date: asDate(data.date),
         tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
         draft: Boolean(data.draft),
         body: content,
