@@ -1,5 +1,5 @@
 import { githubProjects, projectGroups } from "./projects"
-import { toolGroups } from "./tools"
+import { allTools } from "./tools"
 
 export interface NavLink {
   type: "link"
@@ -30,17 +30,12 @@ export interface NavItem {
   sections?: boolean
 }
 
-export const toolsNav: NavNode[] = toolGroups.map(
-  (group): NavGroup => ({
-    type: "group",
-    title: group.title,
-    children: group.links.map((link) => ({
-      type: "link",
-      title: link.title,
-      href: link.href,
-    })),
-  }),
-)
+/** Flat list. The Tools menu is these links, Image Magic included. */
+export const toolsNav: NavNode[] = allTools().map((link) => ({
+  type: "link",
+  title: link.title,
+  href: link.href,
+}))
 
 export const tutorialPages: NavLink[] = [
   { type: "link", title: "🌬️ Tailwind", href: "/tutorials/tailwind/" },
@@ -89,7 +84,7 @@ export const mainNav: NavItem[] = [
   { title: "Blog", href: "/blog/" },
   { title: "AI", href: "/ai/", nodes: aiNav },
   { title: "Projects", columns: true, nodes: projectNodes },
-  { title: "Tools", href: "/tools/", columns: true, nodes: toolsNav },
+  { title: "Tools", href: "/tools/", nodes: toolsNav },
   { title: "Tutorials", href: "/tutorials/", nodes: tutorialsNav },
   { title: "About", href: "/about/" },
 ]

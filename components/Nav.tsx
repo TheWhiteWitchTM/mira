@@ -171,8 +171,15 @@ function measureMenu(host: HTMLElement, align: "start" | "end", columns: boolean
   const edge = document.documentElement.clientWidth
   const top = Math.max(0, rect.bottom - 2)
   if (!columns) {
-    if (align === "end") return { top, left: null, right: Math.max(8, edge - rect.right) }
-    return { top, left: Math.max(8, rect.left), right: null }
+    const menuWidth = 13 * 16
+    if (align === "end") {
+      const right = Math.max(8, edge - rect.right)
+      if (edge - right - menuWidth < 8) return { top, left: 8, right: null }
+      return { top, left: null, right }
+    }
+    let left = rect.left
+    if (left + menuWidth > edge - 8) left = Math.max(8, edge - 8 - menuWidth)
+    return { top, left, right: null }
   }
   const want = Math.min((wide ? 46 : 42) * 16, edge - 16)
   let left = rect.left
@@ -310,7 +317,14 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
         ) : (
           <span className="whitespace-nowrap py-1 pl-2 text-sm font-medium">{item.title}</span>
         )}
-        <button type="button" className="py-1 pr-1.5 pl-1" aria-haspopup="menu" aria-expanded={open} aria-label={`${item.title} menu`}>
+        <button
+          type="button"
+          className="py-1 pr-1.5 pl-1"
+          aria-haspopup="menu"
+          aria-expanded={open}
+          aria-label={`${item.title} menu`}
+          onClick={show}
+        >
           <ChevronDown className="size-3 opacity-70" />
         </button>
       </div>
