@@ -30,7 +30,7 @@ export default async function TutorialPage({ params }: { params: Promise<{ slug:
       {sections.length ? (
         <nav className="not-prose frame mb-8 p-4" aria-label="On this page">
           <p className="kicker">On this page</p>
-          <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+          <ul className="section-index">
             {sections.map((section) => (
               <li key={section.id}>
                 <a href={`#${section.id}`} className="text-paper hover:text-accent">

@@ -22,19 +22,19 @@ function Portrait({ className }: { className: string }) {
 
 export default function CardsPage() {
   return (
-    <div className="space-y-8">
+    <div className="mx-auto w-full max-w-[30rem] space-y-8">
       <header>
         <p className="kicker">Cards</p>
         <h1 className="mt-1 text-4xl font-semibold tracking-tight text-white">The cards</h1>
-        <p className="mt-3 max-w-prose text-muted">
+        <p className="mt-3 text-muted">
           Two faces for the person, and one for the lab. The size is 85 × 55 mm, the card you hand over in Germany. The portrait is a square crop of the photograph on this site. The words are set here, so the email is the email.
         </p>
       </header>
 
-      <section className="space-y-3">
+      <section>
         <h2 className="text-sm font-medium uppercase tracking-[0.16em] text-accent">Front</h2>
         <article
-          className="relative mx-auto w-full max-w-lg overflow-hidden rounded-2xl border border-accent/60 bg-ink shadow-[0_18px_50px_rgba(0,0,0,0.5)]"
+          className="relative mt-2 w-full overflow-hidden rounded-2xl border border-accent/60 bg-ink shadow-[0_18px_50px_rgba(0,0,0,0.5)]"
           style={{ aspectRatio: "85 / 55" }}
         >
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_120%_at_0%_0%,rgba(201,166,255,0.22),transparent_50%)]" />
@@ -51,10 +51,10 @@ export default function CardsPage() {
         </article>
       </section>
 
-      <section className="space-y-3">
+      <section>
         <h2 className="text-sm font-medium uppercase tracking-[0.16em] text-accent">Back</h2>
         <article
-          className="relative mx-auto w-full max-w-lg overflow-hidden rounded-2xl border border-accent/60 bg-[#120d18] shadow-[0_18px_50px_rgba(0,0,0,0.5)]"
+          className="relative mt-2 w-full overflow-hidden rounded-2xl border border-accent/60 bg-[#120d18] shadow-[0_18px_50px_rgba(0,0,0,0.5)]"
           style={{ aspectRatio: "85 / 55" }}
         >
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_100%_at_100%_100%,rgba(201,166,255,0.16),transparent_55%)]" />
@@ -76,10 +76,10 @@ export default function CardsPage() {
         </article>
       </section>
 
-      <section className="space-y-3">
+      <section>
         <h2 className="text-sm font-medium uppercase tracking-[0.16em] text-accent">The lab</h2>
         <article
-          className="relative mx-auto w-full max-w-lg overflow-hidden rounded-2xl border border-white/15 bg-white text-ink shadow-[0_18px_50px_rgba(0,0,0,0.45)]"
+          className="relative mt-2 w-full overflow-hidden rounded-2xl border border-white/15 bg-white text-ink shadow-[0_18px_50px_rgba(0,0,0,0.45)]"
           style={{ aspectRatio: "85 / 55" }}
         >
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_80%_at_100%_0%,rgba(201,166,255,0.55),transparent_60%)]" />
@@ -95,7 +95,7 @@ export default function CardsPage() {
         </article>
       </section>
 
-      <p className="max-w-prose text-sm text-muted">
+      <p className="text-sm text-muted">
         Mail is <a href={`mailto:${person.email}`} className="text-accent hover:text-accent-2">{person.email}</a>.
         The long pages are on{" "}
         <a href={person.whitewitch} className="text-accent hover:text-accent-2">

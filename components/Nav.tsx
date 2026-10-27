@@ -72,27 +72,33 @@ function Leaf({ item, onClick, compact }: { item: NavLink; onClick?: () => void;
 function WideMenu({ nodes }: { nodes: NavNode[] }) {
   const links = nodes.filter((node): node is NavLink => node.type === "link")
   const groups = nodes.filter((node): node is Extract<NavNode, { type: "group" }> => node.type === "group")
+  const mid = Math.ceil(groups.length / 2)
+  const columns = [groups.slice(0, mid), groups.slice(mid)]
 
   return (
-    <div className="w-[min(38rem,calc(100vw-1.5rem))] rounded-md border border-line bg-panel-2 p-2 shadow-xl">
+    <div className="max-h-[min(70vh,36rem)] w-[min(42rem,calc(100vw-1.5rem))] overflow-y-auto rounded-md border border-line bg-panel-2 p-2 shadow-xl">
       {links.length ? (
-        <div className="mb-1 flex flex-wrap border-b border-line pb-1">
+        <div className="mb-1 flex flex-wrap items-center border-b border-line pb-1">
           {links.map((item) => (
             <Leaf key={item.href + item.title} item={item} compact />
           ))}
         </div>
       ) : null}
-      <div className="grid grid-cols-2 gap-x-3">
-        {groups.map((node) => (
-          <div key={node.title} className="min-w-0 py-1">
-            <p className="px-3 pt-1 pb-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-accent">{node.title}</p>
-            {node.children.map((child, index) => {
-              if (child.type === "sep") {
-                return <div key={`sep-${index}`} role="separator" className="my-1 border-t border-line" />
-              }
-              if (child.type !== "link") return null
-              return <Leaf key={child.href + child.title} item={child} compact />
-            })}
+      <div className="grid grid-cols-2 items-start gap-x-3">
+        {columns.map((column, columnIndex) => (
+          <div key={columnIndex} className="min-w-0">
+            {column.map((node) => (
+              <div key={node.title} className="py-1">
+                <p className="px-3 pt-1 pb-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-accent">{node.title}</p>
+                {node.children.map((child, index) => {
+                  if (child.type === "sep") {
+                    return <div key={`sep-${index}`} role="separator" className="my-1 border-t border-line" />
+                  }
+                  if (child.type !== "link") return null
+                  return <Leaf key={child.href + child.title} item={child} compact />
+                })}
+              </div>
+            ))}
           </div>
         ))}
       </div>
@@ -178,22 +184,26 @@ function DesktopItem({ item, pathname, align }: { item: NavItem; pathname: strin
           <ChevronDown className="size-3 opacity-70" />
         </button>
       </div>
-      <div
-        className={cn(
-          "invisible absolute top-full z-50 pt-1 opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100",
-          align === "end" ? "right-0" : "left-0",
-        )}
-      >
-        {item.columns ? (
+      {item.columns ? (
+        <div className="fixed inset-x-0 top-11 z-50 hidden justify-center px-3 pt-2 group-hover:flex group-focus-within:flex">
           <WideMenu nodes={item.nodes} />
-        ) : item.sections ? (
-          <SectionMenu nodes={item.nodes} />
-        ) : (
-          <div className="min-w-52 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
-            <DesktopNodes nodes={item.nodes} />
-          </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div
+          className={cn(
+            "invisible absolute top-full z-50 pt-1 opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100",
+            align === "end" ? "right-0" : "left-0",
+          )}
+        >
+          {item.sections ? (
+            <SectionMenu nodes={item.nodes} />
+          ) : (
+            <div className="min-w-52 rounded-md border border-line bg-panel-2 py-1 shadow-xl">
+              <DesktopNodes nodes={item.nodes} />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
