@@ -22,7 +22,7 @@ function Portrait({ className }: { className: string }) {
 
 export default function CardsPage() {
   return (
-    <div className="mx-auto w-full max-w-[30rem] space-y-8">
+    <div className="mx-auto w-full max-w-5xl space-y-8 pb-8">
       <header>
         <p className="kicker">Cards</p>
         <h1 className="mt-1 text-4xl font-semibold tracking-tight text-white">The cards</h1>
@@ -31,6 +31,7 @@ export default function CardsPage() {
         </p>
       </header>
 
+      <div className="grid items-start gap-8 lg:grid-cols-2">
       <section>
         <h2 className="text-sm font-medium uppercase tracking-[0.16em] text-accent">Front</h2>
         <article
@@ -75,8 +76,9 @@ export default function CardsPage() {
           </div>
         </article>
       </section>
+      </div>
 
-      <section>
+      <section className="mx-auto w-full max-w-[30rem]">
         <h2 className="text-sm font-medium uppercase tracking-[0.16em] text-accent">The lab</h2>
         <article
           className="relative mt-2 w-full overflow-hidden rounded-2xl border border-white/15 bg-white text-ink shadow-[0_18px_50px_rgba(0,0,0,0.45)]"
