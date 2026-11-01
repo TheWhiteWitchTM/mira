@@ -157,8 +157,8 @@ a {
   @apply text-xs font-medium uppercase tracking-[0.16em] text-accent;
 }
 
-/* Three columns, same frame as The White Witch: portrait, reading text, topic.
-   Sticky stays on the inner box. Sticky on the flex item crushed the article. */
+/* Three columns, same frame as The White Witch: Mira, the reading text, Andreas.
+   The witch stays off this rail. Sticky stays on the inner box. */
 .page-frame {
   flex: 1 0 auto;
   display: flex;
@@ -168,7 +168,7 @@ a {
   max-width: 1120px;
   width: 100%;
   margin: 0 auto;
-  padding: 1.25rem 1rem 2rem;
+  padding: 0 1rem 3rem;
   box-sizing: border-box;
 }
 
