@@ -26,7 +26,7 @@ export default function ToolsPage() {
       </header>
 
       {toolGroups.map((group, groupIndex) => (
-        <section key={group.id} id={group.id} className="scroll-mt-28">
+        <section key={group.id} id={group.id} data-rail={group.id} className="scroll-mt-28">
           <div className="shelf-head">
             <div>
               <p className="kicker">

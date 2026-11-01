@@ -9,10 +9,10 @@ export const metadata = pageMetadata(
   "/ai/",
 )
 
-const sections: { kicker: string; slugs: string[] }[] = [
-  { kicker: "The field", slugs: ["history", "modern"] },
-  { kicker: "Grok", slugs: ["grok", "grok-build", "grok-bot", "grok-imagine"] },
-  { kicker: "Practice", slugs: ["a-good-prompt"] },
+const sections: { kicker: string; rail: string; slugs: string[] }[] = [
+  { kicker: "The field", rail: "ai-field", slugs: ["history", "modern"] },
+  { kicker: "Grok", rail: "ai-grok", slugs: ["grok", "grok-build", "grok-bot", "grok-imagine"] },
+  { kicker: "Practice", rail: "ai-practice", slugs: ["a-good-prompt"] },
 ]
 
 export default function AiPage() {
@@ -36,7 +36,7 @@ export default function AiPage() {
       </header>
 
       {sections.map((section) => (
-        <section key={section.kicker}>
+        <section key={section.kicker} data-rail={section.rail}>
           <h2 className="text-sm font-medium uppercase tracking-[0.16em] text-accent">{section.kicker}</h2>
           <ul className="mt-3 grid gap-3">
             {section.slugs.map((slug) => {
@@ -55,7 +55,7 @@ export default function AiPage() {
         </section>
       ))}
 
-      <section>
+      <section data-rail="cards">
         <h2 className="text-sm font-medium uppercase tracking-[0.16em] text-accent">Cards</h2>
         <Link href="/cards/" className="frame mt-3 block p-4 hover:border-accent">
           <h3 className="text-xl font-semibold text-white">Business cards</h3>

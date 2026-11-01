@@ -12,14 +12,13 @@ const links = [
 
 export function SideLeft() {
   return (
-    <aside className="hidden w-[140px] shrink-0 lg:block">
-      <div className="sticky top-14">
+    <aside className="side-rail" aria-label="Mira">
+      <div className="side-stick">
         <img
           src={withBase("/mira.jpg")}
           alt="Mira, smiling, red hair in a ponytail, black jacket, pointing."
           width={1008}
           height={1792}
-          className="w-full rounded-lg object-cover object-top shadow-[0_4px_16px_rgba(0,0,0,0.45)]"
         />
         <p className="mt-3 text-sm font-medium text-accent">Mira</p>
         <p className="mt-1 text-xs leading-5 text-muted">Freelance software. AI, C++, TypeScript.</p>

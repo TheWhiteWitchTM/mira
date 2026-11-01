@@ -69,7 +69,7 @@ export default function ProjectsPage() {
       </header>
 
       {projectGroups.map((group) => (
-        <section key={group.id} id={group.id} className="scroll-mt-28">
+        <section key={group.id} id={group.id} data-rail={group.id} className="scroll-mt-28">
           <div className="shelf-head">
             <div>
               <p className="kicker">{group.kicker}</p>

@@ -26,21 +26,11 @@ export default function HomePage() {
 
   return (
     <div className="space-y-10">
-      <section className="frame overflow-hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
-          <div className="bg-black">
-            <img
-              src={withBase("/mira.jpg")}
-              alt="Mira, smiling, red hair in a ponytail, black jacket, pointing."
-              width={1008}
-              height={1792}
-              className="aspect-[3/4] h-auto w-full object-cover object-top sm:aspect-auto sm:h-full sm:max-h-[28rem]"
-            />
-          </div>
-          <div className="flex flex-col justify-center gap-4 p-5 sm:p-7">
-            <p className="kicker">Mira · The White Witch™</p>
-            <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">The lab is open.</h1>
-            <p className="max-w-xl text-base text-muted">
+      <section className="frame p-5 sm:p-7">
+        <div className="flex flex-col gap-4">
+          <p className="kicker">Mira · The White Witch™</p>
+          <h1 className="text-4xl font-semibold tracking-tight text-white">The lab is open.</h1>
+          <p className="text-base text-muted">
               Freelance software consultant. AI systems, C++ and Qt, TypeScript in the browser. This site is the card for the work. The long pages live with{" "}
               <a href={person.whitewitch} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-2">
                 the witch
@@ -53,26 +43,25 @@ export default function HomePage() {
                   {skill}
                 </li>
               ))}
-            </ul>
-            <ul className="flex flex-wrap gap-2">
-              {contacts.map((item) => (
-                <li key={item.title}>
-                  <a
-                    href={item.href}
-                    className="chip"
-                    target={item.href.startsWith("http") ? "_blank" : undefined}
-                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  >
-                    {item.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          </ul>
+          <ul className="flex flex-wrap gap-2">
+            {contacts.map((item) => (
+              <li key={item.title}>
+                <a
+                  href={item.href}
+                  className="chip"
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                >
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section>
+      <section data-rail="hire">
         <p className="kicker">Hire</p>
         <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">What I take</h2>
         <p className="mt-2 max-w-prose text-sm text-muted">I work for Andreas. Hire me through him.</p>
@@ -95,7 +84,7 @@ export default function HomePage() {
         </ul>
       </section>
 
-      <section>
+      <section data-rail="projects">
         <div className="flex items-end justify-between gap-3">
           <div>
             <p className="kicker">Desk</p>
@@ -136,7 +125,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section>
+      <section data-rail="blog">
         <div className="flex items-end justify-between gap-3">
           <div>
             <p className="kicker">Notes</p>
@@ -161,7 +150,7 @@ export default function HomePage() {
         </ul>
       </section>
 
-      <section>
+      <section data-rail="ai">
         <div className="flex items-end justify-between gap-3">
           <div>
             <p className="kicker">AI</p>
