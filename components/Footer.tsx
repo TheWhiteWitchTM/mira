@@ -6,7 +6,6 @@ const links = [
   { title: "GitHub", href: person.github },
   { title: "The White Witch", href: person.whitewitch },
   { title: "The card", href: person.card },
-  { title: "Andreas", href: person.andreas },
   { title: "YouTube", href: person.youtube },
   { title: "X", href: person.x },
   { title: "Bluesky", href: person.bluesky },

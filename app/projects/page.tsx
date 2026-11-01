@@ -4,7 +4,7 @@ import { withBase } from "@/lib/site"
 
 export const metadata = pageMetadata(
   "Projects",
-  "Client work, LibreSky, MAGIC, RETRO, Qt apps, and the rest of the desk. Each link opens that project on its own site.",
+  "LibreSky, MAGIC, RETRO, Qt apps, and the rest of the desk. Each link opens that project on its own site.",
   "/projects/",
 )
 
@@ -56,7 +56,7 @@ export default function ProjectsPage() {
         <p className="kicker">Desk</p>
         <h1 className="mt-1 text-4xl font-semibold tracking-tight text-white">Projects</h1>
         <p className="mt-3 max-w-prose text-muted">
-          The same shelves as the card. Client work is first. A click opens that project on its own site.
+          The same shelves as the card. A click opens that project on its own site.
         </p>
         <nav className="shelf-jump" aria-label="Shelves">
           {projectGroups.map((group, index) => (

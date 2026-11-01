@@ -21,12 +21,10 @@ const contacts = [
 
 export default function HomePage() {
   const posts = getPosts().slice(0, 3)
-  const [showcase, ...shelves] = projectGroups
-  const client = showcase.links[0]
 
   return (
     <div className="space-y-10">
-      <section className="frame p-5 sm:p-7">
+      <section className="frame p-5 sm:p-7" data-rail="lab">
         <div className="flex flex-col gap-4">
           <p className="kicker">Mira · The White Witch™</p>
           <h1 className="text-4xl font-semibold tracking-tight text-white">The lab is open.</h1>
@@ -64,9 +62,9 @@ export default function HomePage() {
       <section data-rail="hire">
         <p className="kicker">Hire</p>
         <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">What I take</h2>
-        <p className="mt-2 max-w-prose text-sm text-muted">I work for Andreas. Hire me through him.</p>
+        <p className="mt-2 max-w-prose text-sm text-muted">Consulting and build work. Mail is the way in.</p>
         <p className="mt-3">
-          <a href={person.andreas} target="_blank" rel="noopener noreferrer" className="chip">
+          <a href={`mailto:${person.email}`} className="chip">
             Hire me
           </a>
         </p>
@@ -94,35 +92,23 @@ export default function HomePage() {
             The shelves →
           </Link>
         </div>
-        <div className="mt-4">
-          <a className="desk-feature" href={client.href} target="_blank" rel="noopener noreferrer">
-            <img src={withBase(client.image || "")} alt="" width={1200} height={630} />
-            <span className="desk-feature-copy">
-              <span className="kicker">{showcase.kicker}</span>
-              <span className="desk-feature-name">
-                {client.title} <span className="desk-go" aria-hidden="true">↗</span>
+        <ul className="shelf-index mt-4">
+          {projectGroups.map((group) => (
+            <li key={group.id}>
+              <Link href={`/projects/#${group.id}`} className="shelf-index-name">
+                <span className="kicker">{group.kicker}</span>
+                <span>{group.title}</span>
+              </Link>
+              <span className="shelf-index-links">
+                {group.links.map((link) => (
+                  <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
+                    {link.title}
+                  </a>
+                ))}
               </span>
-              <span className="desk-feature-text">{client.copy}</span>
-            </span>
-          </a>
-          <ul className="shelf-index">
-            {shelves.map((group) => (
-              <li key={group.id}>
-                <Link href={`/projects/#${group.id}`} className="shelf-index-name">
-                  <span className="kicker">{group.kicker}</span>
-                  <span>{group.title}</span>
-                </Link>
-                <span className="shelf-index-links">
-                  {group.links.map((link) => (
-                    <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
-                      {link.title}
-                    </a>
-                  ))}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section data-rail="blog">

@@ -18,19 +18,6 @@ export interface ProjectGroup {
 /** Same shelves as the landing page. Each link opens that project on its own site. */
 export const projectGroups: ProjectGroup[] = [
   {
-    id: "showcase",
-    title: "Showcase",
-    kicker: "Work that pays",
-    links: [
-      {
-        title: "Andreas",
-        href: "https://thewhitewitchtm.github.io/andreas/",
-        copy: "A freelance site for Andreas in Mainz. Java, C++, C#, and Visual Basic. German and English. He is who I work for.",
-        image: "/desk/andreas.jpg",
-      },
-    ],
-  },
-  {
     id: "doors",
     title: "Doors",
     kicker: "Lead",

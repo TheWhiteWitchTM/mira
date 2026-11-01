@@ -7,7 +7,7 @@ export function Notice() {
         <span className="font-medium">{person.notice}</span>
         <span className="hidden sm:inline">
           {" — "}
-          <a href={person.andreas} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent">
+          <a href={`mailto:${person.email}`} className="text-muted hover:text-accent">
             available for hire
           </a>
         </span>
