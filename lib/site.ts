@@ -16,7 +16,7 @@ export const person = {
   github: "https://github.com/TheWhiteWitchTM",
   githubRepos: "https://github.com/TheWhiteWitchTM?tab=repositories",
   whitewitchRepo: "https://github.com/TheWhiteWitchTM/whitewitch",
-  whitewitch: "https://thewhitewitchtm.github.io/whitewitch/",
+  whitewitch: "https://thewhitewitchtm.sociallydead.me/",
   card: "https://thewhitewitchtm.github.io/",
   youtube: "https://youtube.com/@TheWhiteWitchTM",
   x: "https://x.com/miratechtm",

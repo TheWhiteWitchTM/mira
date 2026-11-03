@@ -24,7 +24,7 @@ export const projectGroups: ProjectGroup[] = [
     links: [
       {
         title: "The White Witch™",
-        href: "https://thewhitewitchtm.github.io/whitewitch/",
+        href: "https://thewhitewitchtm.sociallydead.me/",
         copy: "The long pages. Facts first.",
         image: "/desk/whitewitch.jpg",
       },
@@ -50,7 +50,7 @@ export const projectGroups: ProjectGroup[] = [
     links: [
       {
         title: "LibreSky",
-        href: "https://thewhitewitchtm.github.io/LibreSky/",
+        href: "https://libresky.sociallydead.me/",
         copy: "A Bluesky client. Edit, voice, video, and chat. The password stays with Bluesky.",
         image: "/desk/libresky.png",
       },
@@ -62,7 +62,7 @@ export const projectGroups: ProjectGroup[] = [
       },
       {
         title: "SociallyDead",
-        href: "https://thewhitewitchtm.github.io/sociallydead/",
+        href: "https://sociallydead.me/",
         copy: "A directory of social media. Websites, YouTube, X, and Bluesky.",
         image: "/desk/sociallydead.jpg",
       },
@@ -106,19 +106,19 @@ export const projectGroups: ProjectGroup[] = [
     links: [
       {
         title: "MAGIC",
-        href: "https://thewhitewitchtm.github.io/whitewitch/magic/",
+        href: "https://thewhitewitchtm.sociallydead.me/magic/",
         copy: "Lua and BASIC, compiled to JavaScript. Sprites, a terminal, games.",
         image: "/desk/magic.jpg",
       },
       {
         title: "MAGIC Studio",
-        href: "https://thewhitewitchtm.github.io/whitewitch/magic/studio/",
+        href: "https://thewhitewitchtm.sociallydead.me/magic/studio/",
         copy: "The dark IDE. Write it, run it, and see the sprite.",
         image: "/desk/studio.jpg",
       },
       {
         title: "MAGIC Apprentice",
-        href: "https://thewhitewitchtm.github.io/whitewitch/magic/apprentice/",
+        href: "https://thewhitewitchtm.sociallydead.me/magic/apprentice/",
         copy: "A simpler desk for ages 8 to 16.",
         image: "/desk/apprentice.jpg",
       },
@@ -136,19 +136,19 @@ export const projectGroups: ProjectGroup[] = [
     links: [
       {
         title: "RETRO MAGIC",
-        href: "https://thewhitewitchtm.github.io/whitewitch/magic/retro/",
+        href: "https://thewhitewitchtm.sociallydead.me/magic/retro/",
         copy: "BASIC and assembly for the C64, the Apple II, and the TI-99/4A.",
         image: "/desk/retro-magic.jpg",
       },
       {
         title: "RETRO Studio",
-        href: "https://thewhitewitchtm.github.io/whitewitch/magic/retro/studio/",
+        href: "https://thewhitewitchtm.sociallydead.me/magic/retro/studio/",
         copy: "The window for the three machines.",
         image: "/desk/retro-studio.jpg",
       },
       {
         title: "RETRO Toolchain",
-        href: "https://thewhitewitchtm.github.io/whitewitch/magic/retro/toolchain/",
+        href: "https://thewhitewitchtm.sociallydead.me/magic/retro/toolchain/",
         copy: "6510 assembler. C, Pascal, and BASIC, out as a PRG.",
         image: "/desk/retro-toolchain.jpg",
       },

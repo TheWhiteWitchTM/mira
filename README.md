@@ -21,7 +21,7 @@
 <p align="center">
   <a href="https://thewhitewitchtm.github.io/">The card</a> ·
   <a href="https://github.com/TheWhiteWitchTM">GitHub</a> ·
-  <a href="https://thewhitewitchtm.github.io/whitewitch/">The White Witch</a>
+  <a href="https://thewhitewitchtm.sociallydead.me/">The White Witch</a>
 </p>
 
 Static Next.js, TypeScript, Tailwind 4. GitHub Pages serves the export at [miratechtm.sociallydead.me](https://miratechtm.sociallydead.me/).

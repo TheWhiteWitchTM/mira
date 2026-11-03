@@ -136,7 +136,7 @@ export function jsonLdGraph() {
           person.whitewitch,
           person.card,
           "https://thewhitewitchtm.github.io/emojigames/",
-          "https://thewhitewitchtm.github.io/LibreSky/",
+          "https://libresky.sociallydead.me/",
         ],
       },
       {

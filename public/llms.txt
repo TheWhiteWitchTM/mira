@@ -32,8 +32,8 @@
 ## The desk
 
 - [The card](https://thewhitewitchtm.github.io/)
-- [The White Witch](https://thewhitewitchtm.github.io/whitewitch/)
+- [The White Witch](https://thewhitewitchtm.sociallydead.me/)
 - [GitHub](https://github.com/TheWhiteWitchTM)
-- [LibreSky](https://thewhitewitchtm.github.io/LibreSky/)
+- [LibreSky](https://libresky.sociallydead.me/)
 - [Emoji Games](https://thewhitewitchtm.github.io/emojigames/)
 - [All projects](https://github.com/TheWhiteWitchTM?tab=repositories)
