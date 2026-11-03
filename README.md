@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://miratechtm.sociallydead.me/">
-    <img src="https://miratechtm.sociallydead.me/og.jpg" alt="Mira, smiling, red hair in a ponytail, black jacket, pointing." width="560">
+    <img src="https://miratechtm.sociallydead.me/og.jpg?v=2" alt="Mira, red hair in a ponytail, black jacket, pointing at her name." width="560">
   </a>
 </p>
 

@@ -6,10 +6,19 @@ import {
   keywords,
   person,
   siteName,
+  ogImagePath,
   siteOrigin,
   siteUrl,
   withBase,
 } from "./site"
+
+const shareImage = {
+  url: withBase(ogImagePath),
+  width: 1200,
+  height: 630,
+  alt: "Mira, red hair in a ponytail, black jacket, pointing at her name.",
+  type: "image/jpeg",
+}
 
 export const baseMetadata: Metadata = {
   metadataBase: new URL(siteOrigin),
@@ -29,14 +38,7 @@ export const baseMetadata: Metadata = {
     description: defaultDescription,
     url: withBase("/"),
     siteName,
-    images: [
-      {
-        url: withBase("/og.jpg"),
-        width: 1200,
-        height: 630,
-        alt: "Mira, red hair in a ponytail, black jacket, pointing.",
-      },
-    ],
+    images: [shareImage],
     locale: "en_US",
     type: "website",
   },
@@ -46,7 +48,7 @@ export const baseMetadata: Metadata = {
     description: defaultDescription,
     site: `@${person.handle}`,
     creator: `@${person.handle}`,
-    images: [withBase("/og.jpg")],
+    images: [shareImage],
   },
   icons: {
     icon: [
@@ -90,20 +92,13 @@ export function pageMetadata(title: string, description: string, path: string, t
       url: canonical,
       type,
       siteName,
-      images: [
-        {
-          url: withBase("/og.jpg"),
-          width: 1200,
-          height: 630,
-          alt: "Mira, red hair in a ponytail, black jacket, pointing.",
-        },
-      ],
+      images: [shareImage],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [withBase("/og.jpg")],
+      images: [shareImage],
     },
   }
 }
@@ -149,7 +144,7 @@ export function jsonLdGraph() {
         "@id": `${siteUrl}/#service`,
         name: "Mira — freelance software consulting",
         url: `${siteUrl}/`,
-        image: `${siteUrl}/og.jpg`,
+        image: `${siteUrl}${ogImagePath}`,
         founder: { "@id": `${siteUrl}/#mira` },
         areaServed: "Worldwide",
         serviceType: ["AI consulting", "C++ development", "TypeScript development", "Next.js"],

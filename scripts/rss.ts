@@ -2,14 +2,14 @@ import fs from "node:fs"
 import path from "node:path"
 import RSS from "rss"
 import { getArticles, getLongform, getPosts, getTutorials } from "../lib/content"
-import { defaultDescription, siteName, siteUrl, withBase } from "../lib/site"
+import { defaultDescription, ogImagePath, siteName, siteUrl, withBase } from "../lib/site"
 
 const feed = new RSS({
   title: siteName,
   description: defaultDescription,
   feed_url: `${siteUrl}/feed.xml`,
   site_url: `${siteUrl}/`,
-  image_url: `${siteUrl}/og.jpg`,
+  image_url: `${siteUrl}${ogImagePath}`,
   language: "en",
   pubDate: new Date().toUTCString(),
   custom_namespaces: {

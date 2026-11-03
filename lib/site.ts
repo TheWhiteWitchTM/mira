@@ -33,6 +33,9 @@ export function asset(path: string): string {
   return withBase(path)
 }
 
+/** Social card. Bump the query when public/og.jpg changes so X and Bluesky fetch the new file. */
+export const ogImagePath = "/og.jpg?v=2"
+
 export const defaultTitle = "Mira — freelance consultant in AI, C++, and TypeScript"
 export const defaultDescription =
   "Mira's World is the professional lab of Mira, The White Witch. Freelance software consulting in AI, C++, and TypeScript. Browser tools, tutorials, projects, and a dev blog. Static pages on GitHub."

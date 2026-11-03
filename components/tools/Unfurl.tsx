@@ -3,9 +3,9 @@
 import { useMemo, useState } from "react"
 import { toast } from "sonner"
 import { Button, Input, Label, Textarea } from "@/components/ui"
-import { siteUrl, withBase } from "@/lib/site"
+import { ogImagePath, siteUrl, withBase } from "@/lib/site"
 
-const publishedImage = `${siteUrl}/og.jpg`
+const publishedImage = `${siteUrl}${ogImagePath}`
 
 type Platform = "x" | "bluesky" | "discord" | "slack"
 
