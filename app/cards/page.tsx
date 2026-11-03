@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { pageMetadata } from "@/lib/metadata"
-import { person, withBase } from "@/lib/site"
+import { person, siteHost, withBase } from "@/lib/site"
 
 export const metadata = pageMetadata(
   "Cards",
@@ -91,7 +91,7 @@ export default function CardsPage() {
               <p className="text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[#5c3d82] sm:text-xs">Mira&apos;s World™</p>
               <p className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">The lab</p>
               <p className="mt-1 text-sm text-[#2a2a2a]">Tools, tutorials, and the dev blog.</p>
-              <p className="mt-3 truncate text-xs font-medium sm:text-sm">thewhitewitchtm.github.io/mira</p>
+              <p className="mt-3 truncate text-xs font-medium sm:text-sm">{siteHost}</p>
             </div>
           </div>
         </article>

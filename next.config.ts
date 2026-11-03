@@ -1,7 +1,7 @@
 import type { NextConfig } from "next"
 
-// GitHub Pages serves this repo at /mira/. Local `next dev` has no prefix.
-const basePath = process.env.GITHUB_PAGES === "true" ? "/mira" : ""
+// Custom domain serves at the root. A prefix is only for a local override.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
 
 const nextConfig: NextConfig = {
   output: "export",

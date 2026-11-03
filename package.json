@@ -5,7 +5,7 @@
   "description": "Mira's World — freelance consultant site. AI, C++, TypeScript. Static Next.js for GitHub Pages.",
   "scripts": {
     "dev": "next dev",
-    "build": "GITHUB_PAGES=true tsx scripts/rss.ts && GITHUB_PAGES=true next build && node scripts/gh-pages.mjs",
+    "build": "tsx scripts/rss.ts && next build && node scripts/gh-pages.mjs",
     "build:local": "tsx scripts/rss.ts && next build && node scripts/gh-pages.mjs",
     "start": "npx --yes serve out -p 3000",
     "lint": "tsc --noEmit"

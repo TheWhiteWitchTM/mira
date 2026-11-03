@@ -30,7 +30,7 @@ export const projectGroups: ProjectGroup[] = [
       },
       {
         title: "Mira's World",
-        href: "https://thewhitewitchtm.github.io/mira/",
+        href: "https://miratechtm.sociallydead.me/",
         copy: "This lab. Tools, tutorials, the dev blog.",
         image: "/mira.jpg",
         focus: "center 18%",

@@ -44,8 +44,8 @@ export const baseMetadata: Metadata = {
     card: "summary_large_image",
     title: defaultTitle,
     description: defaultDescription,
-    site: "@TheWhiteWitchTM",
-    creator: "@TheWhiteWitchTM",
+    site: `@${person.handle}`,
+    creator: `@${person.handle}`,
     images: [withBase("/og.jpg")],
   },
   icons: {
@@ -136,6 +136,7 @@ export function jsonLdGraph() {
         sameAs: [
           person.github,
           person.x,
+          person.bluesky,
           person.youtube,
           person.whitewitch,
           person.card,

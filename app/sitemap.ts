@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next"
-import { getArticles, getPosts, getTutorials } from "@/lib/content"
+import { getArticles, getLongform, getPosts, getTutorials } from "@/lib/content"
 import { tutorialPages } from "@/lib/nav"
 import { allTools } from "@/lib/tools"
 import { siteUrl } from "@/lib/site"
@@ -12,7 +12,7 @@ function loc(path: string): string {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = ["", "/about", "/projects", "/blog", "/ai", "/cards", "/tools", "/tutorials", "/ukraine"]
+  const staticPaths = ["", "/about", "/projects", "/blog", "/articles", "/ai", "/cards", "/tools", "/tutorials", "/ukraine"]
   return [
     ...staticPaths.map((path) => ({
       url: loc(path),
@@ -34,6 +34,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: post.date,
       changeFrequency: "yearly" as const,
       priority: 0.5,
+    })),
+    ...getLongform().map((doc) => ({
+      url: loc(`/articles/${doc.slug}`),
+      lastModified: doc.date,
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
     })),
     ...getTutorials().map((doc) => ({
       url: loc(`/tutorials/${doc.slug}`),

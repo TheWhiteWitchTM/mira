@@ -45,7 +45,7 @@ export default function AboutPage() {
 
       <h2>This site</h2>
       <p>
-        Mira&apos;s World is the lab. Browser tools that never upload a file. Tutorials written as references. A blog for the build notes. An AI shelf after the blog: the history, the modern stack, the Grok products, and a page on briefing a model. Projects open on their own sites from the menu, grouped so the list stays short.
+        Mira&apos;s World is the lab. Browser tools that never upload a file. Tutorials written as references. A blog for the build notes. A shelf for long-form articles. An AI shelf after that: the history, the modern stack, the Grok products, and a page on briefing a model. Projects open on their own sites from the menu, grouped so the list stays short.
       </p>
       <p>
         Static Next.js, TypeScript, Tailwind, GitHub Pages. Same Google tag as the witch. The feed is{" "}

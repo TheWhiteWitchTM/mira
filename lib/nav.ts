@@ -82,6 +82,7 @@ const projectNodes: NavNode[] = [
 
 export const mainNav: NavItem[] = [
   { title: "Blog", href: "/blog/" },
+  { title: "Articles", href: "/articles/" },
   { title: "AI", href: "/ai/", nodes: aiNav },
   { title: "Projects", columns: true, nodes: projectNodes },
   { title: "Tools", nodes: toolsNav },

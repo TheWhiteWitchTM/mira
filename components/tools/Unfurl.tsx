@@ -3,9 +3,9 @@
 import { useMemo, useState } from "react"
 import { toast } from "sonner"
 import { Button, Input, Label, Textarea } from "@/components/ui"
-import { withBase } from "@/lib/site"
+import { siteUrl, withBase } from "@/lib/site"
 
-const publishedImage = "https://thewhitewitchtm.github.io/mira/og.jpg"
+const publishedImage = `${siteUrl}/og.jpg`
 
 type Platform = "x" | "bluesky" | "discord" | "slack"
 
@@ -67,7 +67,7 @@ function coverDataUrl(img: HTMLImageElement): string {
 export function Unfurl() {
   const [title, setTitle] = useState("Mira's World")
   const [description, setDescription] = useState("Freelance consultant in AI, C++, and TypeScript. Tools, tutorials, and a dev blog.")
-  const [url, setUrl] = useState("https://thewhitewitchtm.github.io/mira/")
+  const [url, setUrl] = useState(`${siteUrl}/`)
   const [site, setSite] = useState("Mira's World")
   const [imageAddress, setImageAddress] = useState(publishedImage)
   const [localSrc, setLocalSrc] = useState<string | null>(null)

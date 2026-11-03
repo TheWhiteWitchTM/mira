@@ -26,6 +26,9 @@ export function railIdForPath(pathname: string, ids: readonly string[]): string 
   const post = path.match(/^\/blog\/([^/]+)\/$/)
   if (post) return take(`post:${post[1]}`, "blog")
 
+  const longform = path.match(/^\/articles\/([^/]+)\/$/)
+  if (longform) return take(`longform:${longform[1]}`, "articles")
+
   const article = path.match(/^\/ai\/([^/]+)\/$/)
   if (article) return take(`ai:${article[1]}`, "ai")
 
@@ -36,6 +39,7 @@ export function railIdForPath(pathname: string, ids: readonly string[]): string 
   if (tool) return take(`tool:${tool[1]}`, "tools")
 
   if (path.startsWith("/blog/")) return "blog"
+  if (path.startsWith("/articles/")) return "articles"
   if (path.startsWith("/ai/")) return "ai"
   if (path.startsWith("/tutorials/")) return "tutorials"
   if (path.startsWith("/tools/")) return "tools"

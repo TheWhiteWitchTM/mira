@@ -15,7 +15,7 @@ export interface Doc extends DocMeta {
   body: string
 }
 
-function dirOf(kind: "posts" | "tutorials" | "ai"): string {
+function dirOf(kind: "posts" | "tutorials" | "ai" | "articles"): string {
   return path.join(process.cwd(), "content", kind)
 }
 
@@ -31,7 +31,7 @@ function asDate(value: unknown): string {
   return match ? match[1] : "1970-01-01"
 }
 
-function readDir(kind: "posts" | "tutorials" | "ai"): Doc[] {
+function readDir(kind: "posts" | "tutorials" | "ai" | "articles"): Doc[] {
   const root = dirOf(kind)
   if (!fs.existsSync(root)) return []
   return fs
@@ -77,4 +77,13 @@ export function getArticles(): Doc[] {
 
 export function getArticle(slug: string): Doc | undefined {
   return getArticles().find((doc) => doc.slug === slug)
+}
+
+/** Long-form pieces. The blog is the notebook. Drop MDX files in content/articles/. */
+export function getLongform(): Doc[] {
+  return readDir("articles")
+}
+
+export function getLongformDoc(slug: string): Doc | undefined {
+  return getLongform().find((doc) => doc.slug === slug)
 }

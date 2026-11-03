@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { getArticle, getPosts } from "@/lib/content"
+import { getArticle, getLongform, getPosts } from "@/lib/content"
 import { pageMetadata } from "@/lib/metadata"
 import { projectGroups } from "@/lib/projects"
 import { person, withBase } from "@/lib/site"
@@ -21,6 +21,7 @@ const contacts = [
 
 export default function HomePage() {
   const posts = getPosts().slice(0, 3)
+  const pieces = getLongform().slice(0, 3)
 
   return (
     <div className="space-y-10">
@@ -136,6 +137,33 @@ export default function HomePage() {
         </ul>
       </section>
 
+      {pieces.length ? (
+        <section data-rail="articles">
+          <div className="flex items-end justify-between gap-3">
+            <div>
+              <p className="kicker">Long form</p>
+              <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">Articles</h2>
+            </div>
+            <Link href="/articles/" className="text-sm text-accent hover:text-accent-2">
+              All articles →
+            </Link>
+          </div>
+          <ul className="mt-4 grid gap-3">
+            {pieces.map((doc) => (
+              <li key={doc.slug}>
+                <Link href={`/articles/${doc.slug}/`} className="frame block p-4 hover:border-accent">
+                  <p className="text-xs text-muted">
+                    <time dateTime={doc.date}>{doc.date}</time>
+                  </p>
+                  <h3 className="mt-1 font-semibold text-white">{doc.title}</h3>
+                  <p className="mt-1 text-sm text-muted">{doc.description}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       <section data-rail="ai">
         <div className="flex items-end justify-between gap-3">
           <div>
@@ -143,7 +171,7 @@ export default function HomePage() {
             <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">The shelf</h2>
           </div>
           <Link href="/ai/" className="text-sm text-accent hover:text-accent-2">
-            All articles →
+            The shelf →
           </Link>
         </div>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">

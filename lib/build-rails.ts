@@ -1,4 +1,4 @@
-import { getArticles, getPosts, getTutorials } from "@/lib/content"
+import { getArticles, getLongform, getPosts, getTutorials } from "@/lib/content"
 import type { RailCard, RailLink } from "@/lib/rail"
 import { projectGroups } from "@/lib/projects"
 import { person, withBase } from "@/lib/site"
@@ -29,9 +29,11 @@ const toolStill: Record<string, string> = {
 
 export function buildRailCards(): Record<string, RailCard> {
   const posts = getPosts()
+  const longform = getLongform()
   const articles = getArticles()
   const tutorials = getTutorials()
   const postLinks = posts.map((doc) => link(doc.title, `/blog/${doc.slug}/`))
+  const longformLinks = longform.map((doc) => link(doc.title, `/articles/${doc.slug}/`))
   const articleLinks = articles.map((doc) => link(doc.title, `/ai/${doc.slug}/`))
   const tutorialLinks = tutorials.map((doc) => link(doc.title, `/tutorials/${doc.slug}/`))
   const toolLinks = toolGroups.flatMap((group) => group.links.map((item) => link(item.title, item.href)))
@@ -61,6 +63,14 @@ export function buildRailCards(): Record<string, RailCard> {
       text: "Build notes from the lab.",
       ...still("blog", "An open notebook, a fountain pen, and index cards on a dark desk."),
       links: postLinks.slice(0, 4),
+    },
+    articles: {
+      id: "articles",
+      kicker: "Long form",
+      title: "Articles",
+      text: "Essays that need more room than a lab note.",
+      ...still("posts", "A stack of blank social preview cards on a dark desk."),
+      links: longformLinks.slice(0, 4),
     },
     ai: {
       id: "ai",
@@ -155,6 +165,17 @@ export function buildRailCards(): Record<string, RailCard> {
       text: doc.description,
       ...still("blog", "An open notebook, a fountain pen, and index cards on a dark desk."),
       links: others(postLinks, `/blog/${doc.slug}/`),
+    }
+  }
+
+  for (const doc of longform) {
+    cards[`longform:${doc.slug}`] = {
+      id: `longform:${doc.slug}`,
+      kicker: "Long form",
+      title: doc.title,
+      text: doc.description,
+      ...still("posts", "A stack of blank social preview cards on a dark desk."),
+      links: others(longformLinks, `/articles/${doc.slug}/`),
     }
   }
 

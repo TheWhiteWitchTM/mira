@@ -23,7 +23,7 @@ const DEFAULTS = {
   name: "Mira",
   line: "Freelance consultant. AI, C++, TypeScript.",
   detail: "LibreSky, MAGIC, RETRO, and the Qt apps.",
-  site: "thewhitewitchtm.github.io/mira",
+  site: "miratechtm.sociallydead.me",
   emoji: "✦",
 }
 

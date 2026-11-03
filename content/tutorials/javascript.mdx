@@ -16,7 +16,7 @@ The language is the same in both places. The browser adds the page (`document`, 
 Save this as `hello.js` and run `node hello.js`.
 
 ```js
-const site = "https://thewhitewitchtm.github.io/mira/"
+const site = "https://miratechtm.sociallydead.me/"
 
 function greet(name) {
   return `Hello, ${name}`
@@ -146,7 +146,7 @@ In the browser, the script tag needs `type="module"`. Modules are deferred, and 
 
 ```js
 async function loadPosts() {
-  const response = await fetch("/mira/feed.xml")
+  const response = await fetch("/feed.xml")
   if (!response.ok) throw new Error(String(response.status))
   return response.text()
 }
