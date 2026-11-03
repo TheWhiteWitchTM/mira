@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://miratechtm.sociallydead.me
+Sitemap: https://miratechtm.sociallydead.me/sitemap.xml
